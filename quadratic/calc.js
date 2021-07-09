@@ -19,7 +19,6 @@ function calculate()
         return;
     }
 
-
     if (((Math.pow(b , 2)) - 4 * a * c) < 0)
     {
         document.getElementById("root1").innerHTML

@@ -1,8 +1,15 @@
 .container
 {
+    border: black;
+    border-width: 5px;
+    border-style: solid;
+    position: absolute;
+    padding: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    place-items: center;
     text-align: center;
-    margin: auto;
-    width: 50%;
 }
 
 .number-box
@@ -29,4 +36,10 @@
     margin-top: 10px;
     width: 150px;
     height: 50px;
+}
+
+.background
+{
+    opacity: 0;
+    transi
 }

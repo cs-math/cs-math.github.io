@@ -1,0 +1,15 @@
+0. start (calculate button)
+1. int a, b, c
+2. string x1, x2
+3. if textbox_a is empty
+3.1 x1 = -c / b, x2 = N/A
+3.2 exit
+4. if textbox_b is empty
+4.1 b = 0
+5. if b ^ 2 - 4ac < 0
+5.1 x1 = -b / 2a + (sqrt(-(b ^ 2 - 4ac)) / 2a)i
+5.2 x2 = -b / 2a - (sqrt(-(b ^ 2 - 4ac)) / 2a)i
+5.3 exit
+6. x1 = (-b + sqrt(b ^ 2 - 4ac)) / 2a
+7. x2 = (-b - sqrt(b ^ 2 - 4ac)) / 2a
+8. exit

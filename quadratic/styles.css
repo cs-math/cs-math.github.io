@@ -1,0 +1,32 @@
+.container
+{
+    text-align: center;
+    margin: auto;
+    width: 50%;
+}
+
+.number-box
+{
+    height: 45px;
+    width: 60px;
+    font-size: 20pt;
+    margin-right: 10px;
+}
+
+.equation-box
+{
+    font-size: 30pt;
+}
+
+.solution-box
+{
+    font-size: 30pt;
+    margin-top: 10px;
+}
+
+#calculate-button
+{
+    margin-top: 10px;
+    width: 150px;
+    height: 50px;
+}

@@ -59,6 +59,15 @@
     animation-fill-mode: forwards;
 }
 
+.logo
+{
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 175px;
+    width: 175px;
+    display: inline;
+}
+
 @keyframes fadeInAnimation {
     0% {
         opacity: 0;

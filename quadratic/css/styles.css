@@ -46,7 +46,7 @@
 
 .main
 {
-    background-image: url(test.jpg);
+    background-image: url(../resources/background.jpg);
     background-size: contain;
 }
 

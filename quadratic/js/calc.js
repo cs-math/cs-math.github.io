@@ -6,9 +6,9 @@ function calculate() {
     root1.innerHTML = "x<sub>1</sub> = ";
     root2.innerHTML = "x<sub>2</sub> = ";
 
-    a = parseInt(document.getElementById("box-a").value);
-    b = parseInt(document.getElementById("box-b").value);
-    c = parseInt(document.getElementById("box-c").value);
+    a = parseFloat(document.getElementById("box-a").value);
+    b = parseFloat(document.getElementById("box-b").value);
+    c = parseFloat(document.getElementById("box-c").value);
 
     if (a === 0) {
         root1.innerHTML += String((-c / b).toFixed(DECIMAL_PLACES));

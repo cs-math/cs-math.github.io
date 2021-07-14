@@ -20,15 +20,15 @@ function calculate() {
     if (((Math.pow(b , 2)) - 4 * a * c) < 0)
     {
         root1.innerHTML
-            += String(((-b / (2 * a)).toFixed(DECIMAL_PLACES))) + " + "
-            + String((Math.sqrt(-(Math.pow(b , 2) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES)) + "i";
+            += String(((-b / (2 * a)).toFixed(DECIMAL_PLACES))) + " + i"
+            + String((Math.sqrt(-(Math.pow(b , 2) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES));
 
         root2.innerHTML
-            += String((-b / (2 * a)).toFixed(DECIMAL_PLACES)) + " - "
+            += String((-b / (2 * a)).toFixed(DECIMAL_PLACES)) + " - i"
             + String(
                 ((Math.sqrt(-(Math.pow(b, 2) - 4 * a * c))
                 / (2 * a))
-            ).toFixed(DECIMAL_PLACES)) + "i";
+            ).toFixed(DECIMAL_PLACES));
         return;
     }
 

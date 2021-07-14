@@ -1,10 +1,8 @@
 const NUMBER_BOXES = 5;
 
-function add_boxes()
-{
+function add_boxes() {
     let i = 0;
-    while (i < NUMBER_BOXES)
-    {
+    while (i < NUMBER_BOXES) {
         let main_div = document.createElement('div');
 
         let label_info = document.createElement('label');
@@ -28,7 +26,22 @@ function add_boxes()
     }
 }
 
-function sort()
-{
+function sort() {
+
     let boxes = document.getElementsByClassName('number-box');
+    let boxes_arr = Array.prototype.slice.call(boxes);
+    boxes_arr.sort(function(a, b) {
+        if (parseFloat(a.value) > parseFloat(b.value)) {
+            return -1;
+        }
+        else if (parseFloat(a.value) < parseFloat(b.value)) {
+            return 1;
+        }
+        return 0;
+    });
+    let i = 0;
+    while (i < NUMBER_BOXES) {
+        boxes[i].value = boxes_arr[i].value;
+        ++i;
+    }
 }

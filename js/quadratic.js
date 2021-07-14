@@ -19,16 +19,12 @@ function calculate() {
 
     if (((Math.pow(b , 2)) - 4 * a * c) < 0)
     {
-        root1.innerHTML
-            += String(((-b / (2 * a)).toFixed(DECIMAL_PLACES))) + " + i"
-            + String((Math.sqrt(-(Math.pow(b , 2) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES));
+        let real_term = String((-b / (2 * a)).toFixed(DECIMAL_PLACES));
+        let complex_term = String((Math.sqrt(-(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES));
+        complex_term = Math.abs(complex_term);
+        root1.innerHTML += real_term + " + i" + complex_term;
 
-        root2.innerHTML
-            += String((-b / (2 * a)).toFixed(DECIMAL_PLACES)) + " - i"
-            + String(
-                ((Math.sqrt(-(Math.pow(b, 2) - 4 * a * c))
-                / (2 * a))
-            ).toFixed(DECIMAL_PLACES));
+        root2.innerHTML += real_term + " - i" + complex_term;
         return;
     }
 

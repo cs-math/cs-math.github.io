@@ -1,0 +1,23 @@
+0. Start
+1. array inputs = []
+2. for i = 0, i < 5, i++
+    2.1 input inputs[i]
+3. If array.length == 0
+    3.1 exit
+4. inputs.sort(desc)
+5. print inputs
+
+5. if inputs.count(inputs[0]) == 5
+    5.1 output minimum = maximum
+    5.2 exit
+
+6. maximum = inputs[0], minimum = inputs[4]
+7. print minimum
+8. for i in inputs
+
+8.1 if inputs[i] == maximum
+    8.1.1 print inputs[i] + " is maximum"
+    8.2 if inputs[i] == minimum
+        8.2.1 print inputs[i] + " is minimum"
+
+9. exit

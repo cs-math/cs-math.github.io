@@ -40,13 +40,19 @@
     margin-top: 10px;
 }
 
-.main-button
-{
-    background:#5986c5;
-    border-radius: 12px;
+.main-button {
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
     margin-top: 10px;
-    width: 150px;
     height: 50px;
+    width: 250px;
+    border-radius: 12px;
+    background: #6ab3ba;
+    padding: 10px 20px 10px 20px;
+}
+
+.main-button:hover {
+    background: #56888d;
 }
 
 body
@@ -71,6 +77,11 @@ body
     height: 175px;
     width: 175px;
     display: inline;
+}
+
+.marginleft100
+{
+    margin-left: 100px;
 }
 
 @keyframes fadeInAnimation {

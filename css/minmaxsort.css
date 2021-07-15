@@ -12,9 +12,3 @@
     font: inherit;
     font-size: 16pt;
 }
-
-.fixed-width
-{
-    width: 600px;
-    word-wrap: break-word;
-}

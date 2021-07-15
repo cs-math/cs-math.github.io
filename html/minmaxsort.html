@@ -5,15 +5,30 @@
     <title>Min Max Sort</title>
 </head>
 
-<body onload="add_boxes()">
-    <div class="container fade text-monospace">
+<body>
+    <div class="container fade fixed-width text-monospace">
         <div class="equation-box">
+            <input id="arr-text-box" placeholder="Enter the numbers separated by space" class="text-box">
             <div class="button-div">
                 <input type="button"
                     class="main-button"
                     value="Sort"
                     onclick="sort()">
                 </input>
+            </div>
+        </div>
+        <div class="solution-box">
+            <div>
+                <label id="min">Minimum value = </label>
+            </div>
+            <div>
+                <label id="max">Maximum value = </label>
+            </div>
+            <div>
+                <label id="number-elements">Number of elements = </label>
+            </div>
+            <div>
+                <label id="array">Sorted array = </label>
             </div>
         </div>
     </div>

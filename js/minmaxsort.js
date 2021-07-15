@@ -24,7 +24,7 @@ function sort() {
 
     if (text_arr.length === 0 || text_arr.length === 1) {
         text_box.value = null;
-        text_box.placeholder = 'Please enter two or more numbers';
+        text_box.placeholder = 'Enter two or more space-separated numbers';
         return;
     }
 

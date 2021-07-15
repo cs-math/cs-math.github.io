@@ -8,16 +8,17 @@
 5. print inputs
 
 5. if inputs.count(inputs[0]) == 5
-    5.1 output minimum = maximum
+    5.1 output minimum = maximum  # Not included in implementation
     5.2 exit
 
 6. maximum = inputs[0], minimum = inputs[4]
 7. print minimum
+
 8. for i in inputs
-
-8.1 if inputs[i] == maximum
-    8.1.1 print inputs[i] + " is maximum"
+    8.1 if inputs[i] == maximum
+        8.1.1 print inputs[i] + " is maximum"  # Not included in implementation
     8.2 if inputs[i] == minimum
-        8.2.1 print inputs[i] + " is minimum"
+        8.2.1 print inputs[i] + " is minimum"  # Not included in implementation
 
-9. exit
+9. print maximum
+10. exit

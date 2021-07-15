@@ -7,7 +7,7 @@ function sort() {
         text_arr[i] = parseFloat(
             text_arr[i]
                 .split('')
-                .filter((char) => char.match(/[1-9]/) || char == '.')
+                .filter((char) => char.match(/[0-9]|\.|-/))
                 .join('')
         );
     }
@@ -32,5 +32,5 @@ function sort() {
     min_box.innerHTML = 'Minimum value = ' + text_arr[text_arr.length - 1];
     max_box.innerHTML = 'Maximum value = ' + text_arr[0];
     noe_box.innerHTML = 'Number of elements = ' + text_arr.length;
-    array.innerHTML = 'Sorted array = ' + text_arr;
+    array.innerHTML = 'Sorted array = ' + text_arr.join(', ');
 }

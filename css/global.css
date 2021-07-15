@@ -33,24 +33,20 @@ a
 .text-monospace
 {
     font-family: "Courier New" !important;
+    font-size: 25pt;
 }
 
 .number-box
 {
     height: 45px;
     width: 60px;
-    font-size: 20pt;
+    font: inherit;
+    font-size: 50%;
     margin-right: 10px;
-}
-
-.equation-box
-{
-    font-size: 30pt;
 }
 
 .solution-box
 {
-    font-size: 25pt;
     margin-top: 10px;
 }
 
@@ -101,10 +97,22 @@ a
      }
 }
 
-@media(max-width: 800px)
+@media(max-width: 940px)
 {
     .container
     {
-        width: 100% !important;
+        width: 70%;
+    }
+}
+
+@media(max-width: 670px)
+{
+    .container
+    {
+        width: 100%;
+    }
+    .text-monospace
+    {
+        font-size: 15pt;
     }
 }

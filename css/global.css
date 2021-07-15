@@ -1,3 +1,14 @@
+body
+{
+    background-image: url(../resources/background.jpg);
+    background-size: contain;
+}
+
+a
+{
+    color: #9ab5d0
+}
+
 .container
 {
     color: #bbbbbb;
@@ -45,7 +56,7 @@
     -moz-border-radius: 28;
     margin-top: 10px;
     height: 50px;
-    width: 250px;
+    width: 150px;
     border-radius: 12px;
     background: #6ab3ba;
     padding: 10px 20px 10px 20px;
@@ -53,12 +64,6 @@
 
 .main-button:hover {
     background: #56888d;
-}
-
-body
-{
-    background-image: url(../resources/background.jpg);
-    background-size: contain;
 }
 
 .fade

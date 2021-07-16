@@ -36,6 +36,12 @@ a
     font-size: 25pt;
 }
 
+.dropdown
+{
+    font-size: 50%;
+    margin-bottom: 10px;
+}
+
 .number-box
 {
     height: 45px;

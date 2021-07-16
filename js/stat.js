@@ -1,4 +1,4 @@
-function sort() {
+function calculate_stats() {
     let text_box = document.getElementById('arr-text-box');
 
     let text_arr = text_box.value.split(' ');
@@ -31,8 +31,8 @@ function sort() {
     let min_box = document.getElementById('min');
     let max_box = document.getElementById('max');
     let noe_box = document.getElementById('number-elements');
-    min_box.innerHTML = 'Minimum value: ' + text_arr[text_arr.length - 1] + minimum_index;
-    max_box.innerHTML = 'Maximum value: ' + text_arr[0] + maximum_index;
-    noe_box.innerHTML = 'Number of elements: ' + text_arr.length;
-    array.innerHTML = 'Sorted array: ' + text_arr.join(', ');
+    min_box.innerHTML = text_arr[text_arr.length - 1] + minimum_index;
+    max_box.innerHTML = text_arr[0] + maximum_index;
+    noe_box.innerHTML = text_arr.length;
+    array.innerHTML = text_arr.join(', ');
 }

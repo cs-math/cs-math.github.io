@@ -63,12 +63,27 @@ a
     height: 50px;
     width: 150px;
     border-radius: 12px;
-    background: #6ab3ba;
+    background: rgba(106, 179, 186, 1);
     padding: 10px 20px 10px 20px;
 }
 
 .main-button:hover {
-    background: #56888d;
+    background: rgba(106, 179, 186, 0.7);
+}
+
+.danger-button {
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    margin-top: 10px;
+    height: 50px;
+    width: 150px;
+    border-radius: 12px;
+    background: rgba(200, 20, 20, 1);
+    padding: 10px 20px 10px 20px;
+}
+
+.danger-button:hover {
+    background: rgba(200, 20, 20, 0.7);
 }
 
 .fade

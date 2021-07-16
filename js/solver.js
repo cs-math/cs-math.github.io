@@ -3,17 +3,14 @@ function calculate() {
     let a, b, c;
     let root1 = document.getElementById("root1");
     let root2 = document.getElementById("root2");
-    root1.innerHTML = "x<sub>1</sub> = ";
-    root2.innerHTML = "x<sub>2</sub> = ";
 
     a = parseFloat(document.getElementById("box-a").value);
     b = parseFloat(document.getElementById("box-b").value);
     c = parseFloat(document.getElementById("box-c").value);
 
     if (a === 0) {
-        root1.innerHTML += String((-c / b).toFixed(DECIMAL_PLACES));
-        root2.innerHTML += "N/A";
-        console.log(c / b);
+        root1.innerHTML = String((-c / b).toFixed(DECIMAL_PLACES));
+        root2.innerHTML = "N/A";
         return;
     }
 
@@ -22,16 +19,16 @@ function calculate() {
         let real_term = String((-b / (2 * a)).toFixed(DECIMAL_PLACES));
         let complex_term = String((Math.sqrt(-(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES));
         complex_term = Math.abs(complex_term);
-        root1.innerHTML += real_term + " + i" + complex_term;
+        root1.innerHTML = real_term + " + i" + complex_term;
 
-        root2.innerHTML += real_term + " - i" + complex_term;
+        root2.innerHTML = real_term + " - i" + complex_term;
         return;
     }
 
     root1.innerHTML
-        += String(((-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES));
+        = String(((-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES));
     root2.innerHTML
-        += String(((-b - Math.sqrt(Math.pow( b , 2 ) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES));
+        = String(((-b - Math.sqrt(Math.pow( b , 2 ) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES));
 
 }
 

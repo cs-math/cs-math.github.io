@@ -2,6 +2,9 @@ body
 {
     background-image: url(../resources/background.jpg);
     background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 a
@@ -23,14 +26,10 @@ a:hover
     border-width: 5px;
     border-style: solid;
     border-radius: 12px;
-    position: absolute;
     padding: 15px;
-    top: 50%;
-    left: 50%;
     width: 50%;
     max-width: 600px;
     word-wrap: break-word;
-    transform: translate(-50%, -50%);
     place-items: center;
     text-align: center;
 }
@@ -113,6 +112,7 @@ a:hover
 .bottom-buttons
 {
     margin-top: 5%;
+    bottom: 1%;
 }
 
 .marginleft100

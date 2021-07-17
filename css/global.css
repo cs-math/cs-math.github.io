@@ -30,7 +30,6 @@ a:hover
     width: 50%;
     max-width: 600px;
     word-wrap: break-word;
-    place-items: center;
     text-align: center;
 }
 

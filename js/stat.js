@@ -11,22 +11,21 @@ function find_mode(arr) {
     let max_rep = 1;
     let modes = [];
     for (let number of arr) {
-        if (number in numbers_map) {
-            ++numbers_map[number];
-            max_rep = Math.max(numbers_map[number], max_rep);
+        if (!(number in numbers_map)) {
+            numbers_map[number] = 1;
             continue;
         }
-        numbers_map[number] = 1;
-    }
 
-    if (max_rep == 1) {
-        return modes;
-    }
+        ++numbers_map[number];
+        let current_repetition = numbers_map[number];
 
-    for (let number of arr) {
-        if (numbers_map[number] == max_rep && !modes.includes(number)) {
+        if (max_rep === current_repetition && !modes.includes(number)) {
             modes.push(number);
         }
+        else if (max_rep < current_repetition) {
+            modes = [number];
+        }
+        max_rep = Math.max(current_repetition, max_rep);
     }
     return modes;
 }

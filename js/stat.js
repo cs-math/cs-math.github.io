@@ -21,11 +21,10 @@ function find_mode(arr) {
 
         if (max_rep === current_repetition && !modes.includes(number)) {
             modes.push(number);
-        }
-        else if (max_rep < current_repetition) {
+        } else if (max_rep < current_repetition) {
             modes = [number];
+            max_rep = current_repetition;
         }
-        max_rep = Math.max(current_repetition, max_rep);
     }
     return modes;
 }

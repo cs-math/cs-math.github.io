@@ -6,7 +6,12 @@ body
 
 a
 {
-    color: #9ab5d0
+    color: rgb(154, 181, 208, 1)
+}
+
+a:hover
+{
+    color: rgb(154, 181, 208, .7)
 }
 
 .container
@@ -40,6 +45,7 @@ a
 {
     font-size: 50%;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .number-box
@@ -102,6 +108,11 @@ a
     height: 175px;
     width: 175px;
     display: inline;
+}
+
+.exit
+{
+    margin-top: 5%;
 }
 
 .marginleft100

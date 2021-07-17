@@ -110,7 +110,7 @@ a:hover
     display: inline;
 }
 
-.exit
+.bottom-buttons
 {
     margin-top: 5%;
 }
@@ -141,7 +141,7 @@ a:hover
 {
     .container
     {
-        width: 100%;
+        width: 90%;
     }
     .text-monospace
     {

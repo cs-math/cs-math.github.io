@@ -7,7 +7,7 @@ function set_labels(labels_map) {
 }
 
 function find_mode(arr) {
-    let numbers_map = {};
+    let numbers_map = {}; // Maps each number to its count
     let max_rep = 1;
     let modes = [];
     for (let number of arr) {
@@ -35,6 +35,35 @@ function find_median(arr) {
         return ((arr[len / 2 - 1] + arr[len / 2]) / 2).toFixed(ROUND_TO);
     }
     return arr[(len + 1) / 2 - 1];
+}
+
+function find_outliers(arr, upper_bound, lower_bound) {
+    let outliers = [];
+    for (element of arr) {
+        if (element > upper_bound) {
+            outliers.push(element);
+            continue;
+        }
+        break;
+    }
+    arr.reverse();
+    for (element of arr) {
+        if (element < lower_bound) {
+            outliers.push(element);
+            continue;
+        }
+        break;
+    }
+    return outliers;
+}
+
+function find_variance(arr, mean, population=true) {
+    let denominator = population ? arr.length : arr.length - 1;
+    let sum = 0;
+    for (element of arr) {
+        sum += Math.pow(element - mean, 2) / denominator
+    }
+    return sum;
 }
 
 function calculate_stats() {
@@ -69,18 +98,48 @@ function calculate_stats() {
         return;
     }
 
+    let number_elements = number_arr.length;
     let sum = number_arr.reduce((acc, cur) => acc + cur).toFixed(ROUND_TO);
+    let minimum_value = number_arr[number_arr.length - 1];
+    let maximum_value = number_arr[0];
     let mean = (sum / number_arr.length).toFixed(ROUND_TO);
     let mode = find_mode(number_arr);
     mode = mode.length == 0 ? 'N/A' : mode.join(', ');
+    // For the first and third quartiles
+    // if array is of odd length: | 0 -> (n + 1) / 2 - 1 | and | (n + 1) / 2 - 1 -> n - 1 |
+    // if array is of even length: | 0 -> n / 2 - 1 | and | n / 2 -> n - 1 |
+    let first_separator =
+        number_elements % 2 == 1 ? (number_elements + 1) / 2 - 2 : number_elements / 2 - 1;
+    let second_separator = number_elements % 2 == 1 ? first_separator + 2 : number_elements / 2;
+    let third_quartile = find_median(number_arr.slice(0, first_separator + 1));
+    let first_quartile = find_median(number_arr.slice(second_separator));
+    let iqr = third_quartile - first_quartile;
+    let upper_bound = parseFloat(third_quartile) + 1.5 * iqr;
+    let lower_bound = parseFloat(first_quartile) - 1.5 * iqr;
+    let outliers = find_outliers(number_arr, upper_bound, lower_bound);
+    outliers = outliers.length === 0 ? 'N/A' : outliers.join(', ');
+    let population_variance = find_variance(number_arr, mean).toFixed(ROUND_TO);
+    let sample_variance = find_variance(number_arr, mean, false).toFixed(ROUND_TO);
+
     set_labels({
         array: number_arr.join(', '),
-        'number-elements': number_arr.length,
+        'number-elements': number_elements,
         sum,
-        min: number_arr[number_arr.length - 1] + minimum_index,
-        max: number_arr[0] + maximum_index,
+        min: minimum_value + minimum_index,
+        max: maximum_value + maximum_index,
         mean,
         median: find_median(number_arr),
-        mode
+        mode,
+        range: maximum_value - minimum_value,
+        'first-quartile': first_quartile,
+        'third-quartile': third_quartile,
+        iqr,
+        'upper-bound': upper_bound,
+        'lower-bound': lower_bound,
+        outliers,
+        'population-variance': population_variance,
+        'sample-variance': sample_variance,
+        'population-sd': Math.sqrt(population_variance).toFixed(ROUND_TO),
+        'sample-sd': Math.sqrt(sample_variance).toFixed(ROUND_TO)
     });
 }

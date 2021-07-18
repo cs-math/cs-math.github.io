@@ -54,6 +54,7 @@ function find_outliers(arr, upper_bound, lower_bound) {
         }
         break;
     }
+    arr.reverse();
     return outliers;
 }
 

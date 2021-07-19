@@ -26,9 +26,7 @@ function handle_change(dropdown_object) {
 
 function calculate_linear(b, c) {
     let root1 = document.getElementById('root1');
-    let root2 = document.getElementById('root2');
     root1.innerHTML = String((-c / b).toFixed(DECIMAL_PLACES));
-    root2.innerHTML = 'none';
     return [root1.innerHTML];
 }
 
@@ -63,42 +61,67 @@ function calculate_quad(a, b, c) {
 }
 
 function calculate_cubic(a3, a2, a1, a0) {
-    let p =
-        parseFloat(document.getElementById('box-a2').value) /
-        parseFloat(document.getElementById('box-a3').value);
-    let q =
-        parseFloat(document.getElementById('box-a1').value) /
-        parseFloat(document.getElementById('box-a3').value);
-    let r =
-        parseFloat(document.getElementById('box-a0').value) /
-        parseFloat(document.getElementById('box-a3').value);
+    let p = a2 / a3;
+    let q = a1 / a3;
+    let r = a0 / a3;
+
+    let a = q - Math.pow(p, 2) / 3;
+    let b = r + (2 / 27) * Math.pow(p, 3) - (1 / 3) * p * q;
+
+    let A = Math.cbrt(-b / 2 + Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
+    let B = Math.cbrt(-b / 2 + Math.sqrt(Math.pow(b, 2) / 4 - Math.pow(a, 3) / 27));
+
+    let first_root = A + B - p / 3;
+    let second_root = String((-1 / 2) * (A + B)) + ' + i' + String((Math.sqrt(3) / 2) * (A - B));
+    let third_root = String((-1 / 2) * (A + B)) + ' - i' + String((Math.sqrt(3) / 2) * (A - B));
+
+    document.getElementById('root1').innerHTML = first_root;
+    document.getElementById('root2').innerHTML = second_root;
+    document.getElementById('root3').innerHTML = third_root;
+    return [first_root, second_root, third_root];
 }
 
 function calculate_quart(a4, a3, a2, a1, a0) {}
 
 function check_and_calculate() {
+    clear_elements(['solution-label']);
+
+    let valid_coefficients = false;
     for (let i = 0; i <= 4; ++i) {
         let text_box = document.getElementById(`box-a${i}`);
         if (text_box && text_box.value.length === 0) {
             text_box.value = '0';
+            continue;
+        }
+        if (i > 0) {
+            valid_coefficients = true;
         }
     }
-    if (
-        document.getElementById('box-a2').value === '0' &&
-        document.getElementById('box-a1').value === '0'
-    ) {
+    if (!valid_coefficients) {
         return;
     }
+
     let equations = [calculate_linear, calculate_quad, calculate_cubic, calculate_quart];
-    let equation_arguments = [parseFloat(document.getElementById('box-a0').value)];
+    let equation_arguments = [
+        parseFloat(document.getElementById('box-a1').value),
+        parseFloat(document.getElementById('box-a0').value)
+    ];
     let maximum_degree = 1;
+
     for (let i = 1; i <= 4; ++i) {
         let box = document.getElementById(`box-a${i}`);
-        if (!box || box.value == 0) {
+        if (!box) {
+            break;
+        }
+        if (box.value === '0') {
             continue;
         }
         maximum_degree = i;
+    }
+
+    for (let i = 2; i <= maximum_degree; ++i) {
         equation_arguments.unshift(parseFloat(document.getElementById(`box-a${i}`).value));
     }
+
     equations[maximum_degree - 1](...equation_arguments);
 }

@@ -7,21 +7,17 @@
     <title>Equation solver</title>
 </head>
 
-<body>
+<body onload="draw_labels(2)">
     <div class="container fade text-monospace">
         <div>
             <a href="../index.html" class="nav-button">Home</a>
         </div>
         <div>
-            <select class="dropdown">
-                <option value="quadratic">Quadratic Equation</option>
-            </select>
-            <!-- <select>
+            <select class="dropdown" onchange="handle_change(this)">
+                <option value="quad">Quadratic Equation</option>
                 <option value="cubic">Cubic Equation</option>
+                <option value="quart">Quartic Equation</option>
             </select>
-            <select>
-                <option value="quaternary">Quaternary Equation</option>
-            </select> -->
         </div>
         <div class="equation-box">
             <input type="number" class="number-box" id="box-a"></input>x<sup>2</sup> +
@@ -29,20 +25,20 @@
             <input type="number" class="number-box" id="box-c"></input> = 0
             <div>
                 <input type="button" class="main-button" value="Calculate" onclick="check_and_calculate()">
-                <input type="button" class="danger-button" value="Clear"
+                <input type="button" class="main-button danger" value="Clear"
                     onclick="clear_elements(['number-box', 'solution-label'])">
                 </input>
             </div>
         </div>
         <div class="solution-box">
-            <div class="root">
+            <!-- <div class="root">
                 <label>x<sub>1</sub> = </label>
                 <label class="solution-label" id="root1"></label>
             </div>
             <div class="root">
                 <label>x<sub>2</sub> = </label>
                 <label class="solution-label" id="root2"></label>
-            </div>
+            </div> -->
         </div>
     </div>
 </body>

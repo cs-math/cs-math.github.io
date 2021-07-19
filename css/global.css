@@ -75,19 +75,12 @@ a:hover
     background: rgba(106, 179, 186, 0.7);
 }
 
-.danger-button {
-    margin-top: 10px;
-    height: 50px;
-    width: 150px;
-    border: 0;
-    border-radius: 12px;
-    background: rgba(200, 20, 20, 1);
-    padding: 10px 20px 10px 20px;
-    transition: all 0.1s;
+.danger {
+    background: rgba(200, 20, 20, 1) !important;
 }
 
-.danger-button:hover {
-    background: rgba(200, 20, 20, 0.7);
+.danger:hover {
+    background: rgba(200, 20, 20, 0.7) !important;
 }
 
 a.nav-button
@@ -182,13 +175,9 @@ a.nav-button:hover
     {
         font-size: 15pt;
     }
-}
-
-@media all and (max-width: 30em)
-{
-    a.nav-button
+    .main-button
     {
-        display: block;
-        margin: 0.4em auto;
+        height: auto;
+        width: auto;
     }
 }

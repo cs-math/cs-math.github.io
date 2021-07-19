@@ -8,7 +8,7 @@
 </head>
 
 <body onload="draw_labels(2)">
-    <div class="container fade text-monospace">
+    <div class="container enlarged-container fade text-monospace">
         <div>
             <a href="../index.html" class="nav-button">Home</a>
         </div>
@@ -20,9 +20,8 @@
             </select>
         </div>
         <div class="equation-box">
-            <input type="number" class="number-box" id="box-a"></input>x<sup>2</sup> +
-            <input type="number" class="number-box" id="box-b"></input>x +
-            <input type="number" class="number-box" id="box-c"></input> = 0
+            <div class="user-input">
+            </div>
             <div>
                 <input type="button" class="main-button" value="Calculate" onclick="check_and_calculate()">
                 <input type="button" class="main-button danger" value="Clear"
@@ -31,14 +30,6 @@
             </div>
         </div>
         <div class="solution-box">
-            <!-- <div class="root">
-                <label>x<sub>1</sub> = </label>
-                <label class="solution-label" id="root1"></label>
-            </div>
-            <div class="root">
-                <label>x<sub>2</sub> = </label>
-                <label class="solution-label" id="root2"></label>
-            </div> -->
         </div>
     </div>
 </body>

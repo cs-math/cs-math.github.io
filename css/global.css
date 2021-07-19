@@ -33,6 +33,12 @@ a:hover
     text-align: center;
 }
 
+.enlarged-container
+{
+    max-width: none;
+    width: 80% !important;
+}
+
 .text-monospace
 {
     font-family: "Courier New" !important;

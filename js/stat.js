@@ -1,11 +1,3 @@
-const ROUND_TO = 4;
-
-function set_labels(labels_map) {
-    for (let key of Object.keys(labels_map)) {
-        document.getElementById(key).innerHTML = labels_map[key];
-    }
-}
-
 function find_mode(arr) {
     let numbers_map = {}; // Maps each number to its count
     let max_rep = 1;
@@ -32,7 +24,7 @@ function find_mode(arr) {
 function find_median(arr) {
     let len = arr.length;
     if (len % 2 == 0) {
-        return ((arr[len / 2 - 1] + arr[len / 2]) / 2).toFixed(ROUND_TO);
+        return ((arr[len / 2 - 1] + arr[len / 2]) / 2).toFixed(DECIMAL_PLACES);
     }
     return arr[(len + 1) / 2 - 1];
 }
@@ -100,10 +92,10 @@ function calculate_stats() {
     }
 
     let number_elements = number_arr.length;
-    let sum = number_arr.reduce((acc, cur) => acc + cur).toFixed(ROUND_TO);
+    let sum = number_arr.reduce((acc, cur) => acc + cur).toFixed(DECIMAL_PLACES);
     let minimum_value = number_arr[number_arr.length - 1];
     let maximum_value = number_arr[0];
-    let mean = (sum / number_arr.length).toFixed(ROUND_TO);
+    let mean = (sum / number_arr.length).toFixed(DECIMAL_PLACES);
     let mode = find_mode(number_arr);
     mode = mode.length == 0 ? 'none' : mode.join(', ');
     // For the first and third quartiles
@@ -119,8 +111,8 @@ function calculate_stats() {
     let lower_bound = parseFloat(first_quartile) - 1.5 * iqr;
     let outliers = find_outliers(number_arr, upper_bound, lower_bound);
     outliers = outliers.length === 0 ? 'none' : outliers.join(', ');
-    let population_variance = find_variance(number_arr, mean).toFixed(ROUND_TO);
-    let sample_variance = find_variance(number_arr, mean, false).toFixed(ROUND_TO);
+    let population_variance = find_variance(number_arr, mean).toFixed(DECIMAL_PLACES);
+    let sample_variance = find_variance(number_arr, mean, false).toFixed(DECIMAL_PLACES);
 
     set_labels({
         array: number_arr.join(', '),
@@ -140,7 +132,7 @@ function calculate_stats() {
         outliers,
         'population-variance': population_variance,
         'sample-variance': sample_variance,
-        'population-sd': Math.sqrt(population_variance).toFixed(ROUND_TO),
-        'sample-sd': Math.sqrt(sample_variance).toFixed(ROUND_TO)
+        'population-sd': Math.sqrt(population_variance).toFixed(DECIMAL_PLACES),
+        'sample-sd': Math.sqrt(sample_variance).toFixed(DECIMAL_PLACES)
     });
 }

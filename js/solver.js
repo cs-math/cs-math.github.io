@@ -1,6 +1,9 @@
 function draw_labels(highest_degree) {
     let solution_box = document.getElementsByClassName('solution-box')[0];
+    let user_input = document.getElementsByClassName('user-input')[0];
+
     solution_box.innerHTML = null;
+    user_input.innerHTML = null;
     for (let i = 0; i < highest_degree; ++i) {
         solution_box.innerHTML += `
             <div class="root">\
@@ -8,7 +11,12 @@ function draw_labels(highest_degree) {
             <label class="solution-label" id="root${i + 1}"></label>\
             </div>
         `;
+        let power_index = highest_degree - i;
+        let x_index = power_index == 1 ? '' : power_index;
+        user_input.innerHTML += `
+            <input type="number" class="number-box" id="box-a${power_index}"></input>x<sup>${x_index}</sup> + `;
     }
+    user_input.innerHTML += `<input type="number" class="number-box" id="box-a0"></input> = 0`;
 }
 
 function handle_change(dropdown_object) {
@@ -16,20 +24,21 @@ function handle_change(dropdown_object) {
     draw_labels(function_map[dropdown_object.value]);
 }
 
-function calculate() {
-    const DECIMAL_PLACES = 4;
-    let a, b, c;
+function calculate_linear(b, c) {
+    let root1 = document.getElementById('root1');
+    let root2 = document.getElementById('root2');
+    root1.innerHTML = String((-c / b).toFixed(DECIMAL_PLACES));
+    root2.innerHTML = 'none';
+    return [root1.innerHTML];
+}
+
+function calculate_quad(a, b, c) {
+    // Calculates the roots of the quadratic equation and returns an array of strings representing the roots
     let root1 = document.getElementById('root1');
     let root2 = document.getElementById('root2');
 
-    a = parseFloat(document.getElementById('box-a').value);
-    b = parseFloat(document.getElementById('box-b').value);
-    c = parseFloat(document.getElementById('box-c').value);
-
     if (a === 0) {
-        root1.innerHTML = String((-c / b).toFixed(DECIMAL_PLACES));
-        root2.innerHTML = 'none';
-        return;
+        return calculate_linear(b, c);
     }
 
     if (Math.pow(b, 2) - 4 * a * c < 0) {
@@ -41,7 +50,7 @@ function calculate() {
         root1.innerHTML = real_term + ' + i' + complex_term;
 
         root2.innerHTML = real_term + ' - i' + complex_term;
-        return;
+        return [root1.innerHTML, root2.innerHTML];
     }
 
     root1.innerHTML = String(
@@ -50,23 +59,37 @@ function calculate() {
     root2.innerHTML = String(
         ((-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES)
     );
+    return [root1.innerHTML, root2.innerHTML];
+}
+
+function calculate_cubic() {
+    let p =
+        parseFloat(document.getElementById('box-a2').value) /
+        parseFloat(document.getElementById('box-a3').value);
+    let q =
+        parseFloat(document.getElementById('box-a1').value) /
+        parseFloat(document.getElementById('box-a3').value);
+    let r =
+        parseFloat(document.getElementById('box-a0').value) /
+        parseFloat(document.getElementById('box-a3').value);
 }
 
 function check_and_calculate() {
-    for (let text_box of [
-        document.getElementById('box-a'),
-        document.getElementById('box-b'),
-        document.getElementById('box-c')
-    ]) {
-        if (text_box.value.length === 0) {
+    for (let i = 0; i <= 4; i++) {
+        let text_box = document.getElementById(`box-a${i}`);
+        if (text_box && text_box.value.length === 0) {
             text_box.value = '0';
         }
     }
     if (
-        document.getElementById('box-a').value === '0' &&
-        document.getElementById('box-b').value === '0'
+        document.getElementById('box-a2').value === '0' &&
+        document.getElementById('box-a1').value === '0'
     ) {
         return;
     }
-    calculate();
+    calculate_quad(
+        parseFloat(document.getElementById('box-a2').value),
+        parseFloat(document.getElementById('box-a1').value),
+        parseFloat(document.getElementById('box-a0').value)
+    );
 }

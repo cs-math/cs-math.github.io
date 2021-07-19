@@ -62,7 +62,7 @@ function calculate_quad(a, b, c) {
     return [root1.innerHTML, root2.innerHTML];
 }
 
-function calculate_cubic() {
+function calculate_cubic(a3, a2, a1, a0) {
     let p =
         parseFloat(document.getElementById('box-a2').value) /
         parseFloat(document.getElementById('box-a3').value);
@@ -74,8 +74,10 @@ function calculate_cubic() {
         parseFloat(document.getElementById('box-a3').value);
 }
 
+function calculate_quart(a4, a3, a2, a1, a0) {}
+
 function check_and_calculate() {
-    for (let i = 0; i <= 4; i++) {
+    for (let i = 0; i <= 4; ++i) {
         let text_box = document.getElementById(`box-a${i}`);
         if (text_box && text_box.value.length === 0) {
             text_box.value = '0';
@@ -87,9 +89,16 @@ function check_and_calculate() {
     ) {
         return;
     }
-    calculate_quad(
-        parseFloat(document.getElementById('box-a2').value),
-        parseFloat(document.getElementById('box-a1').value),
-        parseFloat(document.getElementById('box-a0').value)
-    );
+    let equations = [calculate_linear, calculate_quad, calculate_cubic, calculate_quart];
+    let equation_arguments = [parseFloat(document.getElementById('box-a0').value)];
+    let maximum_degree = 1;
+    for (let i = 1; i <= 4; ++i) {
+        let box = document.getElementById(`box-a${i}`);
+        if (!box || box.value == 0) {
+            continue;
+        }
+        maximum_degree = i;
+        equation_arguments.unshift(parseFloat(document.getElementById(`box-a${i}`).value));
+    }
+    equations[maximum_degree - 1](...equation_arguments);
 }

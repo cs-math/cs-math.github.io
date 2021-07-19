@@ -105,7 +105,7 @@ function calculate_stats() {
     let maximum_value = number_arr[0];
     let mean = (sum / number_arr.length).toFixed(ROUND_TO);
     let mode = find_mode(number_arr);
-    mode = mode.length == 0 ? 'N/A' : mode.join(', ');
+    mode = mode.length == 0 ? 'none' : mode.join(', ');
     // For the first and third quartiles
     // if array is of odd length: | 0 -> (n + 1) / 2 - 1 | and | (n + 1) / 2 - 1 -> n - 1 |
     // if array is of even length: | 0 -> n / 2 - 1 | and | n / 2 -> n - 1 |
@@ -118,7 +118,7 @@ function calculate_stats() {
     let upper_bound = parseFloat(third_quartile) + 1.5 * iqr;
     let lower_bound = parseFloat(first_quartile) - 1.5 * iqr;
     let outliers = find_outliers(number_arr, upper_bound, lower_bound);
-    outliers = outliers.length === 0 ? 'N/A' : outliers.join(', ');
+    outliers = outliers.length === 0 ? 'none' : outliers.join(', ');
     let population_variance = find_variance(number_arr, mean).toFixed(ROUND_TO);
     let sample_variance = find_variance(number_arr, mean, false).toFixed(ROUND_TO);
 

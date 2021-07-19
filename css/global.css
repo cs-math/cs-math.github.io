@@ -61,14 +61,14 @@ a:hover
 }
 
 .main-button {
-    -webkit-border-radius: 28;
-    -moz-border-radius: 28;
     margin-top: 10px;
     height: 50px;
     width: 150px;
+    border: 0;
     border-radius: 12px;
     background: rgba(106, 179, 186, 1);
     padding: 10px 20px 10px 20px;
+    transition: all 0.1s;
 }
 
 .main-button:hover {
@@ -76,18 +76,39 @@ a:hover
 }
 
 .danger-button {
-    -webkit-border-radius: 28;
-    -moz-border-radius: 28;
     margin-top: 10px;
     height: 50px;
     width: 150px;
+    border: 0;
     border-radius: 12px;
     background: rgba(200, 20, 20, 1);
     padding: 10px 20px 10px 20px;
+    transition: all 0.1s;
 }
 
 .danger-button:hover {
     background: rgba(200, 20, 20, 0.7);
+}
+
+a.nav-button
+{
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border: 0.1em solid #FFFFFF;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.12em;
+    box-sizing:  border-box;
+    text-decoration: none;
+    font-weight: 300;
+    color: #FFFFFF;
+    text-align: center;
+    transition: all 0.1s;
+}
+
+a.nav-button:hover
+{
+    color: #000000;
+    background-color: #FFFFFF;
 }
 
 .fade
@@ -101,10 +122,15 @@ a:hover
 
 .logo
 {
-    margin-left: 20px;
-    margin-right: 20px;
-    height: 175px;
-    width: 175px;
+    height: 125px;
+    width: 125px;
+    display: inline;
+}
+
+.logo
+{
+    height: 125px;
+    width: 125px;
     display: inline;
 }
 
@@ -117,6 +143,16 @@ a:hover
 .marginleft100
 {
     margin-left: 100px;
+}
+
+.float-left
+{
+    float: left;
+}
+
+.float-right
+{
+    float: right;
 }
 
 @keyframes fadeInAnimation {
@@ -145,5 +181,14 @@ a:hover
     .text-monospace
     {
         font-size: 15pt;
+    }
+}
+
+@media all and (max-width: 30em)
+{
+    a.nav-button
+    {
+        display: block;
+        margin: 0.4em auto;
     }
 }

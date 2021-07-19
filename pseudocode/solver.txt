@@ -2,7 +2,7 @@
 1. int a, b, c
 2. string x1, x2
 3. if textbox_a is empty
-3.1 x1 = -c / b, x2 = N/A
+3.1 x1 = -c / b, x2 = none
 3.2 exit
 4. if textbox_b is empty
 4.1 b = 0

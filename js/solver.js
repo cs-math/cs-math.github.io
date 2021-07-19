@@ -10,7 +10,7 @@ function calculate() {
 
     if (a === 0) {
         root1.innerHTML = String((-c / b).toFixed(DECIMAL_PLACES));
-        root2.innerHTML = "N/A";
+        root2.innerHTML = "none";
         return;
     }
 

@@ -1,0 +1,11 @@
+Real roots
+1 -6 11 -6
+
+Real roots, two are equal
+1 -5 8 -4
+
+Complex roots
+1 0 0 -1
+
+Complex roots
+1 2 3 4

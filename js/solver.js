@@ -61,40 +61,49 @@ function calculate_quad(a, b, c) {
 }
 
 function calculate_cubic(a3, a2, a1, a0) {
-    console.log('===================');
     let first_root, second_root, third_root;
-    if (a0 === 0) {
-        first_root = '0'
-        let second_third_root = calculate_quad(a3, a2, a1);
-        second_root = second_third_root[0];
-        third_root = second_third_root[1];
-        document.getElementById('root1').innerHTML = first_root;
-        document.getElementById('root2').innerHTML = second_root;
-        document.getElementById('root3').innerHTML = third_root;
-        return [first_root, second_root, third_root]
-    }
     let p = a2 / a3;
     let q = a1 / a3;
     let r = a0 / a3;
-    console.log(p, q, r);
 
     let a = q - Math.pow(p, 2) / 3;
     let b = r + (2 / 27) * Math.pow(p, 3) - (1 / 3) * p * q;
-    console.log(a, b);
 
-    let A = Math.cbrt(-b / 2 + Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
-    let B = Math.cbrt(-b / 2 - Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
-    console.log(A, B);
+    // Cardano's Algorithm
+    if (parseFloat((b * b / 4 + a * a * a / 27).toFixed(12)) > 0)
+    {
+        let A = Math.cbrt(-b / 2 + Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
+        let B = Math.cbrt(-b / 2 - Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
 
-    first_root = (A + B - p / 3).toFixed(DECIMAL_PLACES);
-    second_root = String(((-1 / 2) * (A + B) - p / 3).toFixed(DECIMAL_PLACES))
-        + ' + i' + String(((Math.sqrt(3) / 2) * (A - B)).toFixed(DECIMAL_PLACES));
-    third_root = String(((-1 / 2) * (A + B) - p / 3).toFixed(DECIMAL_PLACES))
-        + ' - i' + String(((Math.sqrt(3) / 2) * (A - B)).toFixed(DECIMAL_PLACES));
+        first_root = (A + B - p / 3).toFixed(DECIMAL_PLACES);
+        second_root = String(((-1 / 2) * (A + B) - p / 3).toFixed(DECIMAL_PLACES))
+            + ' + i' + String(((Math.sqrt(3) / 2) * (A - B)).toFixed(DECIMAL_PLACES));
+        third_root = String(((-1 / 2) * (A + B) - p / 3).toFixed(DECIMAL_PLACES))
+            + ' - i' + String(((Math.sqrt(3) / 2) * (A - B)).toFixed(DECIMAL_PLACES));
 
-    document.getElementById('root1').innerHTML = first_root;
-    document.getElementById('root2').innerHTML = second_root;
-    document.getElementById('root3').innerHTML = third_root;
+        set_labels({
+            root1: first_root,
+            root2: second_root,
+            root3: third_root,
+            'algorithm-label': 'Cardano\'s Algorithm'
+        });
+        return [first_root, second_root, third_root];
+    }
+
+    // Viete's Algorithm
+    let theta = a / 3 === 0 ? 0 : Math.acos((-b / 2) / Math.pow(-a / 3, 3 / 2));
+    let phi1 = theta / 3;
+    let phi2 = phi1 - 2 * Math.PI / 3;
+    let phi3 = phi1 + 2 * Math.PI / 3;
+    first_root = 2 * Math.sqrt(-a / 3) * Math.cos(phi1) - p / 3;
+    second_root = 2 * Math.sqrt(-a / 3) * Math.cos(phi2) - p / 3;
+    third_root = 2 * Math.sqrt(-a / 3) * Math.cos(phi3) - p / 3;
+    set_labels({
+        root1: first_root.toFixed(DECIMAL_PLACES),
+        root2: second_root.toFixed(DECIMAL_PLACES),
+        root3: third_root.toFixed(DECIMAL_PLACES),
+        'algorithm-label': 'Vie&#768te\'s Algorithm'
+    });
     return [first_root, second_root, third_root];
 }
 

@@ -32,21 +32,12 @@ function find_median(arr) {
 function find_outliers(arr, upper_bound, lower_bound) {
     let outliers = [];
     for (element of arr) {
-        if (element > upper_bound) {
-            outliers.push(element);
+        if (element < upper_bound && element > lower_bound) {
+            console.log('here');
             continue;
         }
-        break;
+        outliers.push(element);
     }
-    arr.reverse();
-    for (element of arr) {
-        if (element < lower_bound) {
-            outliers.push(element);
-            continue;
-        }
-        break;
-    }
-    arr.reverse();
     return outliers;
 }
 

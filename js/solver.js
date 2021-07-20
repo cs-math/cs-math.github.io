@@ -61,34 +61,41 @@ function calculate_quad(a, b, c) {
 }
 
 function calculate_cubic(a3, a2, a1, a0) {
+    console.log('===================');
+    let first_root, second_root, third_root;
     if (a0 === 0) {
-        let first_root = '0'
+        first_root = '0'
         let second_third_root = calculate_quad(a3, a2, a1);
-        let second_root = second_third_root[0];
-        let third_root = second_third_root[1];
+        second_root = second_third_root[0];
+        third_root = second_third_root[1];
         document.getElementById('root1').innerHTML = first_root;
         document.getElementById('root2').innerHTML = second_root;
         document.getElementById('root3').innerHTML = third_root;
         return [first_root, second_root, third_root]
     }
-    // let p = a2 / a3;
-    // let q = a1 / a3;
-    // let r = a0 / a3;
+    let p = a2 / a3;
+    let q = a1 / a3;
+    let r = a0 / a3;
+    console.log(p, q, r);
 
-    // let a = q - Math.pow(p, 2) / 3;
-    // let b = r + (2 / 27) * Math.pow(p, 3) - (1 / 3) * p * q;
+    let a = q - Math.pow(p, 2) / 3;
+    let b = r + (2 / 27) * Math.pow(p, 3) - (1 / 3) * p * q;
+    console.log(a, b);
 
-    // let A = Math.cbrt(-b / 2 + Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
-    // let B = Math.cbrt(-b / 2 + Math.sqrt(Math.pow(b, 2) / 4 - Math.pow(a, 3) / 27));
+    let A = Math.cbrt(-b / 2 + Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
+    let B = Math.cbrt(-b / 2 - Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
+    console.log(A, B);
 
-    // let first_root = A + B - p / 3;
-    // let second_root = String((-1 / 2) * (A + B) - p / 3) + ' + i' + String((Math.sqrt(3) / 2) * (A - B));
-    // let third_root = String((-1 / 2) * (A + B) - p / 3) + ' - i' + String((Math.sqrt(3) / 2) * (A - B));
+    first_root = (A + B - p / 3).toFixed(DECIMAL_PLACES);
+    second_root = String(((-1 / 2) * (A + B) - p / 3).toFixed(DECIMAL_PLACES))
+        + ' + i' + String(((Math.sqrt(3) / 2) * (A - B)).toFixed(DECIMAL_PLACES));
+    third_root = String(((-1 / 2) * (A + B) - p / 3).toFixed(DECIMAL_PLACES))
+        + ' - i' + String(((Math.sqrt(3) / 2) * (A - B)).toFixed(DECIMAL_PLACES));
 
-    // document.getElementById('root1').innerHTML = first_root;
-    // document.getElementById('root2').innerHTML = second_root;
-    // document.getElementById('root3').innerHTML = third_root;
-    // return [first_root, second_root, third_root];
+    document.getElementById('root1').innerHTML = first_root;
+    document.getElementById('root2').innerHTML = second_root;
+    document.getElementById('root3').innerHTML = third_root;
+    return [first_root, second_root, third_root];
 }
 
 function calculate_quart(a4, a3, a2, a1, a0) {}

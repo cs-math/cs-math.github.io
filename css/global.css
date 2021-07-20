@@ -33,15 +33,21 @@ a:hover
     text-align: center;
 }
 
+.medium-container
+{
+    max-width: none;
+    width: 65%;
+}
+
 .enlarged-container
 {
     max-width: none;
-    width: 80% !important;
+    width: 80%;
 }
 
 .text-monospace
 {
-    font-family: "Courier New" !important;
+    font-family: "Courier New";
     font-size: 25pt;
 }
 
@@ -82,11 +88,11 @@ a:hover
 }
 
 .danger {
-    background: rgba(200, 20, 20, 1) !important;
+    background: rgba(200, 20, 20, 1);
 }
 
 .danger:hover {
-    background: rgba(200, 20, 20, 0.7) !important;
+    background: rgba(200, 20, 20, 0.7);
 }
 
 a.nav-button

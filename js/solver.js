@@ -78,15 +78,15 @@ function calculate_cubic(a3, a2, a1, a0) {
         let A = Math.cbrt(-b / 2 + Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
         let B = Math.cbrt(-b / 2 - Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
 
-        first_root = (A + B - p / 3).toFixed(DECIMAL_PLACES);
+        first_root = String(A + B - p / 3);
         second_root =
-            String(((-1 / 2) * (A + B) - p / 3).toFixed(DECIMAL_PLACES)) +
+            String((-1 / 2) * (A + B) - p / 3) +
             ' + i' +
-            String(((Math.sqrt(3) / 2) * (A - B)).toFixed(DECIMAL_PLACES));
+            String((Math.sqrt(3) / 2) * (A - B));
         third_root =
-            String(((-1 / 2) * (A + B) - p / 3).toFixed(DECIMAL_PLACES)) +
+            String((-1 / 2) * (A + B) - p / 3) +
             ' - i' +
-            String(((Math.sqrt(3) / 2) * (A - B)).toFixed(DECIMAL_PLACES));
+            String((Math.sqrt(3) / 2) * (A - B));
 
         set_labels({
             root1: first_root,
@@ -102,9 +102,9 @@ function calculate_cubic(a3, a2, a1, a0) {
     let phi1 = theta / 3;
     let phi2 = phi1 - (2 * Math.PI) / 3;
     let phi3 = phi1 + (2 * Math.PI) / 3;
-    first_root = (2 * Math.sqrt(-a / 3) * Math.cos(phi1) - p / 3).toFixed(DECIMAL_PLACES);
-    second_root = (2 * Math.sqrt(-a / 3) * Math.cos(phi2) - p / 3).toFixed(DECIMAL_PLACES);
-    third_root = (2 * Math.sqrt(-a / 3) * Math.cos(phi3) - p / 3).toFixed(DECIMAL_PLACES);
+    first_root = String(2 * Math.sqrt(-a / 3) * Math.cos(phi1) - p / 3);
+    second_root = String(2 * Math.sqrt(-a / 3) * Math.cos(phi2) - p / 3);
+    third_root = String(2 * Math.sqrt(-a / 3) * Math.cos(phi3) - p / 3);
     set_labels({
         root1: first_root,
         root2: second_root,

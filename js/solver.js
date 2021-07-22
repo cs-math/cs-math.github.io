@@ -80,13 +80,9 @@ function calculate_cubic(a3, a2, a1, a0) {
 
         first_root = String(A + B - p / 3);
         second_root =
-            String((-1 / 2) * (A + B) - p / 3) +
-            ' + i' +
-            String((Math.sqrt(3) / 2) * (A - B));
+            String((-1 / 2) * (A + B) - p / 3) + ' + i' + String((Math.sqrt(3) / 2) * (A - B));
         third_root =
-            String((-1 / 2) * (A + B) - p / 3) +
-            ' - i' +
-            String((Math.sqrt(3) / 2) * (A - B));
+            String((-1 / 2) * (A + B) - p / 3) + ' - i' + String((Math.sqrt(3) / 2) * (A - B));
 
         set_labels({
             root1: first_root,
@@ -128,23 +124,26 @@ function calculate_quart(a4, a3, a2, a1, a0) {
 
     let cubic_roots = calculate_cubic(1, b2, (b2 * b2) / 4 - b0, -(b1 * b1) / 8);
     let m;
-    if (cubic_roots[1].includes('i'))
-    {
+    if (cubic_roots[1].includes('i')) {
         m = cubic_roots[0];
     }
-    m = Math.max(parseFloat(cubic_roots[0]), parseFloat(cubic_roots[1]),
-        parseFloat(cubic_roots[2]));
+    m = Math.max(
+        parseFloat(cubic_roots[0]),
+        parseFloat(cubic_roots[1]),
+        parseFloat(cubic_roots[2])
+    );
     m = parseFloat(m) > 0 ? parseFloat(m) : 0;
 
     let sigma = b1 > 0 ? 1 : -1;
     let r = sigma * Math.sqrt(m * m + b2 * m + (b2 * b2) / 4 - b0);
     if (Number.isNaN(r)) {
+        console.log('Numbers are too large');
         return set_labels({
             root1: '0',
             root2: '0',
             root3: '0',
             root4: '0',
-            'algorithm-label': 'Ferrari\'s algorithm'
+            'algorithm-label': "Ferrari's algorithm"
         });
     }
     if (-m / 2 - b2 / 2 - r > 0) {
@@ -181,7 +180,7 @@ function calculate_quart(a4, a3, a2, a1, a0) {
                 Math.sqrt(-(-m / 2 - b2 / 2 + r)).toFixed(DECIMAL_PLACES)
         });
     }
-    document.getElementById('algorithm-label').innerHTML += ' + Ferrari\'s algorithm';
+    document.getElementById('algorithm-label').innerHTML += " + Ferrari's algorithm";
 }
 
 function check_and_calculate() {

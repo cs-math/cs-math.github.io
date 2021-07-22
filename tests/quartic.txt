@@ -1,0 +1,8 @@
+All real roots
+1 -7 5 31 -30
+
+All imaginary roots
+1 2 3 4 5
+
+Two imaginary, two real
+1 4 3 2 1

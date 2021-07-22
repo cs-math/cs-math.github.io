@@ -61,6 +61,10 @@ function calculate_quad(a, b, c) {
 }
 
 function calculate_cubic(a3, a2, a1, a0) {
+    if (a3 === 0) {
+        return calculate_quad(a2, a1, a0);
+    }
+
     let first_root, second_root, third_root;
     let p = a2 / a3;
     let q = a1 / a3;
@@ -70,47 +74,118 @@ function calculate_cubic(a3, a2, a1, a0) {
     let b = r + (2 / 27) * Math.pow(p, 3) - (1 / 3) * p * q;
 
     // Cardano's Algorithm
-    if (parseFloat((b * b / 4 + a * a * a / 27).toFixed(12)) > 0)
-    {
+    if (parseFloat(((b * b) / 4 + (a * a * a) / 27).toFixed(12)) > 0) {
         let A = Math.cbrt(-b / 2 + Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
         let B = Math.cbrt(-b / 2 - Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
 
         first_root = (A + B - p / 3).toFixed(DECIMAL_PLACES);
-        second_root = String(((-1 / 2) * (A + B) - p / 3).toFixed(DECIMAL_PLACES))
-            + ' + i' + String(((Math.sqrt(3) / 2) * (A - B)).toFixed(DECIMAL_PLACES));
-        third_root = String(((-1 / 2) * (A + B) - p / 3).toFixed(DECIMAL_PLACES))
-            + ' - i' + String(((Math.sqrt(3) / 2) * (A - B)).toFixed(DECIMAL_PLACES));
+        second_root =
+            String(((-1 / 2) * (A + B) - p / 3).toFixed(DECIMAL_PLACES)) +
+            ' + i' +
+            String(((Math.sqrt(3) / 2) * (A - B)).toFixed(DECIMAL_PLACES));
+        third_root =
+            String(((-1 / 2) * (A + B) - p / 3).toFixed(DECIMAL_PLACES)) +
+            ' - i' +
+            String(((Math.sqrt(3) / 2) * (A - B)).toFixed(DECIMAL_PLACES));
 
         set_labels({
             root1: first_root,
             root2: second_root,
             root3: third_root,
-            'algorithm-label': 'Cardano\'s Algorithm'
+            'algorithm-label': "Cardano's Algorithm"
         });
         return [first_root, second_root, third_root];
     }
 
     // Viete's Algorithm
-    let theta = a / 3 === 0 ? 0 : Math.acos((-b / 2) / Math.pow(-a / 3, 3 / 2));
+    let theta = a / 3 === 0 ? 0 : Math.acos(-b / 2 / Math.pow(-a / 3, 3 / 2));
     let phi1 = theta / 3;
-    let phi2 = phi1 - 2 * Math.PI / 3;
-    let phi3 = phi1 + 2 * Math.PI / 3;
-    first_root = 2 * Math.sqrt(-a / 3) * Math.cos(phi1) - p / 3;
-    second_root = 2 * Math.sqrt(-a / 3) * Math.cos(phi2) - p / 3;
-    third_root = 2 * Math.sqrt(-a / 3) * Math.cos(phi3) - p / 3;
+    let phi2 = phi1 - (2 * Math.PI) / 3;
+    let phi3 = phi1 + (2 * Math.PI) / 3;
+    first_root = (2 * Math.sqrt(-a / 3) * Math.cos(phi1) - p / 3).toFixed(DECIMAL_PLACES);
+    second_root = (2 * Math.sqrt(-a / 3) * Math.cos(phi2) - p / 3).toFixed(DECIMAL_PLACES);
+    third_root = (2 * Math.sqrt(-a / 3) * Math.cos(phi3) - p / 3).toFixed(DECIMAL_PLACES);
     set_labels({
-        root1: first_root.toFixed(DECIMAL_PLACES),
-        root2: second_root.toFixed(DECIMAL_PLACES),
-        root3: third_root.toFixed(DECIMAL_PLACES),
-        'algorithm-label': 'Vie&#768te\'s Algorithm'
+        root1: first_root,
+        root2: second_root,
+        root3: third_root,
+        'algorithm-label': "Vie&#768te's Algorithm"
     });
     return [first_root, second_root, third_root];
 }
 
-function calculate_quart(a4, a3, a2, a1, a0) {}
+function calculate_quart(a4, a3, a2, a1, a0) {
+    // Put the equation in the standard form
+    a3 /= a4;
+    a2 /= a4;
+    a1 /= a4;
+    a0 /= a4;
+
+    let c = a3 / 4;
+    let b2 = a2 - 6 * c * c;
+    let b1 = a1 - 2 * a2 * c + 8 * Math.pow(c, 3);
+    let b0 = a0 - a1 * c + a2 * c * c - 3 * Math.pow(c, 4);
+
+    let cubic_roots = calculate_cubic(1, b2, (b2 * b2) / 4 - b0, -(b1 * b1) / 8);
+    let m;
+    if (cubic_roots[1].includes('i'))
+    {
+        m = cubic_roots[0];
+    }
+    m = Math.max(parseFloat(cubic_roots[0]), parseFloat(cubic_roots[1]),
+        parseFloat(cubic_roots[2]));
+    m = parseFloat(m) > 0 ? parseFloat(m) : 0;
+
+    let sigma = b1 > 0 ? 1 : -1;
+    let r = sigma * Math.sqrt(m * m + b2 * m + (b2 * b2) / 4 - b0);
+    if (Number.isNaN(r)) {
+        return set_labels({
+            root1: '0',
+            root2: '0',
+            root3: '0',
+            root4: '0',
+            'algorithm-label': 'Ferrari\'s algorithm'
+        });
+    }
+    if (-m / 2 - b2 / 2 - r > 0) {
+        set_labels({
+            root1: (Math.sqrt(m / 2) - c + Math.sqrt(-m / 2 - b2 / 2 - r)).toFixed(DECIMAL_PLACES),
+            root2: (Math.sqrt(m / 2) - c - Math.sqrt(-m / 2 - b2 / 2 - r)).toFixed(DECIMAL_PLACES)
+        });
+    } else {
+        set_labels({
+            root1:
+                (Math.sqrt(m / 2) - c).toFixed(DECIMAL_PLACES) +
+                ' + i' +
+                Math.sqrt(-(-m / 2 - b2 / 2 - r)).toFixed(DECIMAL_PLACES),
+            root2:
+                (Math.sqrt(m / 2) - c).toFixed(DECIMAL_PLACES) +
+                ' - i' +
+                Math.sqrt(-(-m / 2 - b2 / 2 - r)).toFixed(DECIMAL_PLACES)
+        });
+    }
+    if (-m / 2 - b2 / 2 + r > 0) {
+        set_labels({
+            root3: (-Math.sqrt(m / 2) - c + Math.sqrt(-m / 2 - b2 / 2 + r)).toFixed(DECIMAL_PLACES),
+            root4: (-Math.sqrt(m / 2) - c - Math.sqrt(-m / 2 - b2 / 2 + r)).toFixed(DECIMAL_PLACES)
+        });
+    } else {
+        set_labels({
+            root3:
+                (-Math.sqrt(m / 2) - c).toFixed(DECIMAL_PLACES) +
+                ' + i' +
+                Math.sqrt(-(-m / 2 - b2 / 2 + r)).toFixed(DECIMAL_PLACES),
+            root4:
+                (-Math.sqrt(m / 2) - c).toFixed(DECIMAL_PLACES) +
+                ' - i' +
+                Math.sqrt(-(-m / 2 - b2 / 2 + r)).toFixed(DECIMAL_PLACES)
+        });
+    }
+    document.getElementById('algorithm-label').innerHTML += ' + Ferrari\'s algorithm';
+}
 
 function check_and_calculate() {
-    clear_elements(['solution-label']);
+    clear_elements(['solution-label', 'algorithm-label']);
 
     let valid_coefficients = false;
     for (let i = 0; i <= 4; ++i) {

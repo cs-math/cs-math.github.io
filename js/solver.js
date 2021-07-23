@@ -37,9 +37,11 @@ function prettify_root(root) {
 }
 
 function calculate_linear(b, c) {
-    let root1 = document.getElementById('root1');
-    root1.innerHTML = String((-c / b).toFixed(DECIMAL_PLACES));
-    return [root1.innerHTML];
+    root1 = String(-c / b);
+    set_labels({
+        root1: prettify_root(root1)
+    });
+    return [root1];
 }
 
 function calculate_quad(a, b, c) {
@@ -52,24 +54,25 @@ function calculate_quad(a, b, c) {
     }
 
     if (Math.pow(b, 2) - 4 * a * c < 0) {
-        let real_term = String((-b / (2 * a)).toFixed(DECIMAL_PLACES));
-        let complex_term = String(
-            (Math.sqrt(-(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES)
-        );
-        complex_term = Math.abs(complex_term);
-        root1.innerHTML = real_term + ' + i' + complex_term;
+        let real_term = String(-b / (2 * a));
+        let complex_term = String(Math.sqrt(-(Math.pow(b, 2) - 4 * a * c)) / (2 * a));
+        root1 = real_term + ' + i' + complex_term;
 
-        root2.innerHTML = real_term + ' - i' + complex_term;
-        return [root1.innerHTML, root2.innerHTML];
+        root2 = real_term + ' - i' + complex_term;
+        set_labels({
+            root1: prettify_root(root1),
+            root2: prettify_root(root2)
+        });
+        return [root1, root2];
     }
 
-    root1.innerHTML = String(
-        ((-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES)
-    );
-    root2.innerHTML = String(
-        ((-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a)).toFixed(DECIMAL_PLACES)
-    );
-    return [root1.innerHTML, root2.innerHTML];
+    root1 = String((-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a));
+    root2 = String((-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a));
+    set_labels({
+        root1: prettify_root(root1),
+        root2: prettify_root(root2)
+    });
+    return [root1, root2];
 }
 
 function calculate_cubic(a3, a2, a1, a0) {

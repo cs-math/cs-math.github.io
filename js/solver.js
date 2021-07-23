@@ -37,18 +37,16 @@ function prettify_root(root) {
 }
 
 function calculate_linear(b, c) {
-    root1 = String(-c / b);
+    let first_root = String(-c / b);
     set_labels({
-        root1: prettify_root(root1)
+        root1: prettify_root(first_root)
     });
-    return [root1];
+    return [first_root];
 }
 
 function calculate_quad(a, b, c) {
+    let first_root, second_root
     // Calculates the roots of the quadratic equation and returns an array of strings representing the roots
-    let root1 = document.getElementById('root1');
-    let root2 = document.getElementById('root2');
-
     if (a === 0) {
         return calculate_linear(b, c);
     }
@@ -56,23 +54,23 @@ function calculate_quad(a, b, c) {
     if (Math.pow(b, 2) - 4 * a * c < 0) {
         let real_term = String(-b / (2 * a));
         let complex_term = String(Math.sqrt(-(Math.pow(b, 2) - 4 * a * c)) / (2 * a));
-        root1 = real_term + ' + i' + complex_term;
+        first_root = real_term + ' + i' + complex_term;
 
-        root2 = real_term + ' - i' + complex_term;
+        second_root = real_term + ' - i' + complex_term;
         set_labels({
-            root1: prettify_root(root1),
-            root2: prettify_root(root2)
+            root1: prettify_root(first_root),
+            root2: prettify_root(second_root)
         });
-        return [root1, root2];
+        return [first_root, second_root];
     }
 
-    root1 = String((-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a));
-    root2 = String((-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a));
+    first_root = String((-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a));
+    second_root = String((-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a));
     set_labels({
-        root1: prettify_root(root1),
-        root2: prettify_root(root2)
+        root1: prettify_root(first_root),
+        root2: prettify_root(second_root)
     });
-    return [root1, root2];
+    return [first_root, second_root];
 }
 
 function calculate_cubic(a3, a2, a1, a0) {
@@ -153,13 +151,14 @@ function calculate_quart(a4, a3, a2, a1, a0) {
     let r = sigma * Math.sqrt(m * m + b2 * m + (b2 * b2) / 4 - b0);
     if (Number.isNaN(r)) {
         console.log('Numbers are too large');
-        return set_labels({
+        set_labels({
             root1: '0',
             root2: '0',
             root3: '0',
             root4: '0',
             'algorithm-label': "Ferrari's algorithm"
         });
+        return ['0', '0', '0', '0']
     }
     if (-m / 2 - b2 / 2 - r > 0) {
         set_labels({

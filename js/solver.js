@@ -45,7 +45,7 @@ function calculate_linear(b, c) {
 }
 
 function calculate_quad(a, b, c) {
-    let first_root, second_root
+    let first_root, second_root;
     // Calculates the roots of the quadratic equation and returns an array of strings representing the roots
     if (a === 0) {
         return calculate_linear(b, c);
@@ -124,6 +124,7 @@ function calculate_cubic(a3, a2, a1, a0) {
 }
 
 function calculate_quart(a4, a3, a2, a1, a0) {
+    let first_root, second_root, third_root, fourth_root;
     // Put the equation in the standard form
     a3 /= a4;
     a2 /= a4;
@@ -158,43 +159,46 @@ function calculate_quart(a4, a3, a2, a1, a0) {
             root4: '0',
             'algorithm-label': "Ferrari's algorithm"
         });
-        return ['0', '0', '0', '0']
+        return ['0', '0', '0', '0'];
     }
     if (-m / 2 - b2 / 2 - r > 0) {
+        first_root = String(Math.sqrt(m / 2) - c + Math.sqrt(-m / 2 - b2 / 2 - r));
+        second_root = String(Math.sqrt(m / 2) - c - Math.sqrt(-m / 2 - b2 / 2 - r));
         set_labels({
-            root1: (Math.sqrt(m / 2) - c + Math.sqrt(-m / 2 - b2 / 2 - r)).toFixed(DECIMAL_PLACES),
-            root2: (Math.sqrt(m / 2) - c - Math.sqrt(-m / 2 - b2 / 2 - r)).toFixed(DECIMAL_PLACES)
+            root1: prettify_root(first_root),
+            root2: prettify_root(second_root)
         });
     } else {
+        first_root =
+            String(Math.sqrt(m / 2) - c) + ' + i' + String(Math.sqrt(-(-m / 2 - b2 / 2 - r)));
+        second_root =
+            String(Math.sqrt(m / 2) - c) + ' - i' + String(Math.sqrt(-(-m / 2 - b2 / 2 - r)));
+
         set_labels({
-            root1:
-                (Math.sqrt(m / 2) - c).toFixed(DECIMAL_PLACES) +
-                ' + i' +
-                Math.sqrt(-(-m / 2 - b2 / 2 - r)).toFixed(DECIMAL_PLACES),
-            root2:
-                (Math.sqrt(m / 2) - c).toFixed(DECIMAL_PLACES) +
-                ' - i' +
-                Math.sqrt(-(-m / 2 - b2 / 2 - r)).toFixed(DECIMAL_PLACES)
+            root1: prettify_root(first_root),
+            root2: prettify_root(second_root)
         });
     }
     if (-m / 2 - b2 / 2 + r > 0) {
+        third_root = String(-Math.sqrt(m / 2) - c + Math.sqrt(-m / 2 - b2 / 2 + r));
+        fourth_root = String(-Math.sqrt(m / 2) - c - Math.sqrt(-m / 2 - b2 / 2 + r));
         set_labels({
-            root3: (-Math.sqrt(m / 2) - c + Math.sqrt(-m / 2 - b2 / 2 + r)).toFixed(DECIMAL_PLACES),
-            root4: (-Math.sqrt(m / 2) - c - Math.sqrt(-m / 2 - b2 / 2 + r)).toFixed(DECIMAL_PLACES)
+            root3: prettify_root(third_root),
+            root4: prettify_root(fourth_root)
         });
     } else {
+        third_root =
+            String(-Math.sqrt(m / 2) - c) + ' + i' + String(Math.sqrt(-(-m / 2 - b2 / 2 + r)));
+        fourth_root =
+            String(-Math.sqrt(m / 2) - c) + ' - i' + String(Math.sqrt(-(-m / 2 - b2 / 2 + r)));
+
         set_labels({
-            root3:
-                (-Math.sqrt(m / 2) - c).toFixed(DECIMAL_PLACES) +
-                ' + i' +
-                Math.sqrt(-(-m / 2 - b2 / 2 + r)).toFixed(DECIMAL_PLACES),
-            root4:
-                (-Math.sqrt(m / 2) - c).toFixed(DECIMAL_PLACES) +
-                ' - i' +
-                Math.sqrt(-(-m / 2 - b2 / 2 + r)).toFixed(DECIMAL_PLACES)
+            root3: prettify_root(third_root),
+            root4: prettify_root(fourth_root)
         });
     }
     document.getElementById('algorithm-label').innerHTML += " + Ferrari's algorithm";
+    return [first_root, second_root, third_root, fourth_root];
 }
 
 function check_and_calculate() {

@@ -24,6 +24,18 @@ function handle_change(dropdown_object) {
     draw_labels(function_map[dropdown_object.value]);
 }
 
+function prettify_root(root) {
+    let numbers = root.match(/-?(\d+)?\.?\d+/g);
+    for (number of numbers) {
+        if (isNaN(parseFloat(number))) {
+            continue;
+        }
+        root = root.replace(number, parseFloat(number).toFixed(DECIMAL_PLACES));
+    }
+    root = root.replace('i-', 'i');
+    return root;
+}
+
 function calculate_linear(b, c) {
     let root1 = document.getElementById('root1');
     root1.innerHTML = String((-c / b).toFixed(DECIMAL_PLACES));
@@ -85,9 +97,9 @@ function calculate_cubic(a3, a2, a1, a0) {
             String((-1 / 2) * (A + B) - p / 3) + ' - i' + String((Math.sqrt(3) / 2) * (A - B));
 
         set_labels({
-            root1: first_root,
-            root2: second_root,
-            root3: third_root,
+            root1: prettify_root(first_root),
+            root2: prettify_root(second_root),
+            root3: prettify_root(third_root),
             'algorithm-label': "Cardano's Algorithm"
         });
         return [first_root, second_root, third_root];
@@ -102,9 +114,9 @@ function calculate_cubic(a3, a2, a1, a0) {
     second_root = String(2 * Math.sqrt(-a / 3) * Math.cos(phi2) - p / 3);
     third_root = String(2 * Math.sqrt(-a / 3) * Math.cos(phi3) - p / 3);
     set_labels({
-        root1: first_root,
-        root2: second_root,
-        root3: third_root,
+        root1: prettify_root(first_root),
+        root2: prettify_root(second_root),
+        root3: prettify_root(third_root),
         'algorithm-label': "Vie&#768te's Algorithm"
     });
     return [first_root, second_root, third_root];

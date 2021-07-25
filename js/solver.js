@@ -22,12 +22,18 @@ function draw_labels(highest_degree) {
 function handle_change(dropdown_object) {
     let function_map = { quad: 2, cubic: 3, quart: 4 };
     draw_labels(function_map[dropdown_object.value]);
+    clear_elements(['algorithm-label']);
 }
 
 function prettify_root(root) {
     let numbers = root.match(/-?(\d+)?\.?\d+/g);
     for (number of numbers) {
         if (isNaN(parseFloat(number))) {
+            continue;
+        }
+        let prettified_number = parseFloat(number).toFixed(DECIMAL_PLACES);
+        if (parseFloat(prettified_number) % 1 === 0) {
+            root = root.replace(number, String(parseInt(number)));
             continue;
         }
         root = root.replace(number, parseFloat(number).toFixed(DECIMAL_PLACES));

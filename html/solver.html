@@ -7,13 +7,14 @@
     <title>Equation solver</title>
 </head>
 
-<body onload="draw_labels(2)">
+<body>
     <div class="container enlarged-container fade text-monospace">
         <div>
             <a href="../index.html" class="nav-button">Home</a>
         </div>
         <div>
             <select class="dropdown" onchange="handle_change(this)">
+                <option value="" selected disabled hidden>Choose an equation type</option>
                 <option value="quad">Quadratic Equation</option>
                 <option value="cubic">Cubic Equation</option>
                 <option value="quart">Quartic Equation</option>

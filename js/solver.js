@@ -20,7 +20,7 @@ function draw_labels(highest_degree) {
 }
 
 function handle_change(dropdown_object) {
-    let function_map = { quad: 2, cubic: 3, quart: 4 };
+    let function_map = { linear: 1, quad: 2, cubic: 3, quart: 4 };
     draw_labels(function_map[dropdown_object.value]);
     clear_elements(['algorithm-label']);
 }
@@ -207,13 +207,30 @@ function calculate_quart(a4, a3, a2, a1, a0) {
     return [first_root, second_root, third_root, fourth_root];
 }
 
-function check_and_calculate() {
-    clear_elements(['solution-label', 'algorithm-label']);
+function set_appropriate_degree(maximum_degree, labels) {
+    let actual_maximum_degree = labels.length;
+    let used_values = [];
+    if (maximum_degree === actual_maximum_degree) {
+        return;
+    }
+    let dropdown = document.getElementById('equation-dropdown');
+    dropdown.selectedIndex = maximum_degree;
+    for (let i = 0; i <= maximum_degree; ++i) {
+        used_values.push(document.getElementById(`box-a${maximum_degree - i}`).value);
+    }
+    draw_labels(maximum_degree);
+    let text_boxes_arr = [].slice.call(document.getElementsByClassName('number-box'));
+    set_text_boxes_values(text_boxes_arr, used_values);
+}
 
+function check_validity_and_fill() {
     let valid_coefficients = false;
     for (let i = 0; i <= 4; ++i) {
         let text_box = document.getElementById(`box-a${i}`);
-        if (text_box && text_box.value.length === 0) {
+        if (!text_box) {
+            break;
+        }
+        if (text_box.value.length === 0 || text_box.value === '0') {
             text_box.value = '0';
             continue;
         }
@@ -222,6 +239,15 @@ function check_and_calculate() {
         }
     }
     if (!valid_coefficients) {
+        return false;
+    }
+    return true;
+}
+
+function check_and_calculate() {
+    clear_elements(['solution-label', 'algorithm-label']);
+
+    if (!check_validity_and_fill()) {
         return;
     }
 
@@ -246,6 +272,6 @@ function check_and_calculate() {
     for (let i = 2; i <= maximum_degree; ++i) {
         equation_arguments.unshift(parseFloat(document.getElementById(`box-a${i}`).value));
     }
-
+    set_appropriate_degree(maximum_degree, document.getElementsByClassName('solution-label'));
     equations[maximum_degree - 1](...equation_arguments);
 }

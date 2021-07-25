@@ -18,3 +18,12 @@ function clear_elements(class_names) {
         }
     }
 }
+
+function set_text_boxes_values(text_boxes_arr, values_arr) {
+    if (text_boxes_arr.length != values_arr.length) {
+        return false;
+    }
+    for (let i = 0; i < text_boxes_arr.length; ++i) {
+        text_boxes_arr[i].value = values_arr[i];
+    }
+}

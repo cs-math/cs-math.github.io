@@ -46,7 +46,10 @@ function filter_number_arr(text_box) {
     });
 
     return number_arr;
+}
 
+function get_arr_sum(number_arr) {
+    return number_arr.reduce((acc, curr) => acc + curr);
 }
 
 function prettify_number(number) {

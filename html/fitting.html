@@ -2,6 +2,7 @@
     <link rel="stylesheet" href="../css/global.css">
     </link>
     <script src="../js/global.js"></script>
+    <script src="../js/fitting.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Curve Fitting</title>
 </head>
@@ -10,6 +11,21 @@
     <div class="container enlarged-container fade text-monospace">
         <div>
             <a href="../index.html" class="nav-button">Home</a>
+        </div>
+        <div class="equation-box">
+            <input id="arr-text-box" placeholder="(x1, y1), (x2, y2), ..." class="text-box">
+            <div class="button-div">
+                <input type="button"
+                    class="main-button"
+                    value="Calculate"
+                    onclick="determine_straight_line()">
+                </input>
+                <input type="button"
+                    class="main-button danger"
+                    value="Clear"
+                    onclick="clear_elements(['text-box', 'solution-label'])">
+                </input>
+            </div>
         </div>
     </div>
 </body>

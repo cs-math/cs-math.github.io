@@ -67,7 +67,7 @@ function calculate_stats() {
     }
 
     let number_elements = number_arr.length;
-    let sum = number_arr.reduce((acc, cur) => acc + cur).toFixed(DECIMAL_PLACES);
+    let sum = get_arr_sum(number_arr).toFixed(DECIMAL_PLACES);
     let minimum_value = number_arr[number_arr.length - 1];
     let maximum_value = number_arr[0];
     let mean = (sum / number_arr.length).toFixed(DECIMAL_PLACES);

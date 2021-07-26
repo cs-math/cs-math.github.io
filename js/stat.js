@@ -33,7 +33,6 @@ function find_outliers(arr, upper_bound, lower_bound) {
     let outliers = [];
     for (element of arr) {
         if (element < upper_bound && element > lower_bound) {
-            console.log('here');
             continue;
         }
         outliers.push(element);
@@ -41,39 +40,24 @@ function find_outliers(arr, upper_bound, lower_bound) {
     return outliers;
 }
 
-function find_variance(arr, mean, population=true) {
+function find_variance(arr, mean, population = true) {
     let denominator = population ? arr.length : arr.length - 1;
     let sum = 0;
     for (element of arr) {
-        sum += Math.pow(element - mean, 2) / denominator
+        sum += Math.pow(element - mean, 2) / denominator;
     }
     return sum;
 }
 
 function calculate_stats() {
     let text_box = document.getElementById('arr-text-box');
-
-    let number_arr = text_box.value.split(' ');
-
-    for (i = 0; i < number_arr.length; i++) {
-        number_arr[i] = parseFloat(
-            number_arr[i]
-                .split('')
-                .filter((char) => char.match(/[0-9]|\.|-/))
-                .join('')
-        );
-    }
-
+    let number_arr = filter_number_arr(text_box);
     let minimum_index =
         ' (x<sub>' + String(number_arr.indexOf(Math.min(...number_arr)) + 1) + '</sub>)';
     let maximum_index =
         ' (x<sub>' + String(number_arr.indexOf(Math.max(...number_arr)) + 1) + '</sub>)';
     number_arr.sort(function (a, b) {
         return b - a;
-    });
-
-    number_arr = number_arr.filter(function (value) {
-        return !Number.isNaN(value);
     });
 
     if (number_arr.length === 0 || number_arr.length === 1) {

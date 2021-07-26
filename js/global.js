@@ -27,3 +27,24 @@ function set_text_boxes_values(text_boxes_arr, values_arr) {
         text_boxes_arr[i].value = values_arr[i];
     }
 }
+
+function filter_number_arr(text_box) {
+    let text_box_value = text_box.value.replaceAll(',', ' ');
+    let number_arr = text_box_value.split(' ');
+
+    for (i = 0; i < number_arr.length; i++) {
+        number_arr[i] = parseFloat(
+            number_arr[i]
+                .split('')
+                .filter((char) => char.match(/[0-9]|\.|-/))
+                .join('')
+        );
+    }
+
+    number_arr = number_arr.filter(function (value) {
+        return !Number.isNaN(value);
+    });
+
+    return number_arr;
+
+}

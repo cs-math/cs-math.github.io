@@ -23,6 +23,7 @@ function handle_change(dropdown_object) {
     let function_map = { linear: 1, quad: 2, cubic: 3, quart: 4 };
     draw_labels(function_map[dropdown_object.value]);
     clear_elements(['algorithm-label']);
+    document.getElementsByClassName('control-buttons')[0].style.display = 'block';
 }
 
 function prettify_root(root) {

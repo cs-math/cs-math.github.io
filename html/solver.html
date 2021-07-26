@@ -14,7 +14,7 @@
         </div>
         <div>
             <select class="dropdown" id="equation-dropdown" onchange="handle_change(this)">
-                <option value="" selected disabled hidden>Choose an equation type</option>
+                <option value="" selected disabled hidden>Choose an equation degree</option>
                 <option value="linear">Linear Equation</option>
                 <option value="quad">Quadratic Equation</option>
                 <option value="cubic">Cubic Equation</option>
@@ -24,7 +24,7 @@
         <div class="equation-box">
             <div class="user-input">
             </div>
-            <div>
+            <div class="control-buttons" style="display: none;">
                 <input type="button" class="main-button" value="Calculate" onclick="check_and_calculate()">
                 <input type="button" class="main-button danger" value="Clear"
                     onclick="clear_elements(['number-box', 'solution-label', 'algorithm-label'])">

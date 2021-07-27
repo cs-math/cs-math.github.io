@@ -142,12 +142,13 @@ function calculate_quart(a4, a3, a2, a1, a0) {
     let m;
     if (cubic_roots[1].includes('i')) {
         m = cubic_roots[0];
+    } else {
+        m = Math.max(
+            parseFloat(cubic_roots[0]),
+            parseFloat(cubic_roots[1]),
+            parseFloat(cubic_roots[2])
+        );
     }
-    m = Math.max(
-        parseFloat(cubic_roots[0]),
-        parseFloat(cubic_roots[1]),
-        parseFloat(cubic_roots[2])
-    );
     m = parseFloat(m) > 0 ? parseFloat(m) : 0;
 
     let sigma = b1 > 0 ? 1 : -1;

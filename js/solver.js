@@ -32,12 +32,7 @@ function prettify_root(root) {
         if (isNaN(parseFloat(number))) {
             continue;
         }
-        let prettified_number = parseFloat(number).toFixed(DECIMAL_PLACES);
-        if (parseFloat(prettified_number) % 1 === 0) {
-            root = root.replace(number, String(parseInt(number)));
-            continue;
-        }
-        root = root.replace(number, parseFloat(number).toFixed(DECIMAL_PLACES));
+        root = root.replace(number, prettify_number(number));
     }
     root = root.replace('i-', 'i');
     return root;

@@ -48,3 +48,12 @@ function filter_number_arr(text_box) {
     return number_arr;
 
 }
+
+function prettify_number(number) {
+    // Takes a string, returns a string
+    let prettified_number = parseFloat(number).toFixed(DECIMAL_PLACES);
+    if (parseFloat(prettified_number) % 1 === 0) {
+        return String(Math.round(prettified_number));
+    }
+    return prettified_number;
+}

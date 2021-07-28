@@ -44,18 +44,25 @@ function determine_straight_line(x_arr, y_arr) {
     let delta = a11 * a22 - a12 * a21;
     if (delta === 0) {
         set_labels({
-            'solution-label': 'Couldn\'t determine the straight line using AVM (could not solve the equations)'
+            'solution-label':
+                "Couldn't determine the straight line using AVM (could not solve the equations)"
         });
         return [];
     }
     let m = (a22 * b1 - a12 * b2) / delta;
     let b = (-a21 * b1 + a11 * b2) / delta;
-    let m_string = String(prettify_number(m));
-    let b_string = String(prettify_number(b));
-    set_labels({
-        'solution-label': `The fittest straight line according to The Averages Method is<br />
-        ${m_string}x + ${b_string}`
-    });
+    let m_string = m === 1 ? '' : String(prettify_number(m));
+    m_string += 'x';
+    let b_string = b === 0 ? '' : String(prettify_number(b));
+    if (b <= 0) {
+        b_string = b_string.replace('-', ' - ');
+    } else {
+        b_string = ' + ' + b_string;
+    }
+        set_labels({
+            'solution-label': `The fittest straight line according to The Averages Method is<br />
+        y = ${m_string} ${b_string}`
+        });
     return [m, b];
 }
 

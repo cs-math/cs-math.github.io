@@ -27,6 +27,7 @@ function determine_straight_line(x_arr, y_arr) {
         b = (-a21 * b1 + a11 * b2) / delta
         Final result: mx + b
     */
+    console.log(x_arr, y_arr);
     let n = x_arr.length;
     let k;
     if (n % 2 == 0) {
@@ -41,6 +42,12 @@ function determine_straight_line(x_arr, y_arr) {
     let b1 = get_arr_sum(y_arr.slice(0, k));
     let b2 = get_arr_sum(y_arr.slice(k));
     let delta = a11 * a22 - a12 * a21;
+    if (delta === 0) {
+        set_labels({
+            'solution-label': 'Couldn\'t determine the straight line using AVM (could not solve the equations)'
+        });
+        return [];
+    }
     let m = (a22 * b1 - a12 * b2) / delta;
     let b = (-a21 * b1 + a11 * b2) / delta;
     let m_string = String(prettify_number(m));
@@ -49,6 +56,7 @@ function determine_straight_line(x_arr, y_arr) {
         'solution-label': `The fittest straight line according to The Averages Method is<br />
         ${m_string}x + ${b_string}`
     });
+    return [m, b];
 }
 
 function choose_fitting_method() {

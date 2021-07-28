@@ -1,18 +1,3 @@
-// Equation: sum(y) = m * sum(x) + b
-// Unknowns: m, b
-/*
-    k = n / 2 or (n-1) / 2
-    a11 = sum of x from 1 to k
-    a12 = k
-    a21 = sum of x from k + 1 to n
-    a22 = n - k
-    b1 = sum of y from 1 to k
-    b2 = sum of y from k + 1 to n
-    delta = a11 * a22 - a12 * a21
-    m = (a22 * b1 - a12 * b2) / delta
-    b = (-a21 * b1 + a11 * b2) / delta
-    Final result: mx + b
-*/
 function separate_xy_coordinates(number_arr) {
     let x_arr = [];
     let y_arr = [];
@@ -27,6 +12,21 @@ function separate_xy_coordinates(number_arr) {
 }
 
 function determine_straight_line(x_arr, y_arr) {
+    // Equation: sum(y) = m * sum(x) + b
+    // Unknowns: m, b
+    /*
+        k = n / 2 or (n-1) / 2
+        a11 = sum of x from 1 to k
+        a12 = k
+        a21 = sum of x from k + 1 to n
+        a22 = n - k
+        b1 = sum of y from 1 to k
+        b2 = sum of y from k + 1 to n
+        delta = a11 * a22 - a12 * a21
+        m = (a22 * b1 - a12 * b2) / delta
+        b = (-a21 * b1 + a11 * b2) / delta
+        Final result: mx + b
+    */
     let n = x_arr.length;
     let k;
     if (n % 2 == 0) {

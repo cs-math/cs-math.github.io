@@ -26,12 +26,7 @@ function separate_xy_coordinates(number_arr) {
     return [x_arr, y_arr];
 }
 
-function determine_straight_line() {
-    let number_arr = filter_number_arr(document.getElementById('arr-text-box'));
-    let xy_arr = separate_xy_coordinates(number_arr);
-    let x_arr = xy_arr[0];
-    let y_arr = xy_arr[1];
-    console.log(x_arr, y_arr);
+function determine_straight_line(x_arr, y_arr) {
     let n = x_arr.length;
     let k;
     if (n % 2 == 0) {
@@ -39,15 +34,25 @@ function determine_straight_line() {
     } else {
         k = (n - 1) / 2;
     }
-    console.log(k);
-    let a11 = get_arr_sum(x_arr.slice(0, k + 1));
+    let a11 = get_arr_sum(x_arr.slice(0, k));
     let a12 = k;
-    let a21 = get_arr_sum(x_arr.slice(k + 1));
+    let a21 = get_arr_sum(x_arr.slice(k));
     let a22 = n - k;
-    let b1 = get_arr_sum(y_arr.slice(0, k + 1));
-    let b2 = get_arr_sum(y_arr.slice(k + 1));
+    let b1 = get_arr_sum(y_arr.slice(0, k));
+    let b2 = get_arr_sum(y_arr.slice(k));
     let delta = a11 * a22 - a12 * a21;
     let m = (a22 * b1 - a12 * b2) / delta;
     let b = (-a21 * b1 + a11 * b2) / delta;
-    console.log(m, b);
+    let m_string = String(prettify_number(m));
+    let b_string = String(prettify_number(b));
+    set_labels({
+        'solution-label': `The fittest straight line according to The Averages Method is<br />
+        ${m_string}x + ${b_string}`
+    });
+}
+
+function choose_fitting_method() {
+    let number_arr = filter_number_arr(document.getElementById('arr-text-box'));
+    let xy_arr = separate_xy_coordinates(number_arr);
+    determine_straight_line(xy_arr[0], xy_arr[1]);
 }

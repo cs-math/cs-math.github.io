@@ -1,13 +1,14 @@
 <head>
     <link rel="stylesheet" href="../css/global.css">
     </link>
+    <script src="../scripts/chart.js"></script>
     <script src="../js/global.js"></script>
     <script src="../js/fitting.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Curve Fitting</title>
 </head>
 
-<body>
+<body onload="set_defaults()">
     <div class="container enlarged-container fade text-monospace">
         <div>
             <a href="../index.html" class="nav-button">Home</a>
@@ -23,11 +24,14 @@
                 <input type="button"
                     class="main-button danger"
                     value="Clear"
-                    onclick="clear_elements(['text-box', 'solution-label'])">
+                    onclick="clear_graph_elements()">
                 </input>
             </div>
             <div class="solution-box">
                 <label class="solution-label" id="equation-label"></label>
+            </div>
+            <div class="graph-box">
+                <canvas id="graph"></canvas>
             </div>
         </div>
     </div>

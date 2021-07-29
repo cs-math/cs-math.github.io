@@ -1,3 +1,16 @@
+let chart = null;
+
+function set_defaults() {
+    Chart.defaults.color = '#bbbbbb';
+}
+
+function clear_graph_elements() {
+    if (chart) {
+        chart.destroy();
+    }
+    clear_elements(['text-box', 'solution-label']);
+}
+
 function separate_xy_coordinates(number_arr) {
     let x_arr = [];
     let y_arr = [];
@@ -9,6 +22,71 @@ function separate_xy_coordinates(number_arr) {
         y_arr.push(number_arr[i]);
     }
     return [x_arr, y_arr];
+}
+
+function draw_line_graph(x_arr, y_arr, m, b) {
+    if (chart) {
+        chart.destroy();
+    }
+    if (x_arr.length !== y_arr.length) {
+        return;
+    }
+
+    let points_data = [];
+
+    for (let i = 0; i < x_arr.length; ++i) {
+        points_data.push({ x: x_arr[i], y: y_arr[i] });
+    }
+    let minimum_x = Math.min(...x_arr) - 1;
+    let maximum_x = Math.max(...x_arr) + 1;
+    let line_data = [
+        {
+            x: minimum_x,
+            y: m * minimum_x + b
+        },
+        {
+            x: maximum_x,
+            y: m * maximum_x + b
+        }
+    ];
+    const data = {
+        datasets: [
+            {
+                label: 'Input points',
+                data: points_data,
+                backgroundColor: 'rgba(106, 179, 186, 1)',
+                borderColor: 'rgba(106, 179, 186, 1)'
+            },
+            {
+                label: 'Fittest straight line',
+                data: line_data,
+                showLine: true,
+                backgroundColor: 'rgba(187, 187, 187, 0.3)',
+                borderColor: 'rgba(187, 187, 187, 0.5)'
+            }
+        ]
+    };
+    const config = {
+        type: 'scatter',
+        data,
+        options: {
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    grid: {
+                        color: 'rgba(187, 187, 187, 0.3)'
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'rgba(187, 187, 187, 0.3)'
+                    }
+                }
+            }
+        }
+    };
+    chart = new Chart(document.getElementById('graph'), config);
 }
 
 function determine_straight_line(x_arr, y_arr) {
@@ -51,7 +129,7 @@ function determine_straight_line(x_arr, y_arr) {
     let m = (a22 * b1 - a12 * b2) / delta;
     let b = (-a21 * b1 + a11 * b2) / delta;
     let m_string = m === 1 ? '' : String(prettify_number(m));
-    m_string += 'x';
+    m_string += m === 0 ? '' : 'x';
     let b_string = b === 0 ? '' : String(prettify_number(b));
     if (b <= 0) {
         b_string = b_string.replace('-', ' - ');
@@ -62,6 +140,7 @@ function determine_straight_line(x_arr, y_arr) {
         'equation-label': `The fittest straight line according to The Averages Method is<br />
         y = ${m_string} ${b_string}`
     });
+    draw_line_graph(x_arr, y_arr, m, b);
     return [m, b];
 }
 

@@ -27,12 +27,6 @@ function determine_straight_line(x_arr, y_arr) {
         b = (-a21 * b1 + a11 * b2) / delta
         Final result: mx + b
     */
-    if (x_arr.length !== y_arr.length) {
-        return set_labels({
-            'equation-label':
-                'The number of x-coordinates does not match the number of y coordinates'
-        });
-    }
     let n = x_arr.length;
     let k;
     if (n % 2 == 0) {
@@ -74,5 +68,13 @@ function determine_straight_line(x_arr, y_arr) {
 function choose_fitting_method() {
     let number_arr = filter_number_arr(document.getElementById('arr-text-box'));
     let xy_arr = separate_xy_coordinates(number_arr);
-    determine_straight_line(xy_arr[0], xy_arr[1]);
+    let x_arr = xy_arr[0];
+    let y_arr = xy_arr[1];
+    if (x_arr.length !== y_arr.length) {
+        return set_labels({
+            'equation-label':
+                'The number of x-coordinates does not match the number of y-coordinates'
+        });
+    }
+    determine_straight_line(x_arr, y_arr);
 }

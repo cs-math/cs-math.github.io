@@ -24,7 +24,7 @@ function find_mode(arr) {
 function find_median(arr) {
     let len = arr.length;
     if (len % 2 == 0) {
-        return ((arr[len / 2 - 1] + arr[len / 2]) / 2).toFixed(DECIMAL_PLACES);
+        return prettify_number((arr[len / 2 - 1] + arr[len / 2]) / 2);
     }
     return arr[(len + 1) / 2 - 1];
 }
@@ -67,10 +67,10 @@ function calculate_stats() {
     }
 
     let number_elements = number_arr.length;
-    let sum = get_arr_sum(number_arr).toFixed(DECIMAL_PLACES);
+    let sum = prettify_number(get_arr_sum(number_arr));
     let minimum_value = number_arr[number_arr.length - 1];
     let maximum_value = number_arr[0];
-    let mean = (sum / number_arr.length).toFixed(DECIMAL_PLACES);
+    let mean = prettify_number(sum / number_arr.length);
     let mode = find_mode(number_arr);
     mode = mode.length == 0 ? 'none' : mode.join(', ');
     // For the first and third quartiles
@@ -86,8 +86,8 @@ function calculate_stats() {
     let lower_bound = parseFloat(first_quartile) - 1.5 * iqr;
     let outliers = find_outliers(number_arr, upper_bound, lower_bound);
     outliers = outliers.length === 0 ? 'none' : outliers.join(', ');
-    let population_variance = find_variance(number_arr, mean).toFixed(DECIMAL_PLACES);
-    let sample_variance = find_variance(number_arr, mean, false).toFixed(DECIMAL_PLACES);
+    let population_variance = prettify_number(find_variance(number_arr, mean));
+    let sample_variance = prettify_number(find_variance(number_arr, mean, false));
 
     set_labels({
         array: number_arr.join(', '),
@@ -107,7 +107,7 @@ function calculate_stats() {
         outliers,
         'population-variance': population_variance,
         'sample-variance': sample_variance,
-        'population-sd': Math.sqrt(population_variance).toFixed(DECIMAL_PLACES),
-        'sample-sd': Math.sqrt(sample_variance).toFixed(DECIMAL_PLACES)
+        'population-sd': prettify_number(Math.sqrt(population_variance)),
+        'sample-sd': prettify_number(Math.sqrt(sample_variance))
     });
 }

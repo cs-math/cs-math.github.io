@@ -37,16 +37,20 @@ function draw_line_graph(x_arr, y_arr, m, b) {
     for (let i = 0; i < x_arr.length; ++i) {
         points_data.push({ x: x_arr[i], y: y_arr[i] });
     }
-    let minimum_x = Math.min(...x_arr) - 1;
-    let maximum_x = Math.max(...x_arr) + 1;
+    let minimum_x = Math.min(...x_arr);
+    let maximum_x = Math.max(...x_arr);
+    let minimum_y = Math.min(...y_arr);
+    let maximum_y = Math.max(...y_arr);
+    let absolute_maximum_x = Math.max(Math.abs(minimum_x), Math.abs(maximum_x))
+    let absolute_maximum_y = Math.max(Math.abs(minimum_y), Math.abs(maximum_y))
     let line_data = [
         {
-            x: minimum_x,
-            y: m * minimum_x + b
+            x: -absolute_maximum_x - 2,
+            y: m * (-absolute_maximum_x - 2) + b
         },
         {
-            x: maximum_x,
-            y: m * maximum_x + b
+            x: absolute_maximum_x + 2,
+            y: m * (absolute_maximum_x + 2) + b
         }
     ];
     const data = {
@@ -73,12 +77,17 @@ function draw_line_graph(x_arr, y_arr, m, b) {
             scales: {
                 x: {
                     type: 'linear',
-                    position: 'bottom',
+                    position: 'center',
+                    min: -absolute_maximum_x - 1,
+                    max: absolute_maximum_x + 1,
                     grid: {
                         color: 'rgba(187, 187, 187, 0.3)'
                     }
                 },
                 y: {
+                    min: -absolute_maximum_y - 1,
+                    max: absolute_maximum_y + 1,
+                    position: 'center',
                     grid: {
                         color: 'rgba(187, 187, 187, 0.3)'
                     }

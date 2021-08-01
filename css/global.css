@@ -17,6 +17,12 @@ a:hover
     color: rgb(154, 181, 208, .7)
 }
 
+h5
+{
+    margin-top: 25px;
+    margin-bottom: 2px;
+}
+
 .container
 {
     color: #bbbbbb;
@@ -49,6 +55,12 @@ a:hover
 {
     font-family: "Courier New";
     font-size: 25pt;
+}
+
+.instructions
+{
+    font: inherit;
+    font-size: 50%;
 }
 
 .dropdown

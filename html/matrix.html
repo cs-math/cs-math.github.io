@@ -1,0 +1,30 @@
+<head>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/matrix.css">
+    </link>
+    <script src="../js/global.js"></script>
+    <script src="../js/matrix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Linear Algebra</title>
+</head>
+
+<body onload="set_initial_matrices()">
+    <div class="container enlarged-container fade text-monospace">
+        <div>
+            <a href="../index.html" class="nav-button">Home</a>
+        </div>
+        <div class="equation-box">
+        </div>
+        <div class="control-buttons">
+            <input type="button"
+                class="main-button"
+                value="Calculate"
+                onclick="get_matrices_info()">
+            </input>
+            <input type="button"
+                class="main-button danger"
+                value="Clear"
+                onclick="clear_elements(['matrix-area'])">
+            </input>
+        </div>
+</body>

@@ -29,8 +29,17 @@ function set_text_boxes_values(text_boxes_arr, values_arr) {
 }
 
 function filter_number_arr(text_box) {
-    let text_box_value = text_box.value.replaceAll(',', ' ');
-    let number_arr = text_box_value.split(' ');
+    let number_arr = [];
+    let text_box_value = '';
+    if (typeof text_box === 'object') {
+        text_box.value.replaceAll(',', ' ');
+        text_box_value = text_box.value.replaceAll(',', ' ');
+    } else if (typeof text_box === 'string') {
+        text_box_value = text_box.replaceAll(',', ' ');
+    } else {
+        return;
+    }
+    number_arr = text_box_value.split(' ');
 
     for (i = 0; i < number_arr.length; i++) {
         number_arr[i] = parseFloat(

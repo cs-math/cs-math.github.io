@@ -155,7 +155,6 @@ function calculate_quart(a4, a3, a2, a1, a0) {
     let under_sqrt = parseFloat((m * m + b2 * m + (b2 * b2) / 4 - b0).toFixed(12));
     let r = sigma * Math.sqrt(under_sqrt);
     if (Number.isNaN(r)) {
-        console.log('r is NaN');
         set_labels({
             root1: '0',
             root2: '0',

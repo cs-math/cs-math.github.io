@@ -1,0 +1,15 @@
+.matrix-area
+{
+    width: 20%;
+    height: 20%;
+    font: inherit;
+    resize: none;
+    font-size: 75%;
+    white-space: nowrap;
+    overflow-y: auto;
+}
+
+.control-buttons
+{
+    margin-top: 2%;
+}

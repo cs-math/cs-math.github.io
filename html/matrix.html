@@ -16,15 +16,35 @@
         <div class="equation-box">
         </div>
         <div class="control-buttons">
-            <input type="button"
-                class="main-button"
-                value="Calculate"
-                onclick="get_matrices_info()">
+            <input type="button" class="main-button" value="Calculate" onclick="get_matrices_info()">
             </input>
-            <input type="button"
-                class="main-button danger"
-                value="Clear"
-                onclick="clear_elements(['matrix-area'])">
+            <input type="button" class="main-button danger" value="Clear"
+                onclick="clear_matrix_elements()">
             </input>
+        </div>
+        <div class="solution-box">
+            <label class="validation-label" id="validation"></label>
+            <h5>Properties</h5>
+            <div>
+                <label>Order: </label>
+                <label class="solution-label" id="order"></label>
+            </div>
+            <div>
+                <label>Symmetry: </label>
+                <label class="solution-label" id="symmetry"></label>
+            </div>
+            <div>
+                <label>Shape: </label>
+                <label class="solution-label" id="shape"></label>
+            </div>
+            <h5>Operations</h5>
+            <div>
+                <label>Sum: </label>
+                <label class="solution-label" id="shape"></label>
+            </div>
+            <div>
+                <label>Difference: </label>
+                <label class="solution-label" id="shape"></label>
+            </div>
         </div>
 </body>

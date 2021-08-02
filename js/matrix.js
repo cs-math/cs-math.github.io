@@ -21,6 +21,22 @@ function draw_matrix_area() {
     ++next_matrix_number;
 }
 
+function get_output_matrix_html(matrix) {
+    let matrix_order = get_order(matrix);
+    let rows = matrix_order[0];
+    let columns = matrix_order[1];
+    let html = '<table align="center">';
+    for (let r = 0; r < rows; ++r) {
+        html += '<tr>\n';
+        for (let c = 0; c < columns; ++c) {
+            html += `<td>${matrix[r][c]}</td>`;
+        }
+        html += '\n</tr>\n';
+    }
+    html += '</table>';
+    return html;
+}
+
 function matrix_area_to_2d(matrix_area) {
     let one_dimension = matrix_area.value.split('\n');
     let two_dimensions = [];
@@ -93,26 +109,35 @@ function are_matrices_equal(matrix_arr) {
     return true;
 }
 
-function get_matrices_properties() {
-    /*
-    Symmetry: a11 = a11, a12 = a21, a13 = a31, etc.
-    */
+function massage_matrices() {
     clear_elements(['solution-label', 'validation']);
     let matrices_areas = document.getElementsByClassName('matrix-area');
     let matrices = [];
     for (let i = 0; i < matrices_areas.length; ++i) {
         let matrix = matrix_area_to_2d(matrices_areas[i]);
-        if (matrix.length === 0 || matrix[0].length === 0 && matrix.length === 1) {
+        if (matrix.length === 0 || (matrix[0].length === 0 && matrix.length === 1)) {
             continue;
         }
         if (!validate_matrix(matrix)) {
-            return set_labels({
+            set_labels({
                 validation: `The numbers of elements in each column do not match in matrix #${
                     i + 1
                 }`
             });
+            return [];
         }
         matrices.push(matrix);
+    }
+    return matrices;
+}
+
+function get_matrices_properties() {
+    let matrices = massage_matrices();
+    if (matrices.length === 0) {
+        return;
+    }
+    for (i = 0; i < matrices.length; ++i) {
+        let matrix = matrices[i];
         let is_square = matrix[0].length === matrix.length;
         let is_symmetric = is_square && is_symmetric_matrix(matrix);
         let is_skew_symmetric = is_square && is_skew_symmetric_matrix(matrix);
@@ -139,4 +164,17 @@ function get_matrices_properties() {
     add_to_labels({
         equality
     });
+}
+
+function do_matrices_operations() {
+    let matrices = massage_matrices();
+    if (matrices.length === 0) {
+        return;
+    }
+    for (let i = 0; i < matrices.length; ++i) {
+        let matrix = matrices[i];
+        set_labels({
+            sum: get_output_matrix_html(matrix)
+        });
+    }
 }

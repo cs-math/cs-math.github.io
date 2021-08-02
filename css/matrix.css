@@ -1,7 +1,6 @@
 .matrix-area
 {
-    width: 20%;
-    height: 20%;
+    height: 150px;
     font: inherit;
     resize: none;
     font-size: 75%;
@@ -12,4 +11,17 @@
 .control-buttons
 {
     margin-top: 2%;
+}
+
+.matrix-div
+{
+    margin: 2%;
+}
+
+table
+{
+    border-spacing: 25px;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-radius: 12px;
 }

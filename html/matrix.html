@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/matrix.css">
@@ -18,7 +19,7 @@
         <div class="control-buttons">
             <input type="button" class="main-button" value="Properties" onclick="get_matrices_properties()">
             </input>
-            <input type="button" class="main-button" value="Operations" onclick="get_matrices_properties()">
+            <input type="button" class="main-button" value="Operations" onclick="do_matrices_operations()">
             </input>
             <input type="button" class="main-button danger" value="Clear"
                 onclick="clear_matrix_elements()">
@@ -46,11 +47,11 @@
             <h5>Operations</h5>
             <div>
                 <label>Sum: </label>
-                <label class="solution-label" id="shape"></label>
+                <div class="solution-label matrix-div" id="sum"></div>
             </div>
             <div>
                 <label>Difference: </label>
-                <label class="solution-label" id="shape"></label>
+                <div class="solution-label matrix-div" id="difference"></div>
             </div>
         </div>
 </body>

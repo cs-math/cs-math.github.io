@@ -16,7 +16,9 @@
         <div class="equation-box">
         </div>
         <div class="control-buttons">
-            <input type="button" class="main-button" value="Calculate" onclick="get_matrices_info()">
+            <input type="button" class="main-button" value="Properties" onclick="get_matrices_properties()">
+            </input>
+            <input type="button" class="main-button" value="Operations" onclick="get_matrices_properties()">
             </input>
             <input type="button" class="main-button danger" value="Clear"
                 onclick="clear_matrix_elements()">
@@ -34,8 +36,12 @@
                 <label class="solution-label" id="symmetry"></label>
             </div>
             <div>
-                <label>Shape: </label>
+                <label>Type: </label>
                 <label class="solution-label" id="shape"></label>
+            </div>
+            <div>
+                <label>Equality: </label>
+                <label class="solution-label" id="equality"></label>
             </div>
             <h5>Operations</h5>
             <div>

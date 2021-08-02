@@ -1,7 +1,7 @@
 let next_matrix_number = 1;
 
 function clear_matrix_elements() {
-    clear_elements(['matrix-area', 'solution-label']);
+    clear_elements(['matrix-area', 'solution-label', 'validation']);
 }
 
 function set_initial_matrices() {
@@ -25,7 +25,11 @@ function matrix_area_to_2d(matrix_area) {
     let one_dimension = matrix_area.value.split('\n');
     let two_dimensions = [];
     for (let element of one_dimension) {
-        two_dimensions.push(filter_number_arr(element));
+        let final_array = filter_number_arr(element);
+        if (final_array.length === 0) {
+            continue;
+        }
+        two_dimensions.push(final_array);
     }
     return two_dimensions;
 }
@@ -52,15 +56,53 @@ function is_symmetric_matrix(matrix) {
     return true;
 }
 
-function get_matrices_info() {
+function is_skew_symmetric_matrix(matrix) {
+    for (let i = 0; i < matrix.length; ++i) {
+        for (let j = 0; j < matrix.length; ++j) {
+            if ((i === j && j === 0) || matrix[i][j] === -matrix[j][i]) {
+                continue;
+            }
+            return false;
+        }
+    }
+    return true;
+}
+
+function get_order(matrix) {
+    return [matrix.length, matrix[0].length];
+}
+
+function are_matrices_equal(matrix_arr) {
+    if (matrix_arr.length < 2) {
+        return false;
+    }
+    for (let i = 0, j = 1; j < matrix_arr.length; ++i, ++j) {
+        let first_order = get_order(matrix_arr[i]);
+        let second_order = get_order(matrix_arr[j]);
+        if (first_order[0] != second_order[0] || first_order[1] != second_order[1]) {
+            return false;
+        }
+        for (let row = 0; row < first_order[0]; ++row) {
+            for (let column = 0; column < first_order[1]; ++column) {
+                if (matrix_arr[i][row][column] != matrix_arr[j][row][column]) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+function get_matrices_properties() {
     /*
     Symmetry: a11 = a11, a12 = a21, a13 = a31, etc.
     */
-    clear_elements(['solution-label']);
+    clear_elements(['solution-label', 'validation']);
     let matrices_areas = document.getElementsByClassName('matrix-area');
+    let matrices = [];
     for (let i = 0; i < matrices_areas.length; ++i) {
         let matrix = matrix_area_to_2d(matrices_areas[i]);
-        if (matrix[0].length === 0 && matrix.length === 1) {
+        if (matrix.length === 0 || matrix[0].length === 0 && matrix.length === 1) {
             continue;
         }
         if (!validate_matrix(matrix)) {
@@ -70,8 +112,16 @@ function get_matrices_info() {
                 }`
             });
         }
+        matrices.push(matrix);
         let is_square = matrix[0].length === matrix.length;
-        let is_symmetric = is_square ? is_symmetric_matrix(matrix) : false;
+        let is_symmetric = is_square && is_symmetric_matrix(matrix);
+        let is_skew_symmetric = is_square && is_skew_symmetric_matrix(matrix);
+        let symmetry = 'Asymmetric';
+        if (is_symmetric) {
+            symmetry = 'Symmetric';
+        } else if (is_skew_symmetric) {
+            symmetry = 'Skew-Symmetric';
+        }
         if (i !== 0) {
             add_to_labels({
                 shape: ', ',
@@ -81,8 +131,12 @@ function get_matrices_info() {
         }
         add_to_labels({
             shape: is_square ? 'Square' : 'Rectangular',
-            symmetry: is_symmetric ? 'Symmetric' : 'Asymmetric',
-            order: matrix[0].length + ' x ' + matrix.length
+            symmetry,
+            order: get_order(matrix).join(' x ')
         });
     }
+    let equality = are_matrices_equal(matrices) ? 'Yes' : 'No';
+    add_to_labels({
+        equality
+    });
 }

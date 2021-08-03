@@ -109,6 +109,33 @@ function are_matrices_equal(matrix_arr) {
     return true;
 }
 
+function get_matrices_sum_or_difference(matrix_arr, should_sum = true) {
+    let sum_2d = null;
+    if (matrix_arr.length < 2) {
+        return [];
+    }
+    let order = get_order(matrix_arr[0]);
+    let first_order = order[0];
+    let second_order = order[1];
+    for (let matrix of matrix_arr) {
+        let matrix_order = get_order(matrix);
+        if (matrix_order[0] != first_order || matrix_order[1] != second_order) {
+            return [];
+        }
+        if (!sum_2d) {
+            sum_2d = JSON.parse(JSON.stringify(matrix));
+            continue;
+        }
+        for (let r = 0; r < matrix.length; ++r) {
+            for (let c = 0; c < matrix.length; ++c) {
+                let addition_factor = should_sum ? 1 : -1;
+                sum_2d[r][c] += addition_factor * matrix[r][c];
+            }
+        }
+    }
+    return sum_2d;
+}
+
 function massage_matrices() {
     clear_elements(['solution-label', 'validation']);
     let matrices_areas = document.getElementsByClassName('matrix-area');
@@ -171,10 +198,16 @@ function do_matrices_operations() {
     if (matrices.length === 0) {
         return;
     }
-    for (let i = 0; i < matrices.length; ++i) {
-        let matrix = matrices[i];
-        set_labels({
-            sum: get_output_matrix_html(matrix)
-        });
-    }
+    let sum_matrix = get_matrices_sum_or_difference(matrices);
+    let difference_matrix = get_matrices_sum_or_difference(matrices, false);
+    set_labels({
+        sum:
+            sum_matrix.length === 0
+                ? 'The matrices are not of the same order'
+                : get_output_matrix_html(sum_matrix),
+        difference:
+            sum_matrix.length === 0
+                ? 'The matrices are not of the same order'
+                : get_output_matrix_html(difference_matrix)
+    });
 }

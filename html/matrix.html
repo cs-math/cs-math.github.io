@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <head>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/matrix.css">
@@ -17,12 +18,18 @@
         <div class="equation-box">
         </div>
         <div class="control-buttons">
+            <input type="button" class="main-button" value="Add a matrix" onclick="draw_matrix_area()">
+            <input type="button" class="main-button" id="remove-button"
+            value="Remove a matrix"
+            disabled="true"
+            onclick="remove_matrix_area()">
+        </div>
+        <div class="control-buttons">
             <input type="button" class="main-button" value="Properties" onclick="get_matrices_properties()">
             </input>
             <input type="button" class="main-button" value="Operations" onclick="do_matrices_operations()">
             </input>
-            <input type="button" class="main-button danger" value="Clear"
-                onclick="clear_matrix_elements()">
+            <input type="button" class="main-button danger" value="Clear" onclick="clear_matrix_elements()">
             </input>
         </div>
         <div class="solution-box">

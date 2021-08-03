@@ -105,7 +105,7 @@ h5
     transition: all 0.1s;
 }
 
-.main-button:hover {
+.main-button:hover:enabled {
     background: rgba(106, 179, 186, 0.7);
 }
 

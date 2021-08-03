@@ -11,7 +11,8 @@ function set_initial_matrices() {
 
 function draw_matrix_area() {
     let main_div = document.getElementsByClassName('equation-box')[0];
-    let matrix_div = document.createElement('div', { class: 'matrix' });
+    let matrix_div = document.createElement('div');
+    matrix_div.className = 'matrix';
     let matrix_value = next_matrix_number === 1 ? '1   2  3\n4   5  6\n0.5 2 -0.25' : '';
     matrix_div.innerHTML = `<h5>Matrix ${String(next_matrix_number)}</h5>
         <textarea class="matrix-area" id="matrix${String(
@@ -19,6 +20,17 @@ function draw_matrix_area() {
         )}">${matrix_value}</textarea>`;
     main_div.appendChild(matrix_div);
     ++next_matrix_number;
+    if (next_matrix_number > 3) {
+        document.getElementById('remove-button').disabled = false;
+    }
+}
+
+function remove_matrix_area() {
+    document.getElementsByClassName('matrix')[next_matrix_number - 2].remove();
+    --next_matrix_number;
+    if (next_matrix_number <= 3) {
+        document.getElementById('remove-button').disabled = true;
+    }
 }
 
 function get_output_matrix_html(matrix) {

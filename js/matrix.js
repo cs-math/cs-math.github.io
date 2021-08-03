@@ -136,7 +136,6 @@ function get_matrices_sum_or_difference(matrix_arr, should_sum = true) {
         }
         if (!sum_2d) {
             sum_2d = JSON.parse(JSON.stringify(matrix));
-            console.log(sum_2d);
             continue;
         }
         for (let r = 0; r < matrix.length; ++r) {

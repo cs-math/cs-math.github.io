@@ -136,10 +136,11 @@ function get_matrices_sum_or_difference(matrix_arr, should_sum = true) {
         }
         if (!sum_2d) {
             sum_2d = JSON.parse(JSON.stringify(matrix));
+            console.log(sum_2d);
             continue;
         }
         for (let r = 0; r < matrix.length; ++r) {
-            for (let c = 0; c < matrix.length; ++c) {
+            for (let c = 0; c < matrix[0].length; ++c) {
                 let addition_factor = should_sum ? 1 : -1;
                 sum_2d[r][c] += addition_factor * matrix[r][c];
             }

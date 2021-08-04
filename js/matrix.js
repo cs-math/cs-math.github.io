@@ -13,7 +13,7 @@ function draw_matrix_area() {
     let main_div = document.getElementsByClassName('equation-box')[0];
     let matrix_div = document.createElement('div');
     matrix_div.className = 'matrix';
-    let matrix_value = next_matrix_number === 1 ? '1   2  3\n4   5  6\n0.5 2 -0.25' : '';
+    let matrix_value = next_matrix_number === 1 ? '1   2  3\n4   5  6\n0.5 2  -0.25' : '';
     matrix_div.innerHTML = `<h5>Matrix ${String(next_matrix_number)}</h5>
         <textarea class="matrix-area" id="matrix${String(
             next_matrix_number
@@ -41,12 +41,32 @@ function get_output_matrix_html(matrix) {
     for (let r = 0; r < rows; ++r) {
         html += '<tr>\n';
         for (let c = 0; c < columns; ++c) {
-            html += `<td>${matrix[r][c]}</td>`;
+            html += `<td>${prettify_number(matrix[r][c])}</td>`;
         }
         html += '\n</tr>\n';
     }
     html += '</table>';
     return html;
+}
+
+function put_matrix_in_area(matrix, area_id) {
+    let max_length = 0;
+    let matrix_string = '';
+    for (let row of matrix) {
+        let maximum_element = Math.max(...row.map((x) => String(x).length));
+        if (maximum_element > max_length) {
+            max_length = maximum_element;
+        }
+    }
+    for (let row of matrix) {
+        for (let element of row) {
+            matrix_string += String(element) + ' '.repeat(max_length - String(element).length);
+        }
+        matrix_string += '\n'
+    }
+    set_labels({
+        [area_id]: matrix_string
+    });
 }
 
 function matrix_area_to_2d(matrix_area) {
@@ -146,6 +166,18 @@ function get_matrices_sum_or_difference(matrix_arr, should_sum = true) {
         }
     }
     return sum_2d;
+}
+
+function get_matrix_negative(matrix) {
+    if (matrix.length === 0) {
+        return;
+    }
+    for (let r = 0; r < matrix.length; ++r) {
+        for (let c = 0; c < matrix[0].length; ++c) {
+            matrix[r][c] *= -1;
+        }
+    }
+    return matrix;
 }
 
 function massage_matrices() {

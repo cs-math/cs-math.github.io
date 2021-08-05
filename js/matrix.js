@@ -13,12 +13,14 @@ function draw_matrix_area() {
     let main_div = document.getElementsByClassName('equation-box')[0];
     let matrix_div = document.createElement('div');
     matrix_div.className = 'matrix';
-    let matrix_value = next_matrix_number === 1 ? '1   2  3\n4   5  6\n0.5 2  -0.25' : '';
     matrix_div.innerHTML = `<h5>Matrix ${String(next_matrix_number)}</h5>
-        <textarea class="matrix-area" id="matrix${String(
-            next_matrix_number
-        )}">${matrix_value}</textarea>`;
+        <textarea class="matrix-area" id="matrix${String(next_matrix_number)}"></textarea><div>
+        <input type="button" class="main-button secondary-button"
+        onclick="set_matrix_negative(${next_matrix_number})" value="Negative"></input></div>`;
     main_div.appendChild(matrix_div);
+    if (next_matrix_number === 1) {
+        put_matrix_in_area([[1, 2, 3], [0.5, -1.5, 6], [7, 8, 9]], 'matrix1');
+    }
     ++next_matrix_number;
     if (next_matrix_number > 3) {
         document.getElementById('remove-button').disabled = false;
@@ -31,6 +33,16 @@ function remove_matrix_area() {
     if (next_matrix_number <= 3) {
         document.getElementById('remove-button').disabled = true;
     }
+}
+
+function set_matrix_negative(matrix_number) {
+    let matrix_area = document.getElementById(`matrix${matrix_number}`);
+    let matrix = matrix_area_to_2d(matrix_area);
+    if (!validate_matrix(matrix)) {
+        return;
+    }
+    let negative_matrix = get_matrix_negative(matrix);
+    put_matrix_in_area(negative_matrix, `matrix${matrix_number}`);
 }
 
 function get_output_matrix_html(matrix) {
@@ -52,21 +64,40 @@ function get_output_matrix_html(matrix) {
 function put_matrix_in_area(matrix, area_id) {
     let max_length = 0;
     let matrix_string = '';
-    for (let row of matrix) {
-        let maximum_element = Math.max(...row.map((x) => String(x).length));
+    for (let r = 0; r < matrix.length; ++r) {
+        let maximum_element = 0;
+        for (let c = 0; c < matrix[r].length - 1; ++c) {
+            let element_length = String(matrix[r][c]).length;
+            if (element_length < maximum_element) {
+                continue
+            }
+            maximum_element = element_length;
+        }
         if (maximum_element > max_length) {
             max_length = maximum_element;
         }
     }
+    ++max_length;
     for (let row of matrix) {
-        for (let element of row) {
-            matrix_string += String(element) + ' '.repeat(max_length - String(element).length);
+        for (let e = 0; e < row.length; ++e) {
+            let repeat_number = e === row.length - 1 ? 0 : max_length - String(row[e]).length;
+            matrix_string += String(row[e]) + ' '.repeat(repeat_number);
         }
-        matrix_string += '\n'
+        matrix_string += '\n';
     }
-    set_labels({
+    set_elements_value({
         [area_id]: matrix_string
     });
+}
+
+function validate_matrix(matrix) {
+    let first_row_length = matrix[0].length;
+    for (let row of matrix) {
+        if (row.length !== first_row_length) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function matrix_area_to_2d(matrix_area) {
@@ -80,16 +111,6 @@ function matrix_area_to_2d(matrix_area) {
         two_dimensions.push(final_array);
     }
     return two_dimensions;
-}
-
-function validate_matrix(matrix) {
-    let first_row_length = matrix[0].length;
-    for (let row of matrix) {
-        if (row.length !== first_row_length) {
-            return false;
-        }
-    }
-    return true;
 }
 
 function is_symmetric_matrix(matrix) {
@@ -190,7 +211,7 @@ function massage_matrices() {
             continue;
         }
         if (!validate_matrix(matrix)) {
-            set_labels({
+            set_elements_html({
                 validation: `The numbers of elements in each column do not match in matrix #${
                     i + 1
                 }`
@@ -244,7 +265,7 @@ function do_matrices_operations() {
     }
     let sum_matrix = get_matrices_sum_or_difference(matrices);
     let difference_matrix = get_matrices_sum_or_difference(matrices, false);
-    set_labels({
+    set_elements_html({
         sum:
             sum_matrix.length === 0
                 ? 'The matrices are not of the same order'

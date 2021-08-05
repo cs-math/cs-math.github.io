@@ -89,7 +89,7 @@ function calculate_stats() {
     let population_variance = prettify_number(find_variance(number_arr, mean));
     let sample_variance = prettify_number(find_variance(number_arr, mean, false));
 
-    set_labels({
+    set_elements_html({
         array: number_arr.join(', '),
         'number-elements': number_elements,
         sum,

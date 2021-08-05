@@ -129,7 +129,7 @@ function determine_straight_line(x_arr, y_arr) {
     let b2 = get_arr_sum(y_arr.slice(k));
     let delta = a11 * a22 - a12 * a21;
     if (delta === 0) {
-        set_labels({
+        set_elements_html({
             'equation-label':
                 'Could not determine the straight line using AVM (could not solve the equations)'
         });
@@ -145,7 +145,7 @@ function determine_straight_line(x_arr, y_arr) {
     } else {
         b_string = ' + ' + b_string;
     }
-    set_labels({
+    set_elements_html({
         'equation-label': `The fittest straight line according to The Averages Method is<br />
         y = ${m_string} ${b_string}`
     });
@@ -159,7 +159,7 @@ function choose_fitting_method() {
     let x_arr = xy_arr[0];
     let y_arr = xy_arr[1];
     if (x_arr.length !== y_arr.length) {
-        return set_labels({
+        return set_elements_html({
             'equation-label':
                 'The number of x-coordinates does not match the number of y-coordinates'
         });

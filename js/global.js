@@ -1,8 +1,14 @@
 const DECIMAL_PLACES = 4;
 
-function set_labels(labels_map) {
-    for (let key of Object.keys(labels_map)) {
-        document.getElementById(key).innerHTML = labels_map[key];
+function set_elements_value(ids_map) {
+    for (let key of Object.keys(ids_map)) {
+        document.getElementById(key).value = ids_map[key];
+    }
+}
+
+function set_elements_html(ids_map) {
+    for (let key of Object.keys(ids_map)) {
+        document.getElementById(key).innerHTML = ids_map[key];
     }
 }
 

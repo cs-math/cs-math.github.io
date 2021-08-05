@@ -6,7 +6,6 @@ function clear_matrix_elements() {
 
 function set_initial_matrices() {
     draw_matrix_area();
-    draw_matrix_area();
 }
 
 function draw_matrix_area() {
@@ -14,25 +13,47 @@ function draw_matrix_area() {
     let matrix_div = document.createElement('div');
     matrix_div.className = 'matrix';
     matrix_div.innerHTML = `<h5>Matrix ${String(next_matrix_number)}</h5>
-        <textarea class="matrix-area" id="matrix${String(next_matrix_number)}"></textarea><div>
+        <textarea class="matrix-area" id="matrix${String(next_matrix_number)}"></textarea>
+        <div>
         <input type="button" class="main-button secondary-button"
-        onclick="set_matrix_negative(${next_matrix_number})" value="Negative"></input></div>`;
+        onclick="set_matrix_negative(${next_matrix_number})" value="Negative"></input>
+        <input type="button" class="main-button secondary-button"
+        onclick="set_matrix_transpose(${next_matrix_number})" value="Transpose"></input></div>`;
     main_div.appendChild(matrix_div);
     if (next_matrix_number === 1) {
-        put_matrix_in_area([[1, 2, 3], [0.5, -1.5, 6], [7, 8, 9]], 'matrix1');
+        put_matrix_in_area(
+            [
+                [1, 2, 3],
+                [0.5, -1.5, 6],
+                [7, 8, 9]
+            ],
+            'matrix1'
+        );
     }
     ++next_matrix_number;
-    if (next_matrix_number > 3) {
+    if (next_matrix_number > 2) {
         document.getElementById('remove-button').disabled = false;
+        document.getElementById('operations-button').disabled = false;
     }
 }
 
 function remove_matrix_area() {
     document.getElementsByClassName('matrix')[next_matrix_number - 2].remove();
     --next_matrix_number;
-    if (next_matrix_number <= 3) {
+    if (next_matrix_number <= 2) {
         document.getElementById('remove-button').disabled = true;
+        document.getElementById('operations-button').disabled = true;
     }
+}
+
+function set_matrix_transpose(matrix_number) {
+    let matrix_area = document.getElementById(`matrix${matrix_number}`);
+    let matrix = matrix_area_to_2d(matrix_area);
+    if (!validate_matrix(matrix)) {
+        return;
+    }
+    let transposed_matrix = transpose_matrix(matrix);
+    put_matrix_in_area(transposed_matrix, `matrix${matrix_number}`);
 }
 
 function set_matrix_negative(matrix_number) {
@@ -43,6 +64,18 @@ function set_matrix_negative(matrix_number) {
     }
     let negative_matrix = get_matrix_negative(matrix);
     put_matrix_in_area(negative_matrix, `matrix${matrix_number}`);
+}
+
+function transpose_matrix(matrix) {
+    let final_matrix = [];
+    for (let c = 0; c < matrix[0].length; ++c) {
+        let one_dimension = [];
+        for (let r = 0; r < matrix.length; ++r) {
+            one_dimension.push(matrix[r][c]);
+        }
+        final_matrix.push(one_dimension);
+    }
+    return final_matrix;
 }
 
 function get_output_matrix_html(matrix) {
@@ -69,7 +102,7 @@ function put_matrix_in_area(matrix, area_id) {
         for (let c = 0; c < matrix[r].length - 1; ++c) {
             let element_length = String(matrix[r][c]).length;
             if (element_length < maximum_element) {
-                continue
+                continue;
             }
             maximum_element = element_length;
         }

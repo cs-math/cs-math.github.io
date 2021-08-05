@@ -222,6 +222,48 @@ function get_matrices_sum_or_difference(matrix_arr, should_sum = true) {
     return sum_2d;
 }
 
+function get_matrices_product(matrices) {
+    /*
+    a11 a12 a13     b11 b12
+                    b21 b22
+                    b31 b32
+
+    element #1: a11 * b11 + a12 + b21 + a13 * b31
+    element #2: a11 * b12 + a12 * b22 + a13 * b32
+    element: sum(a[outer_iterator][inner_iterator] * b[inner_iterator][index_of_the_current_element_in_the_row])
+             from inner_iterator = 1 to inner_iterator = columns of first/rows of second
+             slowest: outer_iterator
+             faster: index_of_the_current_element_in_the_row
+             fastest: inner_iterator
+    */
+    if (matrices.length <= 1) {
+        return;
+    }
+    let product = matrices[0];
+    for (let m = 1; m < matrices.length; ++m) {
+        let matrix = matrices[m];
+        let product_order = get_order(product);
+        let matrix_order = get_order(matrix);
+        if (product_order[1] !== matrix_order[0]) {
+            return [];
+        }
+        let two_dimensions = [];
+        for (let outer_iterator = 0; outer_iterator < product_order[0]; ++outer_iterator) {
+            let one_dimension = [];
+            for (let e = 0; e < matrix_order[1]; ++e) {
+                let sum = 0;
+                for (let inner_iterator = 0; inner_iterator < product_order[1]; ++inner_iterator) {
+                    sum += product[outer_iterator][inner_iterator] * matrix[inner_iterator][e];
+                }
+                one_dimension.push(sum);
+            }
+            two_dimensions.push(one_dimension);
+        }
+        product = JSON.parse(JSON.stringify(two_dimensions));
+    }
+    return product;
+}
+
 function get_matrix_negative(matrix) {
     if (matrix.length === 0) {
         return;
@@ -298,6 +340,7 @@ function do_matrices_operations() {
     }
     let sum_matrix = get_matrices_sum_or_difference(matrices);
     let difference_matrix = get_matrices_sum_or_difference(matrices, false);
+    let product_matrix = get_matrices_product(matrices);
     set_elements_html({
         sum:
             sum_matrix.length === 0
@@ -306,6 +349,10 @@ function do_matrices_operations() {
         difference:
             sum_matrix.length === 0
                 ? 'The matrices are not of the same order'
-                : get_output_matrix_html(difference_matrix)
+                : get_output_matrix_html(difference_matrix),
+        product:
+            product_matrix.length === 0
+                ? "Can't multiply with such orders"
+                : get_output_matrix_html(product_matrix)
     });
 }

@@ -1,7 +1,7 @@
 let next_matrix_number = 1;
 
 function clear_matrix_elements() {
-    clear_elements(['matrix-area', 'solution-label', 'validation']);
+    clear_elements(['matrix-area', 'solution-label']);
 }
 
 function set_initial_matrices() {
@@ -174,6 +174,26 @@ function get_order(matrix) {
     return [matrix.length, matrix[0].length];
 }
 
+function get_commutes(matrices) {
+    let commutes_str = '';
+    for (let first = 0; first < matrices.length - 1; ++first) {
+        for (let second = first + 1; second < matrices.length; ++second) {
+            let first_product = get_matrices_product([matrices[first], matrices[second]]);
+            let second_product = get_matrices_product([matrices[second], matrices[first]]);
+            if (
+                first_product.length === 0 ||
+                second_product.length === 0 ||
+                !are_matrices_equal([first_product, second_product])
+            ) {
+                continue;
+            }
+            commutes_str += commutes_str !== '' ? ', ' : '';
+            commutes_str += `(${String(first + 1)}, ${String(second + 1)})`;
+        }
+    }
+    return commutes_str === '' ? 'None' : commutes_str;
+}
+
 function are_matrices_equal(matrix_arr) {
     if (matrix_arr.length < 2) {
         return false;
@@ -277,7 +297,7 @@ function get_matrix_negative(matrix) {
 }
 
 function massage_matrices() {
-    clear_elements(['solution-label', 'validation']);
+    clear_elements(['solution-label']);
     let matrices_areas = document.getElementsByClassName('matrix-area');
     let matrices = [];
     for (let i = 0; i < matrices_areas.length; ++i) {
@@ -286,11 +306,7 @@ function massage_matrices() {
             continue;
         }
         if (!validate_matrix(matrix)) {
-            set_elements_html({
-                validation: `The numbers of elements in each column do not match in matrix #${
-                    i + 1
-                }`
-            });
+            alert(`The number of elements in each row do not match in Matrix #${String(i + 1)}`);
             return [];
         }
         matrices.push(matrix);
@@ -328,8 +344,10 @@ function get_matrices_properties() {
         });
     }
     let equality = are_matrices_equal(matrices) ? 'Yes' : 'No';
+    let commutes = get_commutes(matrices);
     add_to_labels({
-        equality
+        equality,
+        commutes
     });
 }
 

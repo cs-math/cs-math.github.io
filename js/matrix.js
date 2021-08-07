@@ -161,7 +161,7 @@ function is_symmetric_matrix(matrix) {
 function is_skew_symmetric_matrix(matrix) {
     for (let i = 0; i < matrix.length; ++i) {
         for (let j = 0; j < matrix.length; ++j) {
-            if ((i === j && j === 0) || matrix[i][j] === -matrix[j][i]) {
+            if (matrix[i][j] === -matrix[j][i]) {
                 continue;
             }
             return false;

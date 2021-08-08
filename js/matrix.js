@@ -146,22 +146,11 @@ function matrix_area_to_2d(matrix_area) {
     return two_dimensions;
 }
 
-function is_symmetric_matrix(matrix) {
+function is_symmetric_matrix(matrix, skew_check = false) {
+    let multiplication_operator = skew_check ? -1 : 1;
     for (let i = 0; i < matrix.length; ++i) {
         for (let j = 0; j < matrix.length; ++j) {
-            if (matrix[i][j] === matrix[j][i]) {
-                continue;
-            }
-            return false;
-        }
-    }
-    return true;
-}
-
-function is_skew_symmetric_matrix(matrix) {
-    for (let i = 0; i < matrix.length; ++i) {
-        for (let j = 0; j < matrix.length; ++j) {
-            if (matrix[i][j] === -matrix[j][i]) {
+            if (matrix[i][j] === multiplication_operator * matrix[j][i]) {
                 continue;
             }
             return false;
@@ -323,7 +312,7 @@ function get_matrices_properties() {
         let matrix = matrices[i];
         let is_square = matrix[0].length === matrix.length;
         let is_symmetric = is_square && is_symmetric_matrix(matrix);
-        let is_skew_symmetric = is_square && is_skew_symmetric_matrix(matrix);
+        let is_skew_symmetric = is_square && is_symmetric_matrix(matrix, true);
         let symmetry = 'Asymmetric';
         if (is_symmetric) {
             symmetry = 'Symmetric';

@@ -40,28 +40,13 @@ function set_text_boxes_values(text_boxes_arr, values_arr) {
     }
 }
 
-function filter_number_arr(text_box, allow_complex = false) {
-    let number_arr = [];
-    let text_box_value = '';
-    if (typeof text_box === 'object') {
-        text_box_value = text_box.value;
-    } else if (typeof text_box === 'string') {
-        text_box_value = text_box;
-    } else {
-        return;
-    }
-    if (allow_complex) {
-        text_box_value = text_box_value.replaceAll(/ +\+ +/g, '+').replaceAll(/ +- +/g, '-');
-    }
-    text_box_value = text_box_value.replaceAll(',', ' ');
-    number_arr = text_box_value.split(' ');
-    if (allow_complex) {
-        for (i = 0; i < number_arr.length; i++) {
-            for (let number of ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'i']) {
-                number_arr[i] = number_arr[i]
-                    .replaceAll(`${number}i`, `${number}*i`)
-                    .replaceAll(`i${number}`, `i*${number}`);
-            }
+function massage_complex_numbers(number_arr) {
+    for (i = 0; i < number_arr.length; i++) {
+        for (let number of ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'i']) {
+            number_arr[i] = number_arr[i]
+                .replaceAll(`${number}i`, `${number}*i`)
+                .replaceAll(`i${number}`, `i*${number}`);
+        }
         number_arr[i] = math.evaluate(
             number_arr[i]
                 .split('')
@@ -69,6 +54,29 @@ function filter_number_arr(text_box, allow_complex = false) {
                 .join('')
         );
     }
+    return number_arr
+}
+
+function filter_number_arr(text_box, allow_complex = false) {
+    let number_arr = [];
+    let text_box_value = '';
+
+    if (typeof text_box === 'object') {
+        text_box_value = text_box.value;
+    } else if (typeof text_box === 'string') {
+        text_box_value = text_box;
+    } else {
+        return;
+    }
+
+    if (allow_complex) {
+        text_box_value = text_box_value.replaceAll(/ +\+ +/g, '+').replaceAll(/ +- +/g, '-');
+    }
+    text_box_value = text_box_value.replaceAll(',', ' ');
+    number_arr = text_box_value.split(' ');
+
+    if (allow_complex) {
+        number_arr = massage_complex_numbers(number_arr);
     } else {
         for (i = 0; i < number_arr.length; i++) {
             number_arr[i] = parseFloat(

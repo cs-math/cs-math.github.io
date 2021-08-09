@@ -23,7 +23,7 @@ function draw_matrix_area() {
     if (next_matrix_number === 1) {
         put_matrix_in_area(
             [
-                [1, 2, 3],
+                [math.complex('1 + 2i'), 2, 3],
                 [0.5, -1.5, 6],
                 [7, 8, 9]
             ],
@@ -86,7 +86,7 @@ function get_output_matrix_html(matrix) {
     for (let r = 0; r < rows; ++r) {
         html += '<tr>\n';
         for (let c = 0; c < columns; ++c) {
-            html += `<td>${prettify_number(matrix[r][c])}</td>`;
+            html += `<td>${String(math.round(matrix[r][c], DECIMAL_PLACES))}</td>`;
         }
         html += '\n</tr>\n';
     }
@@ -100,6 +100,7 @@ function put_matrix_in_area(matrix, area_id) {
     for (let r = 0; r < matrix.length; ++r) {
         let maximum_element = 0;
         for (let c = 0; c < matrix[r].length - 1; ++c) {
+            // TODO: check if more than DECIMAL_PLACES decimals would break formatting
             let element_length = String(matrix[r][c]).length;
             if (element_length < maximum_element) {
                 continue;
@@ -137,7 +138,7 @@ function matrix_area_to_2d(matrix_area) {
     let one_dimension = matrix_area.value.split('\n');
     let two_dimensions = [];
     for (let element of one_dimension) {
-        let final_array = filter_number_arr(element);
+        let final_array = filter_number_arr(element, true);
         if (final_array.length === 0) {
             continue;
         }
@@ -150,7 +151,9 @@ function is_symmetric_matrix(matrix, skew_check = false) {
     let multiplication_operator = skew_check ? -1 : 1;
     for (let i = 0; i < matrix.length; ++i) {
         for (let j = 0; j < matrix.length; ++j) {
-            if (matrix[i][j] === multiplication_operator * matrix[j][i]) {
+            if (
+                math.evaluate(`${matrix[i][j]} == ${multiplication_operator} * (${matrix[j][i]})`)
+            ) {
                 continue;
             }
             return false;
@@ -195,7 +198,9 @@ function are_matrices_equal(matrix_arr) {
         }
         for (let row = 0; row < first_order[0]; ++row) {
             for (let column = 0; column < first_order[1]; ++column) {
-                if (matrix_arr[i][row][column] != matrix_arr[j][row][column]) {
+                if (
+                    math.evaluate(`${matrix_arr[i][row][column]} != ${matrix_arr[j][row][column]}`)
+                ) {
                     return false;
                 }
             }
@@ -205,30 +210,28 @@ function are_matrices_equal(matrix_arr) {
 }
 
 function get_matrices_sum_or_difference(matrix_arr, should_sum = true) {
-    let sum_2d = null;
+    let sum_2d = undefined;
     if (matrix_arr.length < 2) {
         return [];
     }
     let order = get_order(matrix_arr[0]);
     let first_order = order[0];
     let second_order = order[1];
-    for (let matrix of matrix_arr) {
+    for (let matrix of matrix_arr.splice(1)) {
         let matrix_order = get_order(matrix);
         if (matrix_order[0] != first_order || matrix_order[1] != second_order) {
             return [];
         }
         if (!sum_2d) {
-            sum_2d = JSON.parse(JSON.stringify(matrix));
+            sum_2d = matrix;
+        }
+        if (should_sum) {
+            sum_2d = math.add(math.matrix(sum_2d), math.matrix(matrix));
             continue;
         }
-        for (let r = 0; r < matrix.length; ++r) {
-            for (let c = 0; c < matrix[0].length; ++c) {
-                let addition_factor = should_sum ? 1 : -1;
-                sum_2d[r][c] += addition_factor * matrix[r][c];
-            }
-        }
+        sum_2d = math.subtract(math.matrix(sum_2d), math.matrix(matrix));
     }
-    return sum_2d;
+    return sum_2d._data;
 }
 
 function get_matrices_product(matrices) {
@@ -248,7 +251,7 @@ function get_matrices_product(matrices) {
     if (matrices.length <= 1) {
         return;
     }
-    let product = matrices[0];
+    let product = math.matrix(matrices[0])._data;
     for (let m = 1; m < matrices.length; ++m) {
         let matrix = matrices[m];
         let product_order = get_order(product);
@@ -262,13 +265,15 @@ function get_matrices_product(matrices) {
             for (let e = 0; e < matrix_order[1]; ++e) {
                 let sum = 0;
                 for (let inner_iterator = 0; inner_iterator < product_order[1]; ++inner_iterator) {
-                    sum += product[outer_iterator][inner_iterator] * matrix[inner_iterator][e];
+                    sum = math.evaluate(
+                        `${sum} + (${product[outer_iterator][inner_iterator]}) * (${matrix[inner_iterator][e]})`
+                    );
                 }
                 one_dimension.push(sum);
             }
             two_dimensions.push(one_dimension);
         }
-        product = JSON.parse(JSON.stringify(two_dimensions));
+        product = math.matrix(two_dimensions)._data;
     }
     return product;
 }
@@ -279,7 +284,7 @@ function get_matrix_negative(matrix) {
     }
     for (let r = 0; r < matrix.length; ++r) {
         for (let c = 0; c < matrix[0].length; ++c) {
-            matrix[r][c] *= -1;
+            matrix[r][c] = math.evaluate(`-(${matrix[r][c]})`);
         }
     }
     return matrix;
@@ -345,8 +350,8 @@ function do_matrices_operations() {
     if (matrices.length === 0) {
         return;
     }
-    let sum_matrix = get_matrices_sum_or_difference(matrices);
-    let difference_matrix = get_matrices_sum_or_difference(matrices, false);
+    let sum_matrix = get_matrices_sum_or_difference(matrices.slice(0));
+    let difference_matrix = get_matrices_sum_or_difference(matrices.slice(0), false);
     let product_matrix = get_matrices_product(matrices);
     set_elements_html({
         sum:

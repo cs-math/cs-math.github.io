@@ -47,6 +47,7 @@ function massage_complex_numbers(number_arr) {
                 .replaceAll(`${number}i`, `${number}*i`)
                 .replaceAll(`i${number}`, `i*${number}`);
         }
+        number_arr[i] = number_arr[i].replaceAll('i.', 'i*').replaceAll('.i', '*i');
         number_arr[i] = math.evaluate(
             number_arr[i]
                 .split('')
@@ -54,7 +55,7 @@ function massage_complex_numbers(number_arr) {
                 .join('')
         );
     }
-    return number_arr
+    return number_arr;
 }
 
 function filter_number_arr(text_box, allow_complex = false) {
@@ -72,7 +73,7 @@ function filter_number_arr(text_box, allow_complex = false) {
     if (allow_complex) {
         text_box_value = text_box_value.replaceAll(/ +\+ +/g, '+').replaceAll(/ +- +/g, '-');
     }
-    text_box_value = text_box_value.replaceAll(',', ' ');
+    text_box_value = text_box_value.replaceAll(',', ' ').replaceAll(/ +/g, ' ');
     number_arr = text_box_value.split(' ');
 
     if (allow_complex) {
@@ -89,7 +90,7 @@ function filter_number_arr(text_box, allow_complex = false) {
     }
 
     number_arr = number_arr.filter(function (value) {
-        return !Number.isNaN(value);
+        return !Number.isNaN(value) && typeof value !== 'undefined';
     });
     return number_arr;
 }

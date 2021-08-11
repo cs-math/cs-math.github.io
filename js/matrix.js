@@ -409,7 +409,7 @@ function calculate_general_operations(operations) {
     document.getElementById('general-operations').style.display = 'block';
     try {
         operations = standardize_operations(operations);
-        let result = math.evaluate(operations);
+        let result = math.round(math.evaluate(operations), DECIMAL_PLACES);
         if (math.isMatrix(result)) {
             result = get_output_matrix_html(result._data);
         }

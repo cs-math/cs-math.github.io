@@ -58,9 +58,13 @@ function remove_matrix_area() {
 function standardize_operations() {
     let matrices = massage_matrices();
     operations = document.getElementById('general-operations-input').value;
-    operations = operations.replaceAll(/M[0-9]+/g, (match) =>
-        math.matrix(matrices[parseInt(match.replaceAll('M', '')) - 1])
-    );
+    operations = operations.replaceAll(/M[0-9]+/g, function (match) {
+        let matrix = matrices[parseInt(match.replaceAll('M', '')) - 1];
+        if (!matrix) {
+            throw new Error(`Undefined matrix (${match})`);
+        }
+        return math.matrix(matrix);
+    });
     for (let i of ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']) {
         operations = operations
             .replaceAll(i + '[', i + ' * ' + '[')
@@ -395,7 +399,7 @@ function do_matrices_operations() {
                 : get_output_matrix_html(difference_matrix),
         product:
             product_matrix.length === 0
-                ? "Can't multiply with such orders"
+                ? "Can't multiply with such dimensions"
                 : get_output_matrix_html(product_matrix)
     });
 }

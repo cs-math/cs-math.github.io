@@ -94,6 +94,11 @@ h5
     font-size: 70%;
 }
 
+.medium-text-box
+{
+    width: 75%;
+}
+
 .main-button {
     margin-top: 10px;
     height: 50px;

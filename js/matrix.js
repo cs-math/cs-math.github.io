@@ -1,6 +1,13 @@
 let next_matrix_number = 1;
 
+function hide_solution_divisions() {
+    for (let i of ['operations', 'properties', 'general-operations']) {
+        document.getElementById(i).style.display = 'none';
+    }
+}
+
 function clear_matrix_elements() {
+    hide_solution_divisions();
     clear_elements(['matrix-area', 'solution-label']);
 }
 
@@ -12,8 +19,8 @@ function draw_matrix_area() {
     let main_div = document.getElementsByClassName('equation-box')[0];
     let matrix_div = document.createElement('div');
     matrix_div.className = 'matrix';
-    matrix_div.innerHTML = `<h5>Matrix ${String(next_matrix_number)}</h5>
-        <textarea class="matrix-area" id="matrix${String(next_matrix_number)}"></textarea>
+    matrix_div.innerHTML = `<h5>Matrix ${next_matrix_number} (M${next_matrix_number})</h5>
+        <textarea class="matrix-area" id="matrix${next_matrix_number}"></textarea>
         <div>
         <input type="button" class="main-button secondary-button"
         onclick="set_matrix_negative(${next_matrix_number})" value="Negative"></input>
@@ -32,8 +39,9 @@ function draw_matrix_area() {
     }
     ++next_matrix_number;
     if (next_matrix_number > 2) {
-        document.getElementById('remove-button').disabled = false;
-        document.getElementById('operations-button').disabled = false;
+        for (let i of ['remove-button', 'operations-button']) {
+            document.getElementById(i).disabled = false;
+        }
     }
 }
 
@@ -41,9 +49,24 @@ function remove_matrix_area() {
     document.getElementsByClassName('matrix')[next_matrix_number - 2].remove();
     --next_matrix_number;
     if (next_matrix_number <= 2) {
-        document.getElementById('remove-button').disabled = true;
-        document.getElementById('operations-button').disabled = true;
+        for (let i of ['remove-button', 'operations-button']) {
+            document.getElementById(i).disabled = true;
+        }
     }
+}
+
+function standardize_operations() {
+    let matrices = massage_matrices();
+    operations = document.getElementById('general-operations-input').value;
+    operations = operations.replaceAll(/M[0-9]+/g, (match) =>
+        math.matrix(matrices[parseInt(match.replaceAll('M', '')) - 1])
+    );
+    for (let i of ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']) {
+        operations = operations
+            .replaceAll(i + '[', i + ' * ' + '[')
+            .replaceAll(']' + i, ']' + ' * ' + i);
+    }
+    return operations;
 }
 
 function set_matrix_transpose(matrix_number) {
@@ -317,6 +340,8 @@ function get_matrices_properties() {
     if (matrices.length === 0) {
         return;
     }
+    hide_solution_divisions();
+    document.getElementById('properties').style.display = 'block';
     for (let i = 0; i < matrices.length; ++i) {
         let matrix = matrices[i];
         let is_square = matrix[0].length === matrix.length;
@@ -351,9 +376,11 @@ function get_matrices_properties() {
 
 function do_matrices_operations() {
     let matrices = massage_matrices();
-    if (matrices.length === 0) {
+    if (matrices.length < 2) {
         return;
     }
+    hide_solution_divisions();
+    document.getElementById('operations').style.display = 'block';
     let sum_matrix = get_matrices_sum_or_difference(matrices);
     let difference_matrix = get_matrices_sum_or_difference(matrices, false);
     let product_matrix = get_matrices_product(matrices);
@@ -371,4 +398,23 @@ function do_matrices_operations() {
                 ? "Can't multiply with such orders"
                 : get_output_matrix_html(product_matrix)
     });
+}
+
+function calculate_general_operations(operations) {
+    hide_solution_divisions();
+    document.getElementById('general-operations').style.display = 'block';
+    try {
+        operations = standardize_operations(operations);
+        let result = math.evaluate(operations);
+        if (math.isMatrix(result)) {
+            result = get_output_matrix_html(result._data);
+        }
+        set_elements_html({
+            'general-label': result
+        });
+    } catch (error) {
+        set_elements_html({
+            'general-label': error.message
+        });
+    }
 }

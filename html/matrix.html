@@ -32,40 +32,56 @@
             <input type="button" class="main-button danger" value="Clear" onclick="clear_matrix_elements()">
             </input>
         </div>
+        <div>
+            <h5>General Operations</h5>
+            <input id="general-operations-input" class="text-box medium-text-box" type="text"
+                placeholder="M1 + 2 * M2 - ..."></input>
+            <input type="button" class="main-button" id="general-operations-button" value="Calculate"
+                onclick="calculate_general_operations()">
+            </input>
+        </div>
         <div class="solution-box">
-            <h5>Properties</h5>
-            <div>
-                <label>Order: </label>
-                <label class="solution-label" id="order"></label>
+            <div id="properties" style="display: none">
+                <h5>Properties</h5>
+                <div>
+                    <label>Order: </label>
+                    <label class="solution-label" id="order"></label>
+                </div>
+                <div>
+                    <label>Symmetry: </label>
+                    <label class="solution-label" id="symmetry"></label>
+                </div>
+                <div>
+                    <label>Type: </label>
+                    <label class="solution-label" id="shape"></label>
+                </div>
+                <div>
+                    <label>Equality: </label>
+                    <label class="solution-label" id="equality"></label>
+                </div>
+                <div>
+                    <label>Commutes: </label>
+                    <label class="solution-label" id="commutes"></label>
+                </div>
             </div>
-            <div>
-                <label>Symmetry: </label>
-                <label class="solution-label" id="symmetry"></label>
+            <div id="operations" style="display: none">
+                <h5>Operations</h5>
+                <div>
+                    <label>Sum: </label>
+                    <div class="solution-label matrix-div" id="sum"></div>
+                </div>
+                <div>
+                    <label>Difference: </label>
+                    <div class="solution-label matrix-div" id="difference"></div>
+                </div>
+                <div>
+                    <label>Product: </label>
+                    <div class="solution-label matrix-div" id="product"></div>
+                </div>
             </div>
-            <div>
-                <label>Type: </label>
-                <label class="solution-label" id="shape"></label>
-            </div>
-            <div>
-                <label>Equality: </label>
-                <label class="solution-label" id="equality"></label>
-            </div>
-            <div>
-                <label>Commutes: </label>
-                <label class="solution-label" id="commutes"></label>
-            </div>
-            <h5>Operations</h5>
-            <div>
-                <label>Sum: </label>
-                <div class="solution-label matrix-div" id="sum"></div>
-            </div>
-            <div>
-                <label>Difference: </label>
-                <div class="solution-label matrix-div" id="difference"></div>
-            </div>
-            <div>
-                <label>Product: </label>
-                <div class="solution-label matrix-div" id="product"></div>
-            </div>
+        </div>
+        <div id="general-operations" style="display: none">
+            <label>Result: </label>
+            <div class="solution-label matrix-div" id="general-label"></div>
         </div>
 </body>

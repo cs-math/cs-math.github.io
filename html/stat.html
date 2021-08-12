@@ -4,9 +4,13 @@ permalink: /:basename/
 
 <!DOCTYPE html>
 
+<html lang="en">
+
 <head>
-    <link rel="stylesheet" href="../css/global.css"></link>
-    <link rel="stylesheet" href="../css/stat.css"></link>
+    <link rel="stylesheet" href="../css/global.css">
+    </link>
+    <link rel="stylesheet" href="../css/stat.css">
+    </link>
     <script src="../js/global.js"></script>
     <script src="../js/stat.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,14 +25,9 @@ permalink: /:basename/
         <div class="equation-box">
             <input id="arr-text-box" placeholder="Enter the numbers separated by space" class="text-box">
             <div class="button-div">
-                <input type="button"
-                    class="main-button"
-                    value="Calculate"
-                    onclick="calculate_stats()">
+                <input type="button" class="main-button" value="Calculate" onclick="calculate_stats()">
                 </input>
-                <input type="button"
-                    class="main-button danger"
-                    value="Clear"
+                <input type="button" class="main-button danger" value="Clear"
                     onclick="clear_elements(['text-box', 'solution-label'])">
                 </input>
             </div>
@@ -116,3 +115,5 @@ permalink: /:basename/
         </div>
     </div>
 </body>
+
+</html>

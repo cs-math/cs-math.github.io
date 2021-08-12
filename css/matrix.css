@@ -1,5 +1,4 @@
-.matrix-area
-{
+.matrix-area {
     height: 150px;
     font: inherit;
     resize: none;
@@ -8,18 +7,15 @@
     overflow-y: auto;
 }
 
-.control-buttons
-{
+.control-buttons {
     margin-top: 2%;
 }
 
-.matrix-div
-{
+.matrix-div {
     margin: 2%;
 }
 
-table
-{
+table {
     border-spacing: 25px;
     border-left: 1px solid;
     border-right: 1px solid;
@@ -28,7 +24,6 @@ table
     width: 75%;
 }
 
-td
-{
+td {
     word-wrap: break-word;
 }

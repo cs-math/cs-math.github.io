@@ -5,6 +5,7 @@ html {
 body {
     height: 99%;
     background-image: url(../resources/background.jpg);
+    background-size: cover;
     display: grid;
     place-items: center;
 }

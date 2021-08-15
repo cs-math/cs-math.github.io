@@ -24,7 +24,25 @@ function separate_xy_coordinates(number_arr) {
     return [x_arr, y_arr];
 }
 
-function draw_line_graph(x_arr, y_arr, m, b) {
+function remove_duplicates(x_arr, y_arr) {
+    let points_data = [];
+    let new_x_arr = [];
+    let new_y_arr = [];
+
+    for (let i = 0; i < x_arr.length; ++i) {
+        let current_points = { x: x_arr[i], y: y_arr[i] };
+        if (JSON.stringify(points_data).includes(JSON.stringify(current_points))) {
+            continue;
+        }
+        points_data.push(current_points);
+        new_x_arr.push(x_arr[i]);
+        new_y_arr.push(y_arr[i]);
+    }
+
+    return [points_data, new_x_arr, new_y_arr];
+}
+
+function draw_line_graph(points_data, x_arr, y_arr, m, b) {
     if (chart) {
         chart.destroy();
     }
@@ -32,17 +50,12 @@ function draw_line_graph(x_arr, y_arr, m, b) {
         return;
     }
 
-    let points_data = [];
-
-    for (let i = 0; i < x_arr.length; ++i) {
-        points_data.push({ x: x_arr[i], y: y_arr[i] });
-    }
     let minimum_x = Math.min(...x_arr);
     let maximum_x = Math.max(...x_arr);
     let minimum_y = Math.min(...y_arr);
     let maximum_y = Math.max(...y_arr);
-    let absolute_maximum_x = Math.max(Math.abs(minimum_x), Math.abs(maximum_x))
-    let absolute_maximum_y = Math.max(Math.abs(minimum_y), Math.abs(maximum_y))
+    let absolute_maximum_x = Math.max(Math.abs(minimum_x), Math.abs(maximum_x));
+    let absolute_maximum_y = Math.max(Math.abs(minimum_y), Math.abs(maximum_y));
     let line_data = [
         {
             x: -absolute_maximum_x - 2,
@@ -149,20 +162,23 @@ function determine_straight_line(x_arr, y_arr) {
         'equation-label': `The fittest straight line according to The Averages Method is<br />
         y = ${m_string} ${b_string}`
     });
-    draw_line_graph(x_arr, y_arr, m, b);
     return [m, b];
 }
 
 function choose_fitting_method() {
     let number_arr = filter_number_arr(document.getElementById('arr-text-box'));
-    let xy_arr = separate_xy_coordinates(number_arr);
-    let x_arr = xy_arr[0];
-    let y_arr = xy_arr[1];
+    let [x_arr, y_arr] = separate_xy_coordinates(number_arr);
     if (x_arr.length !== y_arr.length) {
         return set_elements_html({
             'equation-label':
                 'The number of x-coordinates does not match the number of y-coordinates'
         });
     }
-    determine_straight_line(x_arr, y_arr);
+    [points_data, x_arr, y_arr] = remove_duplicates(x_arr, y_arr);
+    let line_data = determine_straight_line(x_arr, y_arr);
+    if (line_data.length === 0) {
+        return;
+    }
+    let [m, b] = line_data;
+    draw_line_graph(points_data, x_arr, y_arr, m, b);
 }

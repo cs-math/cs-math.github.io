@@ -1,0 +1,45 @@
+---
+permalink: /:basename/
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/algebra.css">
+    </link>
+    <script src="../js/global.js"></script>
+    <script src="../js/algebra.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Linear Algebra</title>
+</head>
+
+<body>
+    <div class="container enlarged-container fade text-monospace">
+        <div>
+            <a href="../index.html" class="nav-button">Home</a>
+        </div>
+        <div>
+            <select class="dropdown" id="dropdown" id="equation-dropdown">
+                <option value="" selected disabled hidden>Choose the number of equations</option>
+                <option value="1">1 equation</option>
+                <option value="2">2 equations</option>
+                <option value="3">3 equations</option>
+            </select>
+        </div>
+
+        <div class="equation-box">
+            <div id="user-input">
+            </div>
+            <div id="control-buttons" class="control-buttons" style="display: none;">
+                <input type="button" id="calculate-button" class="main-button" value="Calculate"></input>
+                <input type="button" id="clear-button" class="main-button danger" value="Clear"></input>
+            </div>
+        </div>
+        <div id="solution-box" class="solution-box">
+        </div>
+    </div>
+</body>

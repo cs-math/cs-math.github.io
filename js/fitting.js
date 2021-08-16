@@ -174,6 +174,7 @@ function choose_fitting_method() {
                 'The number of x-coordinates does not match the number of y-coordinates'
         });
     }
+    let points_data;
     [points_data, x_arr, y_arr] = remove_duplicates(x_arr, y_arr);
     let line_data = determine_straight_line(x_arr, y_arr);
     if (line_data.length === 0) {

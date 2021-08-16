@@ -1,0 +1,11 @@
+#projects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    gap: 0.5rem;
+}
+
+#projects a {
+    width: 185px;
+    height: 50px;
+}

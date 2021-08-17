@@ -1,7 +1,8 @@
 (function () {
-    const symbols = ['x', 'y', 'z'];
+    let symbols;
     window.onload = function () {
         let dropdown = document.getElementById('dropdown');
+        dropdown.addEventListener('change', (e) => set_symbols(parseInt(e.target.value)));
         dropdown.addEventListener('change', (e) => draw_equations(parseInt(e.target.value)));
         dropdown.addEventListener('change', show_control_buttons);
         document.getElementById('clear-button').addEventListener('click', clear_equations);
@@ -14,7 +15,7 @@
     }
 
     function clear_equations() {
-        clear_elements(['number-box']);
+        clear_elements(['number-box', 'solution-label', 'validation']);
     }
 
     function draw_equations(number_equations) {
@@ -59,24 +60,17 @@
                7 8 9 c
             */
             for (let j = 0; j < one_dimension_size - 1; ++j) {
-                one_dimension.push(parseInt(inputs_collection[j + one_dimension_size * i].value));
+                one_dimension.push(parseFloat(inputs_collection[j + one_dimension_size * i].value));
             }
             variables_matrix.push(one_dimension);
             constants_matrix.push([
-                parseInt(inputs_collection[one_dimension_size - 1 + one_dimension_size * i].value)
+                parseFloat(inputs_collection[one_dimension_size - 1 + one_dimension_size * i].value)
             ]);
         }
         return [variables_matrix, constants_matrix];
     }
 
-    function check_and_calculate() {
-        let inputs = document.getElementsByClassName('number-box');
-        fill_empties(inputs);
-        let chosen_equation_number = parseInt(document.getElementById('dropdown').value);
-        let [variables_matrix, constants_matrix] = get_variables_and_constants(
-            inputs,
-            chosen_equation_number
-        );
+    function check_zero_coefficients(variables_matrix) {
         for (let i = 0; i < variables_matrix.length; ++i) {
             let valid = false;
             for (let j = 0; j < variables_matrix[0].length; ++j) {
@@ -86,10 +80,61 @@
                 }
             }
             if (!valid) {
-                set_elements_html({
-                    'solution-box': `The coefficients of ${symbols[i]} are 0`
-                });
+                return i;
             }
         }
+        return -1;
+    }
+
+    function get_matrix_inverse(variables_matrix) {
+        let matrix = math.matrix(variables_matrix);
+        if (math.round(math.det(matrix), 12) === 0) {
+            return false;
+        }
+        return math.inv(math.matrix(variables_matrix))._data;
+    }
+
+    function set_result_to_labels(result, number_equations) {
+        for (let i = 0; i < number_equations; ++i) {
+            set_elements_html({
+                [`result${i}`]: math.round(result[i][0], 4)
+            });
+        }
+    }
+
+    function set_symbols(number_equations) {
+        symbols = ['x', 'y', 'z', 'w'];
+        if (number_equations <= symbols.length) {
+            return;
+        }
+        symbols = [];
+        for (let i = 1; i <= number_equations; ++i) {
+            symbols.push(`x<sub>${i}</sub>`);
+        }
+    }
+
+    function check_and_calculate() {
+        clear_elements(['validation']);
+        let inputs = document.getElementsByClassName('number-box');
+        fill_empties(inputs);
+        let chosen_equation_number = parseInt(document.getElementById('dropdown').value);
+        let [variables_matrix, constants_matrix] = get_variables_and_constants(
+            inputs,
+            chosen_equation_number
+        );
+        let zero_coefficient_index = check_zero_coefficients(variables_matrix);
+        if (zero_coefficient_index !== -1) {
+            return set_elements_html({
+                validation: `The coefficients of ${symbols[zero_coefficient_index]} are 0`
+            });
+        }
+        let inverted_matrix = get_matrix_inverse(variables_matrix);
+        if (!inverted_matrix) {
+            return set_elements_html({
+                validation: 'Could not solve the equations'
+            });
+        }
+        let result = math.multiply(inverted_matrix, constants_matrix);
+        set_result_to_labels(result, chosen_equation_number);
     }
 })();

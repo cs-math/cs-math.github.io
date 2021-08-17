@@ -48,6 +48,12 @@ h5 {
     width: 80%;
 }
 
+.auto-container {
+    max-width: none !important;
+    width: auto !important;
+    white-space: nowrap;
+}
+
 .text-monospace {
     font-family: 'Courier New';
     font-size: 25pt;

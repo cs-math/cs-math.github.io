@@ -1,12 +1,12 @@
-let chart = null;
+document.chart = null;
 
 function set_defaults() {
     Chart.defaults.color = '#bbbbbb';
 }
 
 function clear_graph_elements() {
-    if (chart) {
-        chart.destroy();
+    if (document.chart) {
+        document.chart.destroy();
     }
     clear_elements(['text-box', 'solution-label']);
 }
@@ -43,8 +43,8 @@ function remove_duplicates(x_arr, y_arr) {
 }
 
 function draw_line_graph(points_data, x_arr, y_arr, m, b) {
-    if (chart) {
-        chart.destroy();
+    if (document.chart) {
+        document.chart.destroy();
     }
     if (x_arr.length !== y_arr.length) {
         return;
@@ -71,15 +71,14 @@ function draw_line_graph(points_data, x_arr, y_arr, m, b) {
             {
                 label: 'Input points',
                 data: points_data,
-                backgroundColor: 'rgba(106, 179, 186, 1)',
-                borderColor: 'rgba(106, 179, 186, 1)'
+                backgroundColor: '#2ce4b3',
+                pointRadius: 5
             },
             {
                 label: 'Fittest straight line',
                 data: line_data,
                 showLine: true,
-                backgroundColor: 'rgba(187, 187, 187, 0.3)',
-                borderColor: 'rgba(187, 187, 187, 0.5)'
+                borderColor: 'rgba(187, 187, 187, 0.5)',
             }
         ]
     };
@@ -94,6 +93,8 @@ function draw_line_graph(points_data, x_arr, y_arr, m, b) {
                     min: -absolute_maximum_x - 1,
                     max: absolute_maximum_x + 1,
                     grid: {
+                        borderColor: 'rgba(187, 187, 187, 0.5)',
+                        borderWidth: 2,
                         color: 'rgba(187, 187, 187, 0.3)'
                     }
                 },
@@ -102,13 +103,15 @@ function draw_line_graph(points_data, x_arr, y_arr, m, b) {
                     max: absolute_maximum_y + 1,
                     position: 'center',
                     grid: {
+                        borderColor: 'rgba(187, 187, 187, 0.5)',
+                        borderWidth: 2,
                         color: 'rgba(187, 187, 187, 0.3)'
                     }
                 }
             }
         }
     };
-    chart = new Chart(document.getElementById('graph'), config);
+    document.chart = new Chart(document.getElementById('graph'), config);
 }
 
 function determine_straight_line(x_arr, y_arr) {

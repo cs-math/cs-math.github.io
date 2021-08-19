@@ -170,7 +170,7 @@
         }
         set_elements_html({
             'equation-label': `The fittest straight line according to The Averages Method is<br />
-        y = ${m_string} ${b_string}`
+            y = ${m_string} ${b_string}`
         });
         return [m, b];
     }

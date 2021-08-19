@@ -13,7 +13,7 @@
     <title>Curve Fitting</title>
 </head>
 
-<body onload="set_defaults()">
+<body>
     <div class="container enlarged-container fade text-monospace">
         <div>
             <a href="../index.html" class="nav-button">Home</a>
@@ -21,9 +21,9 @@
         <div class="equation-box">
             <input id="arr-text-box" placeholder="(x1, y1), (x2, y2), ..." class="text-box">
             <div class="button-div">
-                <input type="button" class="main-button" value="Calculate" onclick="choose_fitting_method()">
+                <input type="button" class="main-button" id="calculate-button" value="Calculate">
                 </input>
-                <input type="button" class="main-button danger" value="Clear" onclick="clear_graph_elements()">
+                <input type="button" class="main-button danger" id="clear-button" value="Clear">
                 </input>
             </div>
             <div class="solution-box">

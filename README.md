@@ -2,7 +2,7 @@
 The code for /dev/null team in Cairo University [CS-Math Society](https://cs-math.github.io/).
 
 ## Running the website (Jekyll)
-Using [Jekyll](https://jekyllrb.com/docs/installation/) is the recommended way of running the website
+After installing [Jekyll](https://jekyllrb.com/docs/installation/)
 
 ```$ jekyll serve```
 

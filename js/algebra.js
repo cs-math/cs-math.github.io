@@ -114,7 +114,7 @@
     }
 
     function check_and_calculate() {
-        clear_elements(['validation']);
+        clear_elements(['validation', 'solution-label']);
         let inputs = document.getElementsByClassName('number-box');
         fill_empties(inputs);
         let chosen_equation_number = parseInt(document.getElementById('dropdown').value);

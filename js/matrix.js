@@ -122,6 +122,59 @@ function prettify_numbers_arr(numbers_arr) {
     return new_numbers_arr.join(', ');
 }
 
+function get_quart_eigenvalue(matrix) {
+    let [[a, b, c, d], [q, f, g, h], [r, j, s, l], [m, t, o, p]] = matrix;
+    let second_degree =
+        a * f -
+        g * j -
+        d * m -
+        l * o +
+        a * p +
+        f * p -
+        b * q -
+        c * r +
+        a * s +
+        f * s +
+        p * s -
+        h * t;
+    let first_degree =
+        a * g * j +
+        d * f * m -
+        b * h * m -
+        c * l * m -
+        h * j * o +
+        a * l * o +
+        f * l * o -
+        a * f * p +
+        g * j * p -
+        c * j * q +
+        b * p * q +
+        c * f * r -
+        b * g * r -
+        d * o * r +
+        c * p * r -
+        a * f * s +
+        d * m * s -
+        a * p * s -
+        f * p * s +
+        b * q * s +
+        a * h * t -
+        g * l * t -
+        d * q * t +
+        h * s * t;
+    console.log(first_degree, second_degree)
+    return prettify_numbers_arr(
+        calculate_quart(
+            1,
+            -get_trace(matrix),
+            second_degree,
+            first_degree,
+            math.det(math.matrix(matrix)),
+            false
+        )
+    );
+}
+
 function get_cubic_eigenvalue(matrix) {
     let intermediate =
         matrix[0][0] * matrix[1][1] +
@@ -159,11 +212,11 @@ function set_eigenvalues(matrix_number) {
     }
     if (order[0] > 4 || contains_imaginary(matrix)) {
         return set_elements_html({
-            'general-label': 'Only up to 3x3 real matrices are supported for eigenvalues'
+            'general-label': 'Only up to 4x4 real matrices are supported for eigenvalues'
         });
     }
     return set_elements_html({
-        'general-label': `${[get_quad_eigenvalue, get_cubic_eigenvalue /*, get_quart_eigenvalue*/][
+        'general-label': `${[get_quad_eigenvalue, get_cubic_eigenvalue, get_quart_eigenvalue][
             order[0] - 2
         ](matrix)}`
     });

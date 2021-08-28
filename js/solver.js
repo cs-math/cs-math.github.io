@@ -143,7 +143,7 @@ function calculate_quart(a4, a3, a2, a1, a0, should_label = true) {
     let b1 = a1 - 2 * a2 * c + 8 * Math.pow(c, 3);
     let b0 = a0 - a1 * c + a2 * c * c - 3 * Math.pow(c, 4);
 
-    let cubic_roots = calculate_cubic(1, b2, (b2 * b2) / 4 - b0, -(b1 * b1) / 8);
+    let cubic_roots = calculate_cubic(1, b2, (b2 * b2) / 4 - b0, -(b1 * b1) / 8, false);
     let m;
     if (cubic_roots[1].includes('i')) {
         m = cubic_roots[0];

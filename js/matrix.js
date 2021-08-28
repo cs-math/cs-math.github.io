@@ -159,7 +159,7 @@ function set_eigenvalues(matrix_number) {
     }
     if (order[0] > 4 || contains_imaginary(matrix)) {
         return set_elements_html({
-            'general-label': 'Only up to 4x4 real matrices are supported for eigenvalues'
+            'general-label': 'Only up to 3x3 real matrices are supported for eigenvalues'
         });
     }
     return set_elements_html({

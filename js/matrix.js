@@ -115,6 +115,13 @@ function get_trace(matrix) {
     return sum;
 }
 
+function prettify_numbers_arr(numbers_arr) {
+    let new_numbers_arr = numbers_arr.map((number) =>
+        math.round(math.evaluate(number.replace('i', 'i * ')), DECIMAL_PLACES)
+    );
+    return new_numbers_arr.join(', ');
+}
+
 function get_cubic_eigenvalue(matrix) {
     let intermediate =
         matrix[0][0] * matrix[1][1] +
@@ -123,18 +130,15 @@ function get_cubic_eigenvalue(matrix) {
         matrix[1][2] * matrix[2][1] -
         matrix[0][1] * matrix[1][0] -
         matrix[0][2] * matrix[2][0];
-    console.log(1, -get_trace(matrix), intermediate, -math.det(math.matrix(matrix)));
-    return calculate_cubic(
-        1,
-        -get_trace(matrix),
-        intermediate,
-        -math.det(math.matrix(matrix)),
-        false
-    ).join(', ');
+    return prettify_numbers_arr(
+        calculate_cubic(1, -get_trace(matrix), intermediate, -math.det(math.matrix(matrix)), false)
+    );
 }
 
 function get_quad_eigenvalue(matrix) {
-    return calculate_quad(1, -get_trace(matrix), math.det(math.matrix(matrix)), false).join(', ');
+    return prettify_numbers_arr(
+        calculate_quad(1, -get_trace(matrix), math.det(math.matrix(matrix)), false)
+    );
 }
 
 function set_eigenvalues(matrix_number) {

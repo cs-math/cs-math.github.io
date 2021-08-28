@@ -122,7 +122,7 @@
     }
 
     function determine_straight_line(x_arr, y_arr) {
-        // Equation: sum(y) = m * sum(x) + b
+        // Equation: sum(y) = m * sum(x) + b * (k or n - k)
         // Unknowns: m, b
         /*
             k = n / 2 or (n-1) / 2

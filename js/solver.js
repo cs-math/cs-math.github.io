@@ -38,15 +38,16 @@ function prettify_root(root) {
     return root;
 }
 
-function calculate_linear(b, c) {
+function calculate_linear(b, c, should_label = true) {
     let first_root = String(-c / b);
-    set_elements_html({
-        root1: prettify_root(first_root)
-    });
+    should_label &&
+        set_elements_html({
+            root1: prettify_root(first_root)
+        });
     return [first_root];
 }
 
-function calculate_quad(a, b, c) {
+function calculate_quad(a, b, c, should_label = true) {
     let first_root, second_root;
     // Calculates the roots of the quadratic equation and returns an array of strings representing the roots
     if (a === 0) {
@@ -59,23 +60,25 @@ function calculate_quad(a, b, c) {
         first_root = real_term + ' + i' + complex_term;
 
         second_root = real_term + ' - i' + complex_term;
-        set_elements_html({
-            root1: prettify_root(first_root),
-            root2: prettify_root(second_root)
-        });
+        should_label &&
+            set_elements_html({
+                root1: prettify_root(first_root),
+                root2: prettify_root(second_root)
+            });
         return [first_root, second_root];
     }
 
     first_root = String((-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a));
     second_root = String((-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a));
-    set_elements_html({
-        root1: prettify_root(first_root),
-        root2: prettify_root(second_root)
-    });
+    should_label &&
+        set_elements_html({
+            root1: prettify_root(first_root),
+            root2: prettify_root(second_root)
+        });
     return [first_root, second_root];
 }
 
-function calculate_cubic(a3, a2, a1, a0) {
+function calculate_cubic(a3, a2, a1, a0, should_label = true) {
     if (a3 === 0) {
         return calculate_quad(a2, a1, a0);
     }
@@ -99,12 +102,13 @@ function calculate_cubic(a3, a2, a1, a0) {
         third_root =
             String((-1 / 2) * (A + B) - p / 3) + ' - i' + String((Math.sqrt(3) / 2) * (A - B));
 
-        set_elements_html({
-            root1: prettify_root(first_root),
-            root2: prettify_root(second_root),
-            root3: prettify_root(third_root),
-            'algorithm-label': "Cardano's Algorithm"
-        });
+        should_label &&
+            set_elements_html({
+                root1: prettify_root(first_root),
+                root2: prettify_root(second_root),
+                root3: prettify_root(third_root),
+                'algorithm-label': "Cardano's Algorithm"
+            });
         return [first_root, second_root, third_root];
     }
 
@@ -116,16 +120,17 @@ function calculate_cubic(a3, a2, a1, a0) {
     first_root = String(2 * Math.sqrt(-a / 3) * Math.cos(phi1) - p / 3);
     second_root = String(2 * Math.sqrt(-a / 3) * Math.cos(phi2) - p / 3);
     third_root = String(2 * Math.sqrt(-a / 3) * Math.cos(phi3) - p / 3);
-    set_elements_html({
-        root1: prettify_root(first_root),
-        root2: prettify_root(second_root),
-        root3: prettify_root(third_root),
-        'algorithm-label': "Vie&#768te's Algorithm"
-    });
+    should_label &&
+        set_elements_html({
+            root1: prettify_root(first_root),
+            root2: prettify_root(second_root),
+            root3: prettify_root(third_root),
+            'algorithm-label': "Vie&#768te's Algorithm"
+        });
     return [first_root, second_root, third_root];
 }
 
-function calculate_quart(a4, a3, a2, a1, a0) {
+function calculate_quart(a4, a3, a2, a1, a0, should_label = true) {
     let first_root, second_root, third_root, fourth_root;
     // Put the equation in the standard form
     a3 /= a4;
@@ -155,52 +160,58 @@ function calculate_quart(a4, a3, a2, a1, a0) {
     let under_sqrt = parseFloat((m * m + b2 * m + (b2 * b2) / 4 - b0).toFixed(12));
     let r = sigma * Math.sqrt(under_sqrt);
     if (Number.isNaN(r)) {
-        set_elements_html({
-            root1: '0',
-            root2: '0',
-            root3: '0',
-            root4: '0',
-            'algorithm-label': "Ferrari's algorithm"
-        });
+        should_label &&
+            set_elements_html({
+                root1: '0',
+                root2: '0',
+                root3: '0',
+                root4: '0',
+                'algorithm-label': "Ferrari's algorithm"
+            });
         return ['0', '0', '0', '0'];
     }
     if (-m / 2 - b2 / 2 - r > 0) {
         first_root = String(Math.sqrt(m / 2) - c + Math.sqrt(-m / 2 - b2 / 2 - r));
         second_root = String(Math.sqrt(m / 2) - c - Math.sqrt(-m / 2 - b2 / 2 - r));
-        set_elements_html({
-            root1: prettify_root(first_root),
-            root2: prettify_root(second_root)
-        });
+        should_label &&
+            set_elements_html({
+                root1: prettify_root(first_root),
+                root2: prettify_root(second_root)
+            });
     } else {
         first_root =
             String(Math.sqrt(m / 2) - c) + ' + i' + String(Math.sqrt(-(-m / 2 - b2 / 2 - r)));
         second_root =
             String(Math.sqrt(m / 2) - c) + ' - i' + String(Math.sqrt(-(-m / 2 - b2 / 2 - r)));
 
-        set_elements_html({
-            root1: prettify_root(first_root),
-            root2: prettify_root(second_root)
-        });
+        should_label &&
+            set_elements_html({
+                root1: prettify_root(first_root),
+                root2: prettify_root(second_root)
+            });
     }
     if (-m / 2 - b2 / 2 + r > 0) {
         third_root = String(-Math.sqrt(m / 2) - c + Math.sqrt(-m / 2 - b2 / 2 + r));
         fourth_root = String(-Math.sqrt(m / 2) - c - Math.sqrt(-m / 2 - b2 / 2 + r));
-        set_elements_html({
-            root3: prettify_root(third_root),
-            root4: prettify_root(fourth_root)
-        });
+        should_label &&
+            set_elements_html({
+                root3: prettify_root(third_root),
+                root4: prettify_root(fourth_root)
+            });
     } else {
         third_root =
             String(-Math.sqrt(m / 2) - c) + ' + i' + String(Math.sqrt(-(-m / 2 - b2 / 2 + r)));
         fourth_root =
             String(-Math.sqrt(m / 2) - c) + ' - i' + String(Math.sqrt(-(-m / 2 - b2 / 2 + r)));
 
-        set_elements_html({
-            root3: prettify_root(third_root),
-            root4: prettify_root(fourth_root)
-        });
+        should_label &&
+            set_elements_html({
+                root3: prettify_root(third_root),
+                root4: prettify_root(fourth_root)
+            });
     }
-    document.getElementById('algorithm-label').innerHTML += " + Ferrari's algorithm";
+    should_label &&
+        (document.getElementById('algorithm-label').innerHTML += " + Ferrari's algorithm");
     return [first_root, second_root, third_root, fourth_root];
 }
 

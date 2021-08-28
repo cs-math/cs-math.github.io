@@ -25,7 +25,10 @@ function draw_matrix_area() {
         <input type="button" class="main-button secondary-button"
         onclick="set_matrix_negative(${next_matrix_number})" value="Negative"></input>
         <input type="button" class="main-button secondary-button"
-        onclick="set_matrix_transpose(${next_matrix_number})" value="Transpose"></input></div>`;
+        onclick="set_matrix_transpose(${next_matrix_number})" value="Transpose"></input>
+        <input type="button" class="main-button secondary-button"
+        onclick="set_eigenvalues(${next_matrix_number})" value="Eigenvalue"></input>
+        </div>`;
     main_div.appendChild(matrix_div);
     if (next_matrix_number === 1) {
         put_matrix_in_area(
@@ -91,6 +94,62 @@ function set_matrix_negative(matrix_number) {
     }
     let negative_matrix = get_matrix_negative(matrix);
     put_matrix_in_area(negative_matrix, `matrix${matrix_number}`);
+}
+
+function contains_imaginary(matrix) {
+    if (matrix.join(',').includes('i')) {
+        return true;
+    }
+    return false;
+}
+
+function get_trace(matrix) {
+    let order = get_order(matrix);
+    if (order[0] !== order[1]) {
+        return;
+    }
+    let sum = 0;
+    for (let i = 0; i < order[0]; ++i) {
+        sum += matrix[i][i];
+    }
+    return sum;
+}
+
+function get_quad_eigenvalue(matrix) {
+    return calculate_quad(
+        1,
+        -get_trace(matrix),
+        math.det(math.matrix(matrix)),
+        false
+    ).join(', ');
+}
+
+function set_eigenvalues(matrix_number) {
+    hide_solution_divisions();
+    document.getElementById('general-operations').style.display = 'block';
+    let matrix_area = document.getElementById(`matrix${matrix_number}`);
+    let matrix = matrix_area_to_2d(matrix_area);
+    let order = get_order(matrix);
+    if (order[0] !== order[1]) {
+        return set_elements_html({
+            'general-label': 'The matrix must be a square one to calculate the eigenvalue'
+        });
+    }
+    if (order[0] === 1) {
+        return set_elements_html({
+            'general-label': `${matrix[0][0]}`
+        });
+    }
+    if (order[0] > 4 || contains_imaginary(matrix)) {
+        return set_elements_html({
+            'general-label': 'Only up to 4x4 real matrices are supported for eigenvalues'
+        });
+    }
+    return set_elements_html({
+        'general-label': `${[get_quad_eigenvalue /*, get_cubic_eigenvalue, get_quart_eigenvalue*/][
+            order[0] - 2
+        ](matrix)}`
+    });
 }
 
 function transpose_matrix(matrix) {

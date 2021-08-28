@@ -115,13 +115,26 @@ function get_trace(matrix) {
     return sum;
 }
 
-function get_quad_eigenvalue(matrix) {
-    return calculate_quad(
+function get_cubic_eigenvalue(matrix) {
+    let intermediate =
+        matrix[0][0] * matrix[1][1] +
+        matrix[1][1] * matrix[2][2] +
+        matrix[0][0] * matrix[2][2] -
+        matrix[1][2] * matrix[2][1] -
+        matrix[0][1] * matrix[1][0] -
+        matrix[0][2] * matrix[2][0];
+    console.log(1, -get_trace(matrix), intermediate, -math.det(math.matrix(matrix)));
+    return calculate_cubic(
         1,
         -get_trace(matrix),
-        math.det(math.matrix(matrix)),
+        intermediate,
+        -math.det(math.matrix(matrix)),
         false
     ).join(', ');
+}
+
+function get_quad_eigenvalue(matrix) {
+    return calculate_quad(1, -get_trace(matrix), math.det(math.matrix(matrix)), false).join(', ');
 }
 
 function set_eigenvalues(matrix_number) {
@@ -146,7 +159,7 @@ function set_eigenvalues(matrix_number) {
         });
     }
     return set_elements_html({
-        'general-label': `${[get_quad_eigenvalue /*, get_cubic_eigenvalue, get_quart_eigenvalue*/][
+        'general-label': `${[get_quad_eigenvalue, get_cubic_eigenvalue /*, get_quart_eigenvalue*/][
             order[0] - 2
         ](matrix)}`
     });

@@ -14,7 +14,7 @@ function draw_labels(highest_degree) {
         let power_index = highest_degree - i;
         let x_index = power_index == 1 ? '' : power_index;
         user_input.innerHTML += `
-            <input type="number" class="number-box" id="box-a${power_index}"></input>x<sup>${x_index}</sup> + `;
+            <input type="number" class="number-box fade" id="box-a${power_index}"></input>x<sup>${x_index}</sup> + `;
     }
     user_input.innerHTML += `<input type="number" class="number-box" id="box-a0"></input> = 0`;
 }

@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="container medium-container fade text-monospace">
+    <div class="container auto-container text-monospace fade  ">
         <div>
             <a href="../index.html" class="nav-button">Home</a>
         </div>
@@ -29,11 +29,20 @@
                 </input>
             </div>
         </div>
+        <div class="checkboxes">
+            <label for="myCheck">So:</label> 
+            <input type="checkbox" id="myCheck" onclick="show('simple')">
+            <label for="myCheck">MoCT:</label> 
+            <input type="checkbox" id="myCheck" onclick="show('central')">
+            <label for="myCheck">MoD:</label> 
+            <input type="checkbox" id="myCheck" onclick="show('dispersion')">
+        </div>
         <div class="solution-box">
             <div>
-                <label>Sorted array: </label>
+                <h5>Sorted array:</h5> 
                 <label class="solution-label" id="array"></label>
             </div>
+         <div class="fade" id="simple"  style="display:none">
             <h5>Simple operations</h5>
             <div>
                 <label>Sum of the elements: </label>
@@ -51,6 +60,8 @@
                 <label>Number of the elements: </label>
                 <label class="solution-label" id="number-elements"></label>
             </div>
+         </div>
+         <div class="fade" id="central"  style="display:none">
             <h5>Measures of central tendency</h5>
             <div>
                 <label>Mean (&mu;): </label>
@@ -64,6 +75,8 @@
                 <label>Mode: </label>
                 <label class="solution-label" id="mode"></label>
             </div>
+        </div>
+         <div class="fade" id="dispersion"  style="display:none">
             <h5>Measures of dispersion</h5>
             <div>
                 <label>Range: </label>
@@ -109,6 +122,7 @@
                 <label>Sample S.D (s): </label>
                 <label class="solution-label" id="sample-sd"></label>
             </div>
+         </div>
         </div>
     </div>
 </body>

@@ -49,6 +49,15 @@ function find_variance(arr, mean, population = true) {
     return sum;
 }
 
+function show(test) {
+    var text = document.getElementById(test);
+    if (text.style.display=="block"){
+      text.style.display = "none";
+    } else {
+       text.style.display = "block";
+    }
+  }
+
 function calculate_stats() {
     let text_box = document.getElementById('arr-text-box');
     let number_arr = filter_number_arr(text_box);
@@ -65,6 +74,7 @@ function calculate_stats() {
         text_box.placeholder = 'Enter two or more space-separated numbers';
         return;
     }
+
 
     let number_elements = number_arr.length;
     let sum = prettify_number(get_arr_sum(number_arr));

@@ -4,59 +4,85 @@ html {
 
 body {
     height: 99%;
-    background-image: url(../resources/background.jpg);
+    margin: 0;
+    background-image: url(../resources/Subdued_Blue.jpg);
     background-size: cover;
+    display: grid;
+    place-items: center;
+    background-attachment: fixed;
+}
+
+.logo {
     display: grid;
     place-items: center;
 }
 
-a {
-    color: rgb(154, 181, 208, 1);
-}
-
-a:hover {
-    color: rgb(154, 181, 208, 0.7);
-}
-
 h5 {
-    margin-top: 25px;
-    margin-bottom: 2px;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    font-size: 1.5em;
+    font-weight: normal;
 }
 
+img {
+    width: 140px;
+    margin-left: 30%;
+    margin-top: 0;
+    margin: 0 auto;
+}
 .container {
     color: #bbbbbb;
-    border: #5986c5;
-    background: #223b57;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(2.5px);
     font-family: sans-serif;
-    border-width: 3px;
-    border-style: solid;
-    border-radius: 12px;
     padding: 15px;
     width: 50%;
-    max-width: 600px;
+    max-width: 400px;
     word-wrap: break-word;
     text-align: center;
+    min-width: 300px;
 }
 
-.medium-container {
-    max-width: none;
-    width: 65%;
+#main {
+    margin-top: 3.5em;
+}
+
+#tail {
+    margin-top: 8em;
+    display: block;
+    text-align: center;
+    place-items: center;
+}
+
+#full-view {
+    width: max-content !important;
+}
+
+.title {
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    margin-top: 2em;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
 }
 
 .enlarged-container {
-    max-width: none;
+    max-width: 600px;
     width: 80%;
 }
 
 .auto-container {
     max-width: none !important;
     width: auto !important;
-    white-space: nowrap;
 }
 
 .text-monospace {
-    font-family: 'Courier New';
-    font-size: 25pt;
+    font-size: 1.2em;
+    font-weight: lighter;
 }
 
 .instructions {
@@ -65,7 +91,7 @@ h5 {
 }
 
 .dropdown {
-    font-size: 50%;
+    font-size: 90%;
     margin-bottom: 10px;
     margin-top: 10px;
 }
@@ -96,14 +122,16 @@ h5 {
 }
 
 .main-button {
+    color: rgb(247, 247, 247);
+    font-size: 0.8em;
     margin-top: 10px;
     height: 50px;
     width: 150px;
     border: 0;
-    border-radius: 12px;
-    background: rgba(106, 179, 186, 1);
+    border-radius: 0.12em;
+    background: rgb(72, 129, 134);
     padding: 10px 20px 10px 20px;
-    transition: all 0.1s;
+    transition: all 0.5s;
 }
 
 .secondary-button {
@@ -117,21 +145,27 @@ h5 {
 }
 
 .danger {
-    background: rgb(200, 56, 20);
+    background: rgb(10, 88, 112);
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    transition: all 0.5s;
 }
 
 a.nav-button {
     display: inline-block;
     padding: 0.35em 1.2em;
     border: 0.1em solid #ffffff;
-    margin: 0 0.3em 0.3em 0;
+    margin: 0.5em 0 0.5em 0;
     border-radius: 0.12em;
-    box-sizing: border-box;
+    box-sizing: content-box;
     text-decoration: none;
     font-weight: 300;
     color: #ffffff;
     text-align: center;
-    transition: all 0.1s;
+    transition: all 0.5s;
 }
 
 a.nav-button:hover {
@@ -139,24 +173,16 @@ a.nav-button:hover {
     background-color: #ffffff;
 }
 
+a:hover {
+    color: hotpink;
+}
+
 .fade {
     opacity: 100;
     transition: opacity 200ms ease-in-out;
-    animation: fadeInAnimation ease 1s;
+    animation: fadeInAnimation ease 1.4s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-}
-
-.logo {
-    height: 125px;
-    width: 125px;
-    display: inline;
-}
-
-.logo {
-    height: 125px;
-    width: 125px;
-    display: inline;
 }
 
 .bottom-buttons {
@@ -187,19 +213,12 @@ a.nav-button:hover {
 
 @media (max-width: 940px) {
     .container {
-        width: 70%;
+        width: 90%;
     }
 }
 
 @media (max-width: 670px) {
-    .container {
+    #main {
         width: 90%;
-    }
-    .text-monospace {
-        font-size: 15pt;
-    }
-    .main-button {
-        height: auto;
-        width: auto;
     }
 }

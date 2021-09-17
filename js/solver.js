@@ -27,7 +27,7 @@ function handle_change(dropdown_object) {
 }
 
 function prettify_root(root) {
-    let numbers = root.match(/-?(\d+)?\.?\d+/g);
+    let numbers = root.match(/-?(\d+)?\.?\d+(e-?\d+)?/g);
     for (number of numbers) {
         if (isNaN(parseFloat(number))) {
             continue;

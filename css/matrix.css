@@ -1,6 +1,7 @@
 .matrix-area {
     height: 150px;
-    font: inherit;
+    font: monospace;
+    font-size: 1rem;
     resize: none;
     white-space: nowrap;
     overflow-y: auto;

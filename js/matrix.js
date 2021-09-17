@@ -255,7 +255,6 @@ function put_matrix_in_area(matrix, area_id) {
     for (let r = 0; r < matrix.length; ++r) {
         let maximum_element = 0;
         for (let c = 0; c < matrix[r].length - 1; ++c) {
-            // TODO: check if more than DECIMAL_PLACES decimals would break formatting
             let element_length = String(matrix[r][c]).length;
             if (element_length < maximum_element) {
                 continue;

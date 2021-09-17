@@ -1,3 +1,7 @@
+::selection {
+    background: hotpink;
+}
+
 html {
     height: 100%;
 }
@@ -5,6 +9,7 @@ html {
 body {
     height: 99%;
     margin: 0;
+    background-color: #171b5a;
     background-image: url(../resources/Subdued_Blue.jpg);
     background-size: cover;
     display: grid;
@@ -39,6 +44,7 @@ h3 {
     max-width: 400px;
     word-wrap: break-word;
     text-align: center;
+    line-height: 1.6;
     min-width: 300px;
 }
 
@@ -47,10 +53,6 @@ h3 {
     display: block;
     text-align: center;
     place-items: center;
-}
-
-#full-view {
-    width: max-content !important;
 }
 
 .title {
@@ -76,18 +78,14 @@ h3 {
     font-weight: lighter;
 }
 
-.instructions {
-    font: inherit;
-}
-
 .dropdown {
+    font: inherit;
     margin-bottom: 10px;
     margin-top: 10px;
 }
 
 .number-box {
-    height: 45px;
-    width: 60px;
+    width: 3rem;
     margin-right: 10px;
 }
 
@@ -100,7 +98,6 @@ h3 {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-    font: inherit;
 }
 
 .medium-text-box {

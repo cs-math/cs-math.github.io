@@ -162,7 +162,6 @@ function get_quart_eigenvalue(matrix) {
         g * l * t -
         d * q * t +
         h * s * t;
-    console.log(first_degree, second_degree)
     return prettify_numbers_arr(
         calculate_quart(
             1,

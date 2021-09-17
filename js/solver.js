@@ -90,7 +90,6 @@ function calculate_cubic(a3, a2, a1, a0, should_label = true) {
 
     let a = q - Math.pow(p, 2) / 3;
     let b = r + (2 / 27) * Math.pow(p, 3) - (1 / 3) * p * q;
-
     // Cardano's Algorithm
     if (parseFloat(((b * b) / 4 + (a * a * a) / 27).toFixed(12)) > 0) {
         let A = Math.cbrt(-b / 2 + Math.sqrt(Math.pow(b, 2) / 4 + Math.pow(a, 3) / 27));
@@ -113,7 +112,8 @@ function calculate_cubic(a3, a2, a1, a0, should_label = true) {
     }
 
     // Viete's Algorithm
-    let theta = a / 3 === 0 ? 0 : Math.acos(-b / 2 / Math.pow(-a / 3, 3 / 2));
+    let theta =
+        a / 3 === 0 ? 0 : Math.acos(parseFloat((-b / 2 / Math.pow(-a / 3, 3 / 2)).toFixed(12)));
     let phi1 = theta / 3;
     let phi2 = phi1 - (2 * Math.PI) / 3;
     let phi3 = phi1 + (2 * Math.PI) / 3;
@@ -211,7 +211,9 @@ function calculate_quart(a4, a3, a2, a1, a0, should_label = true) {
             });
     }
     should_label &&
-        (document.getElementById('algorithm-label').innerHTML += " + Ferrari's algorithm");
+        set_elements_html({
+            'algorithm-label': "Ferrari's Algorithm"
+        });
     return [first_root, second_root, third_root, fourth_root];
 }
 

@@ -45,10 +45,6 @@ img {
     min-width: 300px;
 }
 
-#main {
-    margin-top: 3.5em;
-}
-
 #tail {
     margin-top: 8em;
     display: block;
@@ -61,10 +57,10 @@ img {
 }
 
 .title {
+    margin: 1rem 0;
     text-decoration: none;
     color: white;
     text-align: center;
-    margin-top: 2em;
     font-weight: bold;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 20px;
@@ -99,8 +95,6 @@ img {
 .number-box {
     height: 45px;
     width: 60px;
-    font: inherit;
-    font-size: 50%;
     margin-right: 10px;
 }
 
@@ -213,12 +207,6 @@ a:hover {
 
 @media (max-width: 940px) {
     .container {
-        width: 90%;
-    }
-}
-
-@media (max-width: 670px) {
-    #main {
         width: 90%;
     }
 }

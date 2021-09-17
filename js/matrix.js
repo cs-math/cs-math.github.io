@@ -19,7 +19,7 @@ function draw_matrix_area() {
     let main_div = document.getElementsByClassName('equation-box')[0];
     let matrix_div = document.createElement('div');
     matrix_div.className = 'matrix';
-    matrix_div.innerHTML = `<h5>Matrix ${next_matrix_number} (M${next_matrix_number})</h5>
+    matrix_div.innerHTML = `<h3>Matrix ${next_matrix_number} (M${next_matrix_number})</h3>
         <textarea class="matrix-area" id="matrix${next_matrix_number}"></textarea>
         <div>
         <input type="button" class="main-button secondary-button"

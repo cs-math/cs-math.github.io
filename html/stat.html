@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="container auto-container text-monospace fade  ">
+    <div class="container enlarged-container text-monospace fade  ">
         <div>
             <a href="../index.html" class="nav-button">Home</a>
         </div>
@@ -31,19 +31,19 @@
         </div>
         <div class="checkboxes">
             <input type="checkbox" id="so-box" onclick="show('simple')">
-            <label for="so-box">Simple Operations</label>
+            <label for="so-box">Simple Operations</label><br />
             <input type="checkbox" id="moct-box" onclick="show('central')">
-            <label for="moct-box">Measures of Central Tendency</label>
+            <label for="moct-box">Measures of Central Tendency</label><br />
             <input type="checkbox" id="mod-box" onclick="show('dispersion')">
-            <label for="mod-box">Measures of Dispersion</label>
+            <label for="mod-box">Measures of Dispersion</label><br />
         </div>
         <div class="solution-box">
             <div>
-                <h5>Sorted array:</h5>
+                <h3>Sorted array:</h3>
                 <label class="solution-label" id="array"></label>
             </div>
          <div class="fade" id="simple"  style="display:none">
-            <h5>Simple operations</h5>
+            <h3>Simple operations</h3>
             <div>
                 <label>Sum of the elements: </label>
                 <label class="solution-label" id="sum"></label>
@@ -62,7 +62,7 @@
             </div>
          </div>
          <div class="fade" id="central"  style="display:none">
-            <h5>Measures of central tendency</h5>
+            <h3>Measures of central tendency</h3>
             <div>
                 <label>Mean (&mu;): </label>
                 <label class="solution-label" id="mean"></label>
@@ -77,7 +77,7 @@
             </div>
         </div>
          <div class="fade" id="dispersion"  style="display:none">
-            <h5>Measures of dispersion</h5>
+            <h3>Measures of dispersion</h3>
             <div>
                 <label>Range: </label>
                 <label class="solution-label" id="range"></label>

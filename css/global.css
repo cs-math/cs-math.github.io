@@ -17,25 +17,22 @@ body {
     place-items: center;
 }
 
-h5 {
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
-    font-size: 1.5em;
-    font-weight: normal;
-}
-
 img {
     width: 140px;
     margin-left: 30%;
     margin-top: 0;
     margin: 0 auto;
 }
+
+h3 {
+    margin-bottom: 0.5rem;
+}
+
 .container {
     color: #bbbbbb;
     background: rgba(255, 255, 255, 0.15);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(2.5px);
-    -webkit-backdrop-filter: blur(2.5px);
+    backdrop-filter: blur(6px);
     font-family: sans-serif;
     padding: 15px;
     width: 50%;
@@ -63,7 +60,6 @@ img {
     text-align: center;
     font-weight: bold;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 20px;
 }
 
 .enlarged-container {
@@ -77,17 +73,14 @@ img {
 }
 
 .text-monospace {
-    font-size: 1.2em;
     font-weight: lighter;
 }
 
 .instructions {
     font: inherit;
-    font-size: 50%;
 }
 
 .dropdown {
-    font-size: 90%;
     margin-bottom: 10px;
     margin-top: 10px;
 }
@@ -108,7 +101,6 @@ img {
     margin: 8px 0;
     box-sizing: border-box;
     font: inherit;
-    font-size: 70%;
 }
 
 .medium-text-box {
@@ -117,7 +109,6 @@ img {
 
 .main-button {
     color: rgb(247, 247, 247);
-    font-size: 0.8em;
     margin-top: 10px;
     height: 50px;
     width: 150px;

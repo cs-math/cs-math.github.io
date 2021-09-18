@@ -1,5 +1,6 @@
 ::selection {
     background: hotpink;
+    color: white;
 }
 
 html {
@@ -40,8 +41,7 @@ h3 {
     backdrop-filter: blur(6px);
     font-family: sans-serif;
     padding: 15px;
-    width: 50%;
-    max-width: 400px;
+    max-width: 600px;
     word-wrap: break-word;
     text-align: center;
     line-height: 1.6;
@@ -190,11 +190,5 @@ a:hover {
     }
     100% {
         opacity: 1;
-    }
-}
-
-@media (max-width: 940px) {
-    .container {
-        width: 90%;
     }
 }

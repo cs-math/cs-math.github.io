@@ -11,11 +11,11 @@ body {
     height: 99%;
     margin: 0;
     background-color: #171b5a;
-    background-image: url(../resources/Subdued_Blue.jpg);
-    background-size: cover;
+    background-image: url(../resources/background.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     display: grid;
     place-items: center;
-    background-attachment: fixed;
 }
 
 .logo {

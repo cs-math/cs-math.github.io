@@ -13,7 +13,7 @@ body {
     background-color: #171b5a;
     background-image: url(../resources/background.jpg);
     background-attachment: fixed;
-    background-repeat: no-repeat;
+    background-size: cover;
     display: grid;
     place-items: center;
 }

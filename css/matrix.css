@@ -3,7 +3,7 @@
     font: monospace;
     font-size: 1rem;
     resize: none;
-    white-space: nowrap;
+    white-space: pre;
     overflow-y: auto;
 }
 
